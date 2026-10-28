@@ -1,0 +1,220 @@
+.lets-talk-section {
+    padding-bottom: 80px;
+    padding-top: 50px;
+
+    @include breakpoint (max-xl){
+        padding-top: 80px;
+    }
+
+    .title {
+        text-align: center;
+        text-transform: uppercase;
+        color: $white;
+        font-weight: 600;
+        font-size: 200px;
+        letter-spacing: -6.1112px;
+        line-height: 1;
+
+        span {
+            font-weight: 400;
+            font-style: italic;
+            font-family: $heading-font-2;
+        }
+
+        @include breakpoint (max-xl4){
+            font-size: 170px;
+        }
+
+         @include breakpoint (max-xxl){
+            font-size: 130px;
+        }
+
+         @include breakpoint (max-xl){
+           letter-spacing: initial;
+        }
+
+        @include breakpoint (max-lg){
+           font-size: 100px;
+        }
+
+        @include breakpoint (max-md){
+           font-size: 80px;
+        }
+
+         @include breakpoint (max-sm){
+           font-size: 60px;
+        }
+    }
+
+    .lets-talk-content {
+        .theme-btn-main {
+            background: rgba(255, 255, 255, 0.1);
+            color: $white;
+            margin-top: 30px;
+
+            .theme-btn-arrow-left, .theme-btn-arrow-right {
+                background: $theme-color;
+                color: $white;
+            }
+
+            .btn-title {
+                color: $white;
+            }
+        }
+    }
+}
+
+.image-distortion{
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    &  canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+}
+
+.cta-wrapper-3 {
+    text-align: center;
+
+    h2 {
+        font-size: 150px;
+        font-weight: 700;
+        letter-spacing: -3.41px;
+        text-transform: uppercase;
+
+        @include breakpoint (max-xxl){
+            font-size: 115px;
+        }
+
+        @include breakpoint (max-lg){
+            letter-spacing: initial;
+            font-size: 100px;
+        }
+
+        @include breakpoint (max-md){
+            font-size: 77px;
+        }
+
+        @include breakpoint (max-sm){
+           font-size: 60px;
+        }
+
+
+        .img-1 {
+            position: relative;
+            top: -15px;
+            left: 15px;
+
+             @include breakpoint (max-lg){
+                display: none;
+            }
+
+            img {
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .theme-btn-main {
+        background: rgba(255, 255, 255, 0.1);
+        color: $white;
+        margin-top: 30px;
+
+        .theme-btn-arrow-left, .theme-btn-arrow-right {
+            background: $theme-color;
+            color: $white;
+        }
+
+        .btn-title {
+            color: $white;
+        }
+    }
+}
+
+
+
+.lets-talk-section-2 {
+    margin: 0 60px;
+    border-radius: 20px;
+    padding: 100px 0;
+
+     @include breakpoint (max-xl4){
+        margin: 0 35px;
+    }
+
+    @include breakpoint (max-xxxl){
+        margin: 0 30px;
+    }
+
+    @include breakpoint (max-xxl){
+        margin: 0 25px;
+    }
+
+    @include breakpoint (max-xl){
+        margin: 0 20px;
+    }
+
+    .lets-talk-content-2 {
+        @include breakpoint (max-lg){
+           text-align: center;
+        }
+
+        .theme-btn-main {
+            background: rgba(255, 255, 255, 0.1);
+            color: $white;
+            margin-top: 50px;
+
+            .theme-btn-arrow-left, .theme-btn-arrow-right {
+                background: $theme-color;
+                color: $white;
+            }
+
+            .btn-title {
+                color: $white;
+            }
+        }
+    }
+}
+
+.lets-talk-section-2 {
+    position: relative;
+    margin-bottom: 120px;
+
+    .like-image {
+        position: absolute;
+        bottom: 0;
+        right: 160px;
+
+        @include breakpoint (max-xxl){
+            right: 30px;
+        }
+
+        @include breakpoint (max-lg){
+           display: none;
+        }
+    }
+}
+
+.lets-deal-wrapper {
+    text-align: center;
+    
+    .theme-btn-main {
+        background: rgba(255, 255, 255, 0.1);
+        color: $white;
+        margin-top: 30px;
+
+        .theme-btn-arrow-left, .theme-btn-arrow-right {
+            background: $theme-color;
+            color: $white;
+        }
+
+        .btn-title {
+            color: $white;
+        }
+    }
+}

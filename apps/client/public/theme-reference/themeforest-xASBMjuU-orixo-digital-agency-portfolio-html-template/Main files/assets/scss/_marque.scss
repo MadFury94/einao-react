@@ -1,0 +1,172 @@
+// Animation
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+.marque-section {
+    background-color: $theme-color;
+    padding: 14px 0;
+
+    .text {
+        color: $white;
+        font-size: 44px;
+        font-weight: 600;
+        line-height: 1;
+        @include flex;
+        gap: 60px;
+    }
+
+    .text-3 {
+      text-transform: uppercase;
+      font-size: 80px;
+      font-weight: 600;
+      line-height: 1;
+      color: $white;
+      @include flex;
+      gap: 50px;
+    }
+
+     .text-4 {
+      font-size: 96px;
+      font-weight: 600;
+       color: transparent;
+        font-size: 96.552px;
+        font-weight: 600;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: $header-color;
+        @include transition;
+        line-height: 1;
+        text-transform: uppercase;
+        @include flex;
+        gap: 50px;
+
+        @include breakpoint (max-md){
+          font-size: 60px;
+        }
+
+        &:hover {
+              color: $header-color;
+          }
+    }
+
+    .marquee {
+        gap: 60px;
+      --duration: 20s !important;
+    }
+
+    .marquee-group {
+        gap: 60px;
+    }
+}
+
+.marquee {
+  position: relative;
+  --duration: 100s;
+  --gap: 0px;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 0;
+
+
+  .marquee-group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+    min-width: 100%;
+    animation: scroll var(--duration) linear infinite;
+
+    .icon-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.13258px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18.1212px);
+      border-radius: 9.78671px;
+      width: 123px;
+      height: 123px;
+      line-height: 123px;
+      text-align: center;
+      border-radius: 10px;
+    }
+  }
+
+}
+
+.marque-section-2 {
+  .marquee {
+        gap: 60px;
+      --duration: 30s !important;
+    }
+  .marquee-group {
+    gap: 70px;
+
+    @include breakpoint (max-md){
+      gap: 40px;
+    }
+
+    .text-2 {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 125px;
+      letter-spacing: -7.20707px;
+      line-height: 1;
+      color: $theme-color;
+      @include flex;
+      gap: 70px;
+
+      @include breakpoint (max-md){
+        font-size: 80px;
+        letter-spacing: -4.5px;
+        gap: 40px;
+      }
+    }
+  }
+}
+
+.powerful-feature-section {
+  .section-title {
+    margin-bottom: 60px;
+  }
+}
+
+.powerful-feature-section {
+  .marquee {
+    --duration: 30s;
+
+     @include breakpoint (max-xl4){
+      gap: 30px !important;
+    }
+  }
+
+  .marquee-group {
+    gap: 0 !important;
+
+    @include breakpoint (max-xl4){
+      gap: 30px !important;
+    }
+  }
+
+  .marquee-2 {
+    margin-top: 35px;
+
+    .marquee-group {
+      animation: scrollLTR var(--duration) linear infinite;
+    }
+  }
+  
+}
+
+@keyframes scrollLTR {
+  0% {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

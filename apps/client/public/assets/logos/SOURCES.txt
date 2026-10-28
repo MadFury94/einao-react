@@ -1,0 +1,1 @@
+SVG logo assets sourced from https://github.com/pheralb/svgl/tree/main/static/library. Original brand marks belong to their respective owners. Files: google-analytics.svg, trello.svg, dropbox.svg, clickup.svg, shopify.svg, slack.svg, notion.svg, asana-logo.svg

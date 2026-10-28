@@ -1,0 +1,180 @@
+/* --------------------------------------------
+    Template Default Fonts & Fonts Styles
+ ---------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+$heading-font: 'Urbanist', sans-serif;
+$heading-font-2: 'Instrument Serif', serif;
+$body-font: "Urbanist", sans-serif;
+//font-family: "Font Awesome 6 Free";
+$fa: "Font Awesome 6 Pro";
+
+body {
+    font-family: $body-font;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    color: $text-color;
+    background-color: $body-bg;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+
+	@include breakpoint (max-xxl){
+		font-size: 18px;
+	}
+
+	@include breakpoint (max-xl){
+		font-size: 16px;
+	}
+
+	@include breakpoint (max-sm){
+		font-size: 16px;
+	}
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+	padding: 0;
+}
+
+input:focus{
+	color: $white;
+	outline: none;
+}
+
+input{
+	color: $white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading-font;
+    margin: 0px;
+	padding: 0;
+    color: $header-color;
+	@include transition;
+}
+
+h1 {
+	font-size: 120px;
+	font-weight: 600;
+	line-height: 92%;
+
+	@include breakpoint(max-xxxl){
+		font-size: 100px;
+	}
+
+	@include breakpoint(max-xxl){
+		font-size: 90px;
+	}
+
+	@include breakpoint(max-xl){
+		font-size: 80px;
+	}
+
+	@include breakpoint(max-lg){
+		font-size: 60px;
+		line-height: 110% !important;
+	}
+
+	@include breakpoint(max-md){
+		font-size: 48px;
+	}
+
+	@include breakpoint(max-sm){
+		font-size: 45px;
+	}
+
+	@include breakpoint(max-xxs){
+		font-size: 40px;
+	}
+}
+
+h2 {
+	font-size: 65px;
+	font-weight: 600;
+	line-height: 117%;
+
+	@include breakpoint(max-xxl){
+		font-size: 50px;
+	}
+
+	@include breakpoint(max-xl){
+		font-size: 40px;
+	}
+
+	@include breakpoint(max-lg){
+		font-size: 36px;
+	}
+
+	@include breakpoint(max-md){
+		font-size: 42px;
+	}
+
+	@include breakpoint(max-sm){
+		font-size: 36px;
+	}
+
+
+	@include breakpoint(max-xxs){
+		font-size: 28px;
+	}
+}
+
+h3 {
+	font-size: 30px;
+	font-weight: 500;
+	line-height: 150%;
+
+	@include breakpoint(max-sm){
+		font-size: 22px;
+	}
+}
+
+h4 {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+h5 {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+h6 {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    outline: none !important;
+    cursor: pointer;
+    color: $header-color;
+	@include transition;
+}
+
+p {
+    margin: 0px;
+	@include transition;
+}
+
+span {
+	margin: 0px;
+	// @include transition;
+}
+

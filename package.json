@@ -1,0 +1,17 @@
+{
+	"name": "einao",
+	"private": true,
+	"packageManager": "pnpm@9.0.4",
+	"scripts": {
+		"dev": "pnpm --filter @einao/client dev",
+		"build": "pnpm --filter @einao/client build",
+		"typecheck": "pnpm --filter @einao/client typecheck",
+		"test": "pnpm --filter @einao/content test",
+		"deploy:client": "pnpm --filter @einao/client deploy",
+		"check:client": "node scripts/check-client.cjs"
+	},
+	"devDependencies": {
+		"playwright": "1.64.1",
+		"@axe-core/playwright": "4.14.0"
+	}
+}

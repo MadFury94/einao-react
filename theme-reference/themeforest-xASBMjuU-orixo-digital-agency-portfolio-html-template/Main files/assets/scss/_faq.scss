@@ -1,0 +1,539 @@
+.faq-image-1 {
+    border-radius: 16px;
+    position: relative;
+    height: 100%;
+
+    @include breakpoint (max-lg){
+        height: initial;
+    }
+    
+
+    .incrase-box {
+        background-color: $theme-color;
+        padding: 30px;
+        position: absolute;
+        bottom: 35px;
+        right: 35px;
+        border-radius: 8px;
+        padding-top: 22px;
+        max-width: 336px;
+        width: 100%;
+
+        @include breakpoint (max-sm){
+            display: none;
+        }
+
+        span {
+            font-size: 20px;
+            font-weight: 600;
+            color: $white;
+            display: inline-block;
+        }
+
+        p {
+            color: $white;
+            font-size: 100px;
+            font-weight: 600;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: -8px;
+            margin-top: 40px;
+        }
+    }
+
+    img {
+        @include imgw;
+        border-radius: 16px;
+    }
+}
+
+.faq-content-1 {
+    background-color: #FBF9EF;
+    border-radius: 16px;
+    padding: 120px 48px;
+    padding-right: 90px;
+
+    @include breakpoint (max-xl){
+        padding: 100px 40px;
+    }
+
+    @include breakpoint (max-lg){
+        padding: 80px 30px;
+    }
+
+    .section-title {
+        .sub-title {
+            color: #101010;
+        }
+
+        h2 {
+             color: #101010;
+        }
+    }
+
+
+    .accordion-box {
+        position: relative;
+        margin-top: 30px;
+        border-top: 1px solid rgba(15, 23, 42, 0.1);
+        padding-top: 30px;
+
+        @include breakpoint (max-md){
+            margin-top: 30px;
+        }
+
+        .block {
+            position: relative;
+            background-color: transparent;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(16, 16, 16, .10);
+            margin-bottom: 30px;
+            line-height: 1;
+            padding-bottom: 32px;
+            padding-left: 66px;
+
+             @include breakpoint (max-md){
+                padding-left: 40px;
+            }
+
+            .acc-btn {
+                position: relative;
+                font-size: 24px;
+                color: #101010;
+                font-weight: 600;
+                font-family: $heading-font;
+                cursor: pointer;
+                -webkit-transition: all 500ms ease;
+                transition: all 500ms ease;
+                text-transform: capitalize;
+
+                @include breakpoint (max-xxs){
+                    font-size: 20px;
+                }
+
+                .number {
+                    color: $text-color;
+                    font-family: $heading-font;
+                    font-size: 32px;
+                    font-weight: 500;
+                    letter-spacing: -3px;
+                    margin-left: -50px;
+                    margin-right: 15px;
+                }
+
+
+                .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 35px;
+                    font-size: 18px;
+                    line-height: 18px;
+                    color: #101010;
+                    -webkit-transition: all 500ms ease;
+                    transition: all 500ms ease;
+                }
+            }
+
+            .acc-content {
+                position: relative;
+                display: none;
+                margin-top: 22px;
+
+                @include breakpoint (max-xxs){
+                    margin-top: 10px;
+                }
+
+                .content {
+                    position: relative;
+
+                    .text {
+                        line-height: 175%;
+                        font-size: 16px;
+                        font-weight: 500;
+                        color: #101010;
+                        max-width: 455px;
+
+                        @include breakpoint (max-xl){
+                            font-size: 14px;
+                        }
+
+                        @include breakpoint (max-xxs){
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .accordion-box .block .acc-content.current {
+        display: block;
+    }
+
+    .accordion-box .block .acc-btn.active .icon:before {
+        content: "\f062";
+        color: $theme-color;
+    }
+
+    .accordion-box .block .acc-btn.active {
+        color: $theme-color;
+
+        .number {
+            color: $theme-color;
+        }
+    }
+
+    .accordion-box .block:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.faq-wrapper-2 {
+    .faq-content {
+        .text {
+            max-width: 420px;
+            margin-top: 20px;
+        }
+
+        .news-btn {
+            display: inline-flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 500;
+            font-family: $heading-font;
+            color: $white;
+            overflow: hidden;
+            text-transform: capitalize;
+            margin-top: 15px;
+
+            i {
+                margin-left: 7px;
+            }
+
+        .text {
+            position: relative;
+            display: inline-block;
+            height: 22px;
+            overflow: hidden;
+        }
+
+        .text-default,
+        .text-hover {
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .text-hover {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            color: $theme-color;
+        }
+
+        &:hover {
+            .text-default {
+                transform: translateY(-100%);
+            }
+
+            .text-hover {
+                transform: translateY(-100%);
+            }
+        }
+
+        i {
+            transition: transform 0.4s ease;
+        }
+
+        }
+    }
+
+    .accordion-box {
+        position: relative;
+        max-width: 870px;
+        margin-left: auto;
+
+        @include breakpoint (max-xl){
+            margin-left: initial;
+            max-width: initial;
+        }
+
+        .block {
+            position: relative;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 17px;
+            line-height: 1;
+            border-radius: 8px;
+        
+
+            .acc-btn {
+                position: relative;
+                font-size: 24px;
+                color: #797979;
+                font-weight: 600;
+                font-family: $heading-font;
+                cursor: pointer;
+                -webkit-transition: all 500ms ease;
+                transition: all 500ms ease;
+                padding: 28.5px 25px;
+
+                @include breakpoint (max-xxl){
+                    padding-right: 60px;
+                    line-height: 1.4;
+                    font-size: 20px;
+                }
+
+                 @include breakpoint (max-lg){
+                    padding: 25px 20px;
+                    padding-right: 80px;
+                }
+
+                @include breakpoint (max-xxs){
+                    font-size: 18px;
+                }
+
+
+                .icon {
+                    position: absolute;
+                    right: 30px;
+                    top: 22px;
+                    width: 35px;
+                    height: 35px;
+                    font-size: 16px;
+                    line-height: 35px;
+                    background-color: rgba(255, 71, 28, 0.1);
+                    -webkit-transition: all 500ms ease;
+                    transition: all 500ms ease;
+                    border-radius: 50%;
+                    color: $theme-color;
+                    text-align: center;
+
+                     @include breakpoint (max-xxl){
+                        right: 18px;
+                    }
+
+                    &::before {
+                        color: $theme-color;
+                    }
+                }
+            }
+
+            .acc-content {
+                position: relative;
+                display: none;
+                padding: 30px 25px;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+                @include breakpoint (max-xxs){
+                    margin-top: 10px;
+                }
+
+                .content {
+                    position: relative;
+
+                    .text {
+                        line-height: 175%;
+                        font-size: 17px;
+                        font-weight: 400;
+                        color: $white;
+                        max-width: 810px;
+                        letter-spacing: -0.02em;
+                        opacity: 0.8;
+
+                        @include breakpoint (max-xl){
+                            font-size: 14px;
+                        }
+
+                        @include breakpoint (max-xxs){
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .accordion-box .block .acc-content.current {
+        display: block;
+    }
+
+    .accordion-box .block .acc-btn.active .icon:before {
+        content: "\f00d";
+    }
+
+    .accordion-box .block:last-child {
+        margin-bottom: 0;
+    }
+
+    .active-block {
+        .acc-btn {
+            color: $white !important;
+        }
+
+        .icon {
+            background-color: $theme-color !important;
+            color: $white !important;
+
+            &::before {
+                 color: $white !important;
+            }
+        }
+    }
+}
+
+.faq-wrapper-5 {
+    .section-title-area {
+        justify-content: start;
+        gap: 420px;
+        margin-bottom: 45px;
+
+        @include breakpoint (max-xxl){
+            gap: 30px;
+        }
+    }
+    .faq-image {
+    margin-top: 30px;
+    height: 750px;
+
+    @include breakpoint (max-xxxl){
+        height: 741px;
+    }
+
+     @include breakpoint (max-lg){
+        height: 560px;
+    }
+
+    @include breakpoint (max-md){
+        height: 530px;
+    }
+
+    @include breakpoint (max-sm){
+        height: 480px;
+    }
+
+    img {
+        @include imgw;
+        object-fit: cover;
+    }
+}
+
+.grt-faq-content-1 {
+     
+
+     .accordion-box {
+        position: relative;
+        border-top: 1px solid rgba(255, 255, 255, .12);
+
+         @include breakpoint (max-xl){
+            margin-left: 0;
+        }
+       
+        .block {
+            position: relative;
+            background-color: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            line-height: 1;
+            border-radius: 0;
+           padding: 29px 0;
+
+           @include breakpoint (max-lg){
+            padding: 25px 0;
+           }
+
+            .acc-btn {
+                position: relative;
+                font-size: 24px;
+                color: $header-color;
+                font-weight: 600;
+                font-family: $heading-font;
+                cursor: pointer;
+                -webkit-transition: all 500ms ease;
+                transition: all 500ms ease;
+
+                @include breakpoint (max-xxl){
+                    padding-right: 40px;
+                    line-height: 1.4;
+                    font-size: 20px;
+                }
+
+                @include breakpoint (max-xxs){
+                    font-size: 18px;
+                }
+
+
+                .icon {
+                    position: absolute;
+                    right: 0;
+                    top: -7px;
+                    width: 35px;
+                    height: 35px;
+                    font-size: 16px;
+                    line-height: 35px;
+                    background-color: $theme-color;
+                    -webkit-transition: all 500ms ease;
+                    transition: all 500ms ease;
+                    border-radius: 50%;
+                    color: $white;
+                    text-align: center;
+                }
+            }
+
+            .acc-content {
+                position: relative;
+                display: none;
+                margin-top: 30px;
+
+                @include breakpoint (max-xxs){
+                    margin-top: 10px;
+                }
+
+                .content {
+                    position: relative;
+
+                    .text {
+                        line-height: 175%;
+                        font-size: 18px;
+                        font-weight: 400;
+                        color: #fff;
+                        opacity: .80;
+                        max-width: 877px;
+
+                        @include breakpoint (max-xxxl){
+                           font-size: 16px;
+                        }
+
+                        @include breakpoint (max-xl){
+                            font-size: 14px;
+                        }
+
+                        @include breakpoint (max-xxs){
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .accordion-box .block .acc-content.current {
+        display: block;
+    }
+
+    .accordion-box .block .acc-btn.active .icon:before {
+        content: "\f00d";
+        color: $white;
+    }
+
+    .accordion-box .block .acc-btn.active {
+        color: $header-color;
+    }
+
+    .accordion-box .block:last-child {
+        margin-bottom: 0;
+    }
+
+    .active-block {
+    }
+}
+}

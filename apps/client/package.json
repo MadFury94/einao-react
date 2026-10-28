@@ -1,0 +1,30 @@
+{
+	"name": "@einao/client",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "react-router dev --host 127.0.0.1",
+		"build": "react-router build",
+		"typecheck": "wrangler types && react-router typegen && tsc --noEmit",
+		"preview": "vite preview --host 127.0.0.1",
+		"deploy": "pnpm build && wrangler deploy"
+	},
+	"dependencies": {
+		"@einao/content": "workspace:*",
+		"react": "19.2.0",
+		"react-dom": "19.2.0",
+		"react-router": "7.13.2",
+		"isbot": "5.1.32"
+	},
+	"devDependencies": {
+		"@cloudflare/vite-plugin": "1.26.0",
+		"@react-router/dev": "7.13.2",
+		"@types/node": "22.19.17",
+		"@types/react": "19.2.2",
+		"@types/react-dom": "19.2.2",
+		"typescript": "5.9.3",
+		"vite": "6.4.1",
+		"vite-tsconfig-paths": "5.1.4",
+		"wrangler": "4.99.0"
+	}
+}
