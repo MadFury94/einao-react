@@ -46,7 +46,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 		<main className="error-page">
 			<p className="eyebrow">Einao Solutions</p>
 			<h1>
-				{missing ? "We couldn’t find that page." : "Something went wrong."}
+				{missing ? "We couldnt find that page." : "Something went wrong."}
 			</h1>
 			<p>
 				{missing
@@ -54,7 +54,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 					: "Please try again in a moment."}
 			</p>
 			<Link className="arrow-button" to="/">
-				Back to Home<span aria-hidden="true">↗</span>
+				Back to Home<span aria-hidden="true"></span>
 			</Link>
 		</main>
 	);

@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "einao-admin",
+  "account_id": "9737fa56ccbd9abf554110c0f94e9455",
+  "main": "./workers/app.ts",
+  "compatibility_date": "2025-04-04",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
+  "vars": {
+    "API_URL": "https://einao-api.einaodevv.workers.dev"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true
+}

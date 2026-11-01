@@ -1,0 +1,40 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "einao-api",
+  "account_id": "9737fa56ccbd9abf554110c0f94e9455",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-04-24",
+  "port": 8787,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://einao-admin.einaodevv.workers.dev,https://einao-client.einaodevv.workers.dev,https://einao-client.einaodevv.workers.dev,http://localhost:5173,http://localhost:5174,http://localhost:5930,http://localhost:5931,http://localhost:8787",
+    "MEDIA_PUBLIC_BASE_URL": "https://einao-api.einaodevv.workers.dev/api/v1/uploads/file",
+    "RESEND_FROM_EMAIL": "noreply@einaosolutions.com"
+    // JWT_SECRET + RESEND_API_KEY set via: wrangler secret put <NAME>
+  },
+  "r2_buckets": [
+    {
+      "binding": "einao_media",
+      "bucket_name": "einao-media"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "einao_db",
+      "database_name": "einao_db",
+      "database_id": "a32ade85-2ec7-4be5-bbd1-4bfedbf450b3",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

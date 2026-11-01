@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
 
-/** No src in SSR output: mobile, Save-Data and reduced motion never download video. */
+/** No src in SSR output: Save-Data and reduced motion never download video. */
 export function HeroVideo({ poster, src }: { poster: string; src: string }) {
 	const ref = useRef<HTMLVideoElement>(null);
 	useEffect(() => {
 		const video = ref.current;
 		if (!video || !("IntersectionObserver" in window)) return;
 		const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-		const mobile = matchMedia("(max-width: 781px)");
 		const connection = (
 			navigator as Navigator & {
 				connection?: EventTarget & { saveData?: boolean };
@@ -15,8 +14,7 @@ export function HeroVideo({ poster, src }: { poster: string; src: string }) {
 		).connection;
 		let visible = false;
 		const sync = () => {
-			const eligible =
-				!reduced.matches && !mobile.matches && !connection?.saveData;
+			const eligible = !reduced.matches && !connection?.saveData;
 			if (!eligible || !visible || document.hidden)
 				video.pause();
 			if (!eligible && video.hasAttribute("src")) {
@@ -34,14 +32,12 @@ export function HeroVideo({ poster, src }: { poster: string; src: string }) {
 		});
 		observer.observe(video);
 		reduced.addEventListener("change", sync);
-		mobile.addEventListener("change", sync);
 		connection?.addEventListener("change", sync);
 		document.addEventListener("visibilitychange", sync);
 		sync();
 		return () => {
 			observer.disconnect();
 			reduced.removeEventListener("change", sync);
-			mobile.removeEventListener("change", sync);
 			connection?.removeEventListener("change", sync);
 			document.removeEventListener("visibilitychange", sync);
 			video.pause();

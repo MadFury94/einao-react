@@ -38,7 +38,7 @@ export function ConnectedSystems() {
 	}, []);
 	return <section className="connected-systems" aria-labelledby="connected-title">
 		<div className="connected-heading">
-			<p className="connected-eyebrow"><span aria-hidden="true">✦</span> Connected systems. Clearer workflows.</p>
+			<p className="connected-eyebrow"><span aria-hidden="true"></span> Connected systems. Clearer workflows.</p>
 			<h2 ref={title} id="connected-title"><span className="sr-only">{statement}</span><span aria-hidden="true">{statement.split(" ").map((word, i) => <span key={i}><span className={`connected-word${i < 5 ? " connected-serif" : ""}`}>{word}</span>{" "}</span>)}</span></h2>
 		</div>
 		<div className="connected-rows" tabIndex={0} role="group" aria-label="Technology logos; hover or focus to pause animation">

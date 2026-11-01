@@ -1,0 +1,24 @@
+﻿{
+    "name":  "backend",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "kill-port 8787 \u0026\u0026 node scripts/snapshot-d1.mjs \u0026\u0026 node scripts/dev-banner.mjs \u0026\u0026 wrangler dev",
+                    "dev:backend":  "pnpm run dev",
+                    "deploy":  "wrangler deploy --config wrangler.jsonc --minify",
+                    "cf-typegen":  "wrangler types --env-interface CloudflareBindings",
+                    "seed:blog":  "node scripts/seed-blog-content.mjs --local",
+                    "seed:blog:remote":  "node scripts/seed-blog-content.mjs --remote",
+                    "seed:einao":  "node --experimental-strip-types scripts/seed-einao-content.mjs --local",
+                    "seed:einao:remote":  "node --experimental-strip-types scripts/seed-einao-content.mjs --remote"
+                },
+    "dependencies":  {
+                         "@hono/zod-openapi":  "^1.3.0",
+                         "@scalar/hono-api-reference":  "^0.10.11",
+                         "hono":  "^4.12.15",
+                         "zod":  "^4.3.6"
+                     },
+    "devDependencies":  {
+                            "@cloudflare/workers-types":  "^4.20260426.1",
+                            "wrangler":  "^4.99.0"
+                        }
+}

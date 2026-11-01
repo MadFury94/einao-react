@@ -1,3 +1,4 @@
+﻿import { defaultLeadershipProfile } from "./leadership.ts";
 import type {
 	BlockConfig,
 	BlockType,
@@ -29,7 +30,7 @@ export const capabilities: ContentItem[] = [
 	},
 	{
 		title: "Enterprise Solutions & Digital Development",
-		body: "Build systems around the way your organisation works—from enterprise applications and workflow systems to digital portals, integrations, and custom software.",
+		body: "Build systems around the way your organisation works-from enterprise applications and workflow systems to digital portals, integrations, and custom software.",
 		link: {
 			label: "Explore Enterprise Solutions",
 			href: "/capabilities/enterprise-solutions/",
@@ -78,6 +79,10 @@ const solutionLinks = solutions.map((i) => ({
 	label: i.title,
 	href: i.link!.href,
 }));
+solutionLinks.push({
+	label: "Custom Enterprise Systems",
+	href: "/solutions/custom-enterprise-systems/",
+});
 const industryLinks = industries.map((i) => ({
 	label: i.title,
 	href: i.link!.href,
@@ -87,8 +92,13 @@ export const site: SiteConfig = {
 	tagline: "Technology that works around the realities of your organisation.",
 	logo: "/assets/logos/Einao-Solutions-Logo-05.png",
 	address: "Suite 12, Hilltop Plaza, No. 13, Wuse Zone 4, Abuja, Nigeria.",
+	locations: ["Abuja, Nigeria", "Lagos, Nigeria"],
 	navigation: [
-		{ label: "Work", href: "/work/" },
+		{
+			label: "Work",
+			href: "/work/",
+			children: [{ label: "IPO Nigeria Case Study", href: "/work/ipo-nigeria-portal/" }],
+		},
 		{
 			label: "Capabilities",
 			href: "/capabilities/",
@@ -121,10 +131,17 @@ export const site: SiteConfig = {
 		{ title: "Capabilities", links: capabilityLinks },
 		{ title: "Solutions", links: solutionLinks },
 		{ title: "Industries", links: industryLinks },
+		{
+			title: "Legal",
+			links: [
+				{ label: "Privacy Notice", href: "/privacy-notice/" },
+				{ label: "Terms of Use", href: "/terms-of-use/" },
+			],
+		},
 	],
 };
 export const closingCta: BlockConfig = {
-	eyebrow: "Let’s start a conversation",
+	eyebrow: "Let's start a conversation",
 	title: "Have an operation that needs to work better?",
 	body: [
 		"Tell us what is slowing work down, where systems are disconnected, or what your organisation needs to deliver. We will start by understanding the requirement.",
@@ -135,7 +152,7 @@ const proof: BlockConfig = {
 	eyebrow: "Selected institutional work",
 	title: "Digital infrastructure must work beyond the launch.",
 	body: [
-		"Einao has provided IT consulting support to the Federal Ministry of Industry, Trade and Investment’s Commercial Law Department since 2013. Einao built the IPO Nigeria portal and continues to support its maintenance, technical operation, optimisation, and upgrades.",
+		"Einao has provided IT consulting support to the Federal Ministry of Industry, Trade and Investment's Commercial Law Department since 2013. Einao built the IPO Nigeria portal and continues to support its maintenance, technical operation, optimisation, and upgrades.",
 		"The portal supports intellectual property application processes, including trademarks, patents, and industrial designs. It is an example of the operational demands involved in supporting a digital service used by applicants and institutional teams.",
 	],
 	cta: {
@@ -230,7 +247,7 @@ export const pages: Page[] = [
 					].map((title) => ({ title, body: "" })),
 					body: [
 						"Work that depends on follow-ups, spreadsheets, or institutional memory.",
-						"These are not isolated inconveniences. Over time, they affect service delivery, productivity, accountability, cost control, and an organisation’s ability to grow. Einao helps identify what is causing the friction and determine what needs to change.",
+						"These are not isolated inconveniences. Over time, they affect service delivery, productivity, accountability, cost control, and an organisation's ability to grow. Einao helps identify what is causing the friction and determine what needs to change.",
 					],
 					cta: contact("Talk Through an Operational Challenge"),
 				},
@@ -290,7 +307,7 @@ export const pages: Page[] = [
 					eyebrow: "04 / Our solutions",
 					title: "Digital solutions for real operational requirements.",
 					body: [
-						"Einao’s solutions address practical needs such as payment visibility, structured workflows, information handling, and digital service delivery.",
+						"Einao's solutions address practical needs such as payment visibility, structured workflows, information handling, and digital service delivery.",
 					],
 					items: solutions,
 				},
@@ -341,7 +358,7 @@ export const pages: Page[] = [
 		[
 			hero(
 				"About Einao",
-				"Technology should work around the organisation—not the other way around.",
+				"Technology should work around the organisation-not the other way around.",
 				[
 					"Einao Solutions Limited helps organisations understand operational challenges and respond with practical technology. Our work connects consulting, process improvement, automation, and digital solution delivery.",
 				],
@@ -352,8 +369,7 @@ export const pages: Page[] = [
 				"Sometimes the right intervention is process redesign. Sometimes it is automation or integration. Sometimes a new system is required. The aim is to make technology serve a defined operational need.",
 			]),
 			editorial("Our history", [
-				"Founded in 2011, Einao Solutions has developed its work around technology consulting and digital solutions for organisational needs. Its engagement with the Federal Ministry of Industry, Trade and Investment’s Commercial Law Department dates to 2013 and includes work on the IPO Nigeria portal, alongside ongoing technical support and system improvement.",
-				"Einao Solutions was founded by Collins Nkwoji, MBA, CPA, FCA, FCIT.",
+				"Founded in 2011, Einao Solutions has developed its work around technology consulting and digital solutions for organisational needs. Its engagement with the Federal Ministry of Industry, Trade and Investment's Commercial Law Department dates to 2013 and includes work on the IPO Nigeria portal, alongside ongoing technical support and system improvement.",
 			]),
 			[
 				"approach",
@@ -372,15 +388,23 @@ export const pages: Page[] = [
 							title: "Design for the operating environment",
 							body: "Solutions must make sense for the people, workflows, information, and practical conditions in which they will be used.",
 						},
+						{
+							title: "Treat implementation as part of the work",
+							body: "Technology creates value when it is implemented in a way that supports real use, with maintenance and improvement addressed where they form part of the engagement.",
+						},
 					],
 				},
 			],
+			editorial("Our mission and vision", [
+				"We design and implement digital solutions that simplify operations, improve processes, and help organisations work more effectively.",
+				"To become a foremost IT solutions provider that empowers organisations to operate smarter, faster, and more efficiently through digital solutions.",
+			]),
 		],
 	),
 	page(
 		"capabilities",
 		"Technology Consulting, Process Automation & Digital Solutions | Einao",
-		"Explore Einao’s IT consulting, business process automation, enterprise solutions, system integration, and custom digital development capabilities.",
+		"Explore Einao's IT consulting, business process automation, enterprise solutions, system integration, and custom digital development capabilities.",
 		[
 			hero(
 				"Our capabilities",
@@ -398,7 +422,7 @@ export const pages: Page[] = [
 	page(
 		"capabilities/it-consulting",
 		"IT Consulting & Technology Strategy | Einao Solutions",
-		"Define requirements, assess business processes, evaluate technology options, and plan digital initiatives with Einao’s IT consulting services.",
+		"Define requirements, assess business processes, evaluate technology options, and plan digital initiatives with Einao's IT consulting services.",
 		[
 			hero(
 				"IT Consulting",
@@ -458,6 +482,14 @@ export const pages: Page[] = [
 					],
 				},
 			],
+			editorial("Common questions", [], [
+				{ title: "When should an organisation start with consulting?", body: "Start when the operational problem, requirements, or solution direction is not yet clear enough to make a confident technology decision." },
+				{ title: "What does the consulting work include?", body: "The work can include process analysis, requirements definition, workflow mapping, technology assessment, and solution planning, depending on the agreed scope." },
+				{ title: "Does consulting lead to implementation?", body: "It can. The findings can inform a later implementation with Einao or provide a clearer basis for another delivery approach." },
+				{ title: "Can you review our existing systems and tools?", body: "Yes. Existing applications, information flows, dependencies, and constraints can be considered as part of the assessment before a solution direction is recommended." },
+				{ title: "What do we need before starting?", body: "A clear description of the operational difficulty and the people or process affected is a useful starting point. The detail can then be developed during the engagement." },
+				{ title: "How is the consulting scope agreed?", body: "The scope is shaped around the questions the organisation needs answered, the processes or systems to be reviewed, and the practical next step required." },
+			]),
 		],
 	),
 	page(
@@ -502,6 +534,14 @@ export const pages: Page[] = [
 			),
 			editorial("How we approach automation", [
 				"We assess the current process, define the intended outcome, identify what should change, design the workflow, and determine the appropriate combination of automation, integration, and supporting technology. The objective is not to automate every step; it is to improve the operation.",
+			]),
+			editorial("Common questions", [], [
+				{ title: "What processes are suitable for automation?", body: "Processes with repeated steps, clear rules, recurring approvals, avoidable hand-offs, or frequent manual reporting are often useful starting points." },
+				{ title: "Will automation replace existing systems?", body: "Not necessarily. The appropriate response may be process redesign, workflow automation, integration, configuration, or a combination of approaches." },
+				{ title: "How do we choose where to start?", body: "Start with a process where delays, duplication, limited visibility, or manual effort create a clear operational cost and where improvement can be measured." },
+				{ title: "Can automation support approvals and escalations?", body: "Yes. Appropriate workflows can define review, approval, rejection, escalation, notifications, and status visibility around the organisation's rules." },
+				{ title: "Can automation connect different applications?", body: "System integration can be considered where the relevant applications, interfaces, data flows, and technical constraints support a reliable connection." },
+				{ title: "How do you avoid automating a broken process?", body: "The current process is assessed first so unnecessary steps, duplicated effort, unclear ownership, and avoidable hand-offs can be addressed before automation is designed." },
 			]),
 		],
 	),
@@ -554,23 +594,49 @@ export const pages: Page[] = [
 			editorial("Designed around requirements", [
 				"Every engagement begins with a clear understanding of users, processes, data, system dependencies, operating conditions, and the outcome the organisation needs. This shapes the scope and informs the design and implementation approach.",
 			]),
+			editorial("Common questions", [], [
+				{ title: "When is a custom enterprise solution appropriate?", body: "It may be appropriate when available tools do not support the organisation's required workflows, information structures, user groups, or integration needs." },
+				{ title: "Can you integrate existing systems?", body: "Integration can be considered where the systems, interfaces, data flows, and technical constraints make it feasible within the agreed scope." },
+				{ title: "What happens after launch?", body: "Support, maintenance, and improvement can be included where agreed, with the post-launch approach shaped around the system and organisation." },
+				{ title: "What information is considered during design?", body: "The work considers users, workflows, data, permissions, system dependencies, operating conditions, integrations, and the outcome the organisation needs." },
+				{ title: "Can a portal include documents, payments, or service requests?", body: "Where required by the agreed scope, a digital portal can support information submission, document upload, payments, and service progress tracking." },
+				{ title: "How do you decide between configuration and custom development?", body: "The choice depends on the requirements, existing systems, process needs, integration options, constraints, and the most practical route to the intended outcome." },
+			]),
 		],
 	),
 	page(
 		"solutions",
-		"Digital Solutions | Einao Solutions",
-		"Explore PayX, Fileonn and digital solutions shaped around your organisation’s operational requirements.",
+		"Enterprise Solutions & Digital Systems | Einao Solutions",
+		"Explore PayX, Fileonn and digital solutions shaped around your organisation's operational requirements.",
 		[
 			hero(
 				"Our solutions",
 				"Digital solutions for real operational requirements.",
 				[
-					"Einao’s solutions respond to practical organisational needs: managing payments, structuring workflows, coordinating information, and delivering services through digital systems. Explore the solutions below or speak with us about a requirement that needs a tailored approach.",
+					"Einao's solutions respond to practical organisational needs: managing payments, structuring workflows, coordinating information, and delivering services through digital systems. Explore the solutions below or speak with us about a requirement that needs a tailored approach.",
 				],
 			),
 			["solutions", { title: "Start with the requirement.", items: solutions }],
 			editorial("Custom enterprise solutions", [
 				"Some requirements need a solution shaped around a specific operating model. Einao works with organisations to define requirements and deliver digital systems, integrations, and workflows appropriate to the scope.",
+			]),
+		],
+	),
+	page(
+		"solutions/custom-enterprise-systems",
+		"Custom Enterprise Systems & Digital Solutions | Einao Solutions",
+		"Discuss a custom enterprise system, digital portal, workflow, integration, or business application shaped around your organisation's requirements.",
+		[
+			hero(
+				"Custom enterprise systems",
+				"Build the digital system your operating environment requires.",
+				[
+					"Some requirements need a solution shaped around a specific operating model. Einao helps define the users, workflows, information, integrations, and practical constraints before designing an appropriate digital system.",
+				],
+				contact("Discuss a Digital Solution", "Enterprise Solution or Custom Development"),
+			),
+			editorial("Designed around the requirement", [
+				"We can support enterprise applications, digital portals, workflow systems, information and document flows, integrations, and custom software where those capabilities are appropriate to the agreed scope.",
 			]),
 		],
 	),
@@ -583,7 +649,7 @@ export const pages: Page[] = [
 				"PayX",
 				"Bring greater structure and visibility to payment operations.",
 				[
-					"PayX is a digital payment solution for organisations looking to manage payment activity through a more structured digital process. Speak with the Einao team to establish whether its confirmed capabilities align with your organisation’s payment requirements.",
+					"PayX is a digital payment solution for organisations looking to manage payment activity through a more structured digital process. Speak with the Einao team to establish whether its confirmed capabilities align with your organisation's payment requirements.",
 				],
 				contact("Request a PayX Demonstration", "PayX"),
 			),
@@ -596,13 +662,13 @@ export const pages: Page[] = [
 	page(
 		"solutions/fileonn",
 		"Fileonn Digital Workflow Solution | Einao Solutions",
-		"Contact Einao to learn about Fileonn and discuss whether its verified capabilities fit your organisation’s workflow requirements.",
+		"Contact Einao to learn about Fileonn and discuss whether its verified capabilities fit your organisation's workflow requirements.",
 		[
 			hero(
 				"Fileonn",
 				"Give important organisational work a clearer digital structure.",
 				[
-					"Fileonn is part of Einao’s solutions portfolio. Speak with Einao about your organisation’s workflow requirements and explore whether Fileonn is the right fit.",
+					"Fileonn is part of Einao's solutions portfolio. Speak with Einao about your organisation's workflow requirements and explore whether Fileonn is the right fit.",
 				],
 				contact("Enquire About Fileonn", "Fileonn"),
 			),
@@ -611,7 +677,7 @@ export const pages: Page[] = [
 	page(
 		"industries",
 		"Technology Solutions for Government, Business & Institutions | Einao",
-		"Explore how Einao’s technology consulting, automation, and digital solution capabilities can support government, business, regulatory, and service organisations.",
+		"Explore how Einao's technology consulting, automation, and digital solution capabilities can support government, business, regulatory, and service organisations.",
 		[
 			hero(
 				"Who we work with",
@@ -632,13 +698,13 @@ export const pages: Page[] = [
 	page(
 		"industries/government",
 		"Technology for Government & Public Institutions | Einao",
-		"Explore institutional workflows, digital services and Einao’s IPO Nigeria portal experience.",
+		"Explore institutional workflows, digital services and Einao's IPO Nigeria portal experience.",
 		[
 			hero(
 				"Government & Public Institutions",
 				"Digital services shaped around institutional work.",
 				[
-					"Public institutions may manage applications, approvals, records, payments, and services that involve multiple stakeholders and defined processes. Einao’s work in institutional digital systems includes the IPO Nigeria portal engagement. We help define operational requirements and deliver or support digital systems according to the scope of each engagement.",
+					"Public institutions may manage applications, approvals, records, payments, and services that involve multiple stakeholders and defined processes. Einao's work in institutional digital systems includes the IPO Nigeria portal engagement. We help define operational requirements and deliver or support digital systems according to the scope of each engagement.",
 				],
 			),
 			["proof", proof],
@@ -694,7 +760,7 @@ export const pages: Page[] = [
 		"Explore selected work involving institutional digital platforms, technology consulting, process improvement, and enterprise solutions delivered or supported by Einao.",
 		[
 			hero("Selected work", "The work behind systems people rely on.", [
-				"Our case studies explain the context, the operational challenge, Einao’s role, and the work involved.",
+				"Our case studies explain the context, the operational challenge, Einao's role, and the work involved.",
 			]),
 			["proof", proof],
 		],
@@ -702,21 +768,21 @@ export const pages: Page[] = [
 	page(
 		"work/ipo-nigeria-portal",
 		"IPO Nigeria Portal Case Study | Einao Solutions",
-		"Read about Einao’s work building and supporting the IPO Nigeria portal for the Federal Ministry of Industry, Trade and Investment’s Commercial Law Department.",
+		"Read about Einao's work building and supporting the IPO Nigeria portal for the Federal Ministry of Industry, Trade and Investment's Commercial Law Department.",
 		[
 			hero(
 				"Selected institutional work",
 				"Supporting the digital processes behind intellectual property services.",
 				[
-					"Einao’s engagement with the Federal Ministry of Industry, Trade and Investment’s Commercial Law Department dates to 2013. Einao built the IPO Nigeria portal and continues to support its technical operation, maintenance, optimisation, and upgrades.",
+					"Einao's engagement with the Federal Ministry of Industry, Trade and Investment's Commercial Law Department dates to 2013. Einao built the IPO Nigeria portal and continues to support its technical operation, maintenance, optimisation, and upgrades.",
 				],
 				contact("Discuss an Institutional Digital Requirement"),
 			),
 			editorial("The operational context", [
 				"Digital services for intellectual property applications must support structured information submission and processing. The IPO Nigeria portal supports application processes relating to trademarks, patents, and industrial designs.",
 			]),
-			editorial("Einao’s role", [
-				"Einao’s role includes building the portal and continuing to support it through maintenance, technical support, optimisation, and upgrades.",
+			editorial("Einao's role", [
+				"Einao's role includes building the portal and continuing to support it through maintenance, technical support, optimisation, and upgrades.",
 			]),
 			editorial("Why ongoing support matters", [
 				"A digital platform is not finished in operational terms simply because it has been launched. Systems need continued technical attention as requirements evolve, users interact with the service, and improvements become necessary. Ongoing support helps maintain the platform and address agreed technical needs.",
@@ -738,12 +804,44 @@ export const pages: Page[] = [
 			hero("Insights", "Better systems begin with better questions.", [
 				"Ideas and practical perspectives on the operational decisions behind technology: how to define requirements, improve workflows, connect systems, and approach digital transformation with clarity.",
 			]),
-			editorial("A practical perspective.", [
-				"Our first articles are being prepared. In the meantime, explore the capabilities behind these conversations or talk to us about a challenge in your organisation.",
-			]),
 			[
-				"services",
-				{ title: "Explore the work behind the thinking.", items: capabilities },
+				"insights",
+				{
+					title: "Practical perspectives on better operations.",
+					body: [
+						"Our thinking starts with the operating reality behind the brief. Explore the questions that help organisations choose, connect, and improve technology with purpose.",
+					],
+					items: [
+						{
+							title: "Before you buy software: five questions every organisation should answer",
+							body: "A clearer definition of the problem creates better technology decisions and more useful outcomes.",
+							label: "Technology strategy",
+							image: "/assets/images/Graphite monitor with enterprise dashboard.png",
+							link: { label: "Discuss this perspective", href: "/contact/" },
+						},
+						{
+							title: "Digitising a broken process does not fix it",
+							body: "The strongest automation work begins by understanding where the process creates friction for people and the organisation.",
+							label: "Process improvement",
+							image: "/assets/images/Hands sketching a business workflow.png",
+							link: { label: "Discuss this perspective", href: "/contact/" },
+						},
+						{
+							title: "Where manual work creates hidden operational costs",
+							body: "Repeated handoffs, spreadsheets, and follow-ups quietly shape the cost and reliability of everyday service delivery.",
+							label: "Operations",
+							image: "/assets/images/Hands mapping a streamlined workflow.png",
+							link: { label: "Discuss this perspective", href: "/contact/" },
+						},
+						{
+							title: "Integrate existing systems or replace them?",
+							body: "A practical comparison of the signals that point toward integration, replacement, or a more deliberate combination of both.",
+							label: "Enterprise systems",
+							image: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+							link: { label: "Discuss this perspective", href: "/contact/" },
+						},
+					],
+				},
 			],
 		],
 	),
@@ -761,11 +859,50 @@ export const pages: Page[] = [
 			),
 		],
 	),
-	page("privacy-notice", "Privacy Notice | Einao Solutions", "", [], "draft"),
-	page("terms-of-use", "Terms of Use | Einao Solutions", "", [], "draft"),
+	page(
+		"privacy-notice",
+		"Privacy Notice | Einao Solutions",
+		"How Einao Solutions uses and protects information submitted through this website.",
+		[
+			hero("Privacy notice", "Your information should be handled with care.", [
+				"This notice explains how Einao Solutions uses information provided through this website and contact forms.",
+			]),
+			editorial("Information we receive", [
+				"We may receive your name, work email, organisation, role, phone number, enquiry type, and the details you choose to include in your message.",
+			]),
+			editorial("How we use it", [
+				"We use submitted information to understand and respond to enquiries, route requirements to the appropriate team, and maintain a record of conversations where necessary to support the relationship.",
+			]),
+			editorial("Your choices", [
+				"You may ask us what information we hold about you or request that we correct or remove it, subject to applicable legal and operational requirements. Contact hello@einaosolutions.com for privacy questions.",
+			]),
+		],
+	),
+	page(
+		"terms-of-use",
+		"Terms of Use | Einao Solutions",
+		"Terms governing use of the Einao Solutions website and its published content.",
+		[
+			hero("Terms of use", "Use this site as a source of information about Einao.", [
+				"These terms describe the general conditions for using the Einao Solutions website.",
+			]),
+			editorial("Website content", [
+				"The website provides general information about Einao Solutions, its capabilities, solutions, and experience. Content does not constitute a proposal, guarantee, or professional advice for a specific engagement.",
+			]),
+			editorial("Accuracy and availability", [
+				"We aim to keep the website accurate and available, but information may change as services, products, and requirements develop. Confirm scope, capabilities, and commercial terms with Einao before relying on them for a decision.",
+			]),
+			editorial("Contact", [
+				"Questions about these terms can be sent to hello@einaosolutions.com.",
+			]),
+		],
+	),
 ];
 
 // Editorial briefs are deliberately separate from published pages.
+const aboutHero = pages.find(page => page.slug === "about")?.blocks.find(block => block.block_type === "hero");
+if (aboutHero) aboutHero.config.leadership = { ...defaultLeadershipProfile };
+
 export const insightBriefs = [
 	"Before You Buy Software: Five Questions Every Organisation Should Answer",
 	"Digitising a Broken Process Does Not Fix It",
@@ -779,3 +916,4 @@ export const insightBriefs = [
 	post_type: "blog",
 	status: "draft" as const,
 }));
+

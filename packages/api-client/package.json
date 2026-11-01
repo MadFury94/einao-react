@@ -1,0 +1,16 @@
+{
+  "name": "@einao/api-client",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "generate:spec": "curl -sf http://localhost:8787/openapi.json | python3 -m json.tool > src/openapi.json",
+    "generate:types": "openapi-ts",
+    "generate": "pnpm generate:spec && pnpm generate:types"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.97.0"
+  }
+}

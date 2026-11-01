@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+﻿import { ArrowIcon } from "./ArrowIcon";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import type { Link as ContentLink } from "@einao/content";
 
@@ -13,18 +14,18 @@ export function ActionLink({
 		return (
 			<Link className="text-link" to={link.href}>
 				{link.label}
-				<span className="text-link-arrow" aria-hidden="true">↗</span>
+				<span className="text-link-arrow" aria-hidden="true"><ArrowIcon /></span>
 			</Link>
 		);
 	}
 	return (
 		<Link className="arrow-button" to={link.href}>
-			{/* Left arrow — slides in on hover */}
-			<span className="ab-arrow ab-arrow-left" aria-hidden="true">↗</span>
+			{/* Left arrow - slides in on hover */}
+			<span className="ab-arrow ab-arrow-left" aria-hidden="true"><ArrowIcon /></span>
 			{/* Label */}
 			<span className="ab-label">{link.label}</span>
-			{/* Right arrow — always visible, slides out on hover */}
-			<span className="ab-arrow ab-arrow-right" aria-hidden="true">↗</span>
+			{/* Right arrow - always visible, slides out on hover */}
+			<span className="ab-arrow ab-arrow-right" aria-hidden="true"><ArrowIcon /></span>
 		</Link>
 	);
 }
@@ -131,8 +132,8 @@ export function AnimatedTitle({
 					) : (
 						<span
 							className={`title-word${accent && word.replace(/[^\w]/g, "") === accent
-									? " title-accent"
-									: ""
+								? " title-accent"
+								: ""
 								}`}
 							key={i}
 						>
@@ -148,3 +149,43 @@ export function AnimatedTitle({
 		</h1>
 	);
 }
+
+export function Typewriter({ phrases, className = "" }: { phrases: string[]; className?: string }) {
+	const [phraseIndex, setPhraseIndex] = useState(0);
+	const [text, setText] = useState(phrases[0] ?? "");
+	const deleting = useRef(false);
+	// Separate pause state so the effect re-runs after the hold delay
+	const [paused, setPaused] = useState(false);
+
+	useEffect(() => {
+		if (phrases.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+		const phrase = phrases[phraseIndex] ?? "";
+
+		// Fully typed — hold for 1800ms then start deleting
+		if (!deleting.current && text === phrase) {
+			const timer = window.setTimeout(() => {
+				deleting.current = true;
+				setPaused(false);
+			}, 1800);
+			setPaused(true);
+			return () => window.clearTimeout(timer);
+		}
+
+		// Fully deleted — advance to next phrase
+		if (deleting.current && text.length === 0) {
+			deleting.current = false;
+			setPhraseIndex((current) => (current + 1) % phrases.length);
+			return;
+		}
+
+		// Type or delete one character
+		const delay = deleting.current ? 34 : 58;
+		const timer = window.setTimeout(() => {
+			setText(deleting.current ? text.slice(0, -1) : phrase.slice(0, text.length + 1));
+		}, delay);
+		return () => window.clearTimeout(timer);
+	}, [phraseIndex, phrases, text, paused]);
+
+	return <span className={`typewriter ${className}`} aria-label={phrases[phraseIndex] ?? text}><span aria-hidden="true">{text}</span><span className="typewriter-cursor" aria-hidden="true">|</span></span>;
+}
+

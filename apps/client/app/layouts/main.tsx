@@ -1,14 +1,19 @@
+import { getWorkCollection, workNavigation } from '~/lib/work';
 import { Outlet, useLoaderData, useNavigation } from "react-router";
 import { getContentStore } from "~/lib/content.server";
 import { Header, Footer } from "~/components/Shell";
 import { closingCta } from "@einao/content";
-export async function loader() {
+export async function loader({ request, context }: { request: Request; context: { cloudflare: { env: Env } } }) {
+	const env = context.cloudflare.env as unknown as { CONTENT_API_URL?: string };
+	const store = getContentStore(env.CONTENT_API_URL, request.url);
+	const [site, work] = await Promise.all([store.getSiteConfig(), getWorkCollection(store)]);
 	return {
-		site: await getContentStore().getSiteConfig(),
+		site: workNavigation(site, work.entries),
 		year: new Date().getUTCFullYear(),
 		closingCta,
 	};
 }
+export const shouldRevalidate = () => true;
 export default function MainLayout() {
 	const { site, year, closingCta: cta } = useLoaderData<typeof loader>();
 	const navigation = useNavigation();

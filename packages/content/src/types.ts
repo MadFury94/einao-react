@@ -1,5 +1,7 @@
+﻿import type { LeadershipProfile } from "./leadership";
 export type Link = { label: string; href: string };
 export type ContentItem = {
+	year?: string;
 	title: string;
 	body: string;
 	link?: Link;
@@ -23,6 +25,11 @@ export type BlockType =
 	| "process"
 	| "projects";
 export type BlockConfig = {
+  client?: string; services?: string; platform?: string; projectDate?: string;
+  overviewImage?: string; overviewImageAlt?: string; galleryLeft?: string; galleryRight?: string;
+  galleryLeftAlt?: string; galleryRightAlt?: string;
+
+  leadership?: LeadershipProfile;
 	eyebrow?: string;
 	title: string;
 	body?: string[];
@@ -49,6 +56,11 @@ export type Page = {
 	title: string;
 	description: string;
 	status: "published" | "draft";
+	seo_title?: string;
+	seo_description?: string;
+	canonical_url?: string;
+	og_image_url?: string;
+	article?: { author?: string; publishedAt?: string | null; modifiedAt?: string };
 	blocks: PageBlock[];
 };
 export type NavItem = Link & { children?: Link[] };
@@ -58,6 +70,7 @@ export type SiteConfig = {
 	logo: string;
 	navigation: NavItem[];
 	address: string;
+	locations?: string[];
 	enquiryTypes: string[];
 	footer: { title: string; links: Link[] }[];
 };
@@ -67,3 +80,4 @@ export interface ContentStore {
 	getPageBlocks(slug: string): Promise<PageBlock[]>;
 	listPages(): Promise<Omit<Page, "blocks">[]>;
 }
+
