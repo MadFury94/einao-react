@@ -216,7 +216,7 @@ export function AdminSidebar({
             <SidebarMenuButton
               tooltip="Log out"
               onClick={async () => {
-                const logoutUrl = import.meta.env.DEV ? `${API_BASE_URL}/api/v1/auth/logout` : '/auth/logout'
+                const logoutUrl = `${API_BASE_URL}/api/v1/auth/logout`
                 await fetch(logoutUrl, {
                   method: 'POST',
                   credentials: 'include',

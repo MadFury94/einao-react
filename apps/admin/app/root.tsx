@@ -140,7 +140,7 @@ function LoginForm() {
     setError('')
     setLoading(true)
     try {
-      const loginUrl = import.meta.env.DEV ? `${API_BASE_URL}/api/v1/auth/login` : '/auth/login'
+      const loginUrl = `${API_BASE_URL}/api/v1/auth/login`
       const res = await fetch(loginUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
