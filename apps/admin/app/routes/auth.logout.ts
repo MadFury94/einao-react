@@ -6,10 +6,12 @@ export async function action({ request }: Route.ActionArgs) {
     method: 'POST',
     headers: { Cookie: request.headers.get('Cookie') ?? '' },
   })
-  return new Response(response.body, { status: response.status, headers: response.headers })
+  const headers = new Headers(response.headers)
+  const cookie = headers.get('Set-Cookie')
+  if (cookie) headers.set('Set-Cookie', cookie.replace(/;\s*Domain=[^;]+/i, ''))
+  return new Response(response.body, { status: response.status, headers })
 }
 
 export function loader() {
   return new Response('Method not allowed', { status: 405 })
 }
-

@@ -71,7 +71,11 @@ function PageHero({
 						{metaLines?.map((line) => <span key={line}>{line}</span>)}
 					</div>
 					{pageLabel && (
-						<span className="page-hero-shared-label" aria-hidden="true">
+						<span
+							className="page-hero-shared-label"
+							aria-hidden="true"
+							style={{ fontSize: pageLabel.length > 12 ? `clamp(3rem, ${Math.max(5, 11 - (pageLabel.length - 12) * 0.4)}vw, ${Math.max(60, 160 - (pageLabel.length - 12) * 6)}px)` : undefined }}
+						>
 							{pageLabel}
 						</span>
 					)}

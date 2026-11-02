@@ -11,10 +11,13 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const search = params.get('search') || '';
   if (!/^[1-9]\d*$/.test(requested) || !Number.isSafeInteger(Number(requested))) throw new Response('Page not found', { status: 404 });
   const env = context.cloudflare.env;
-  const [page, posts] = await Promise.all([
-    getContentStore(env.CONTENT_API_URL, request.url).getPage('insights'),
-    getInsights(insightsApiBase(env.CONTENT_API_URL, request.url), Number(requested), 12, search),
-  ]);
+  const page = await getContentStore(env.CONTENT_API_URL, request.url).getPage('insights');
+  let posts = { items: [], total: 0, page: Number(requested), pageSize: 12 } as Awaited<ReturnType<typeof getInsights>>;
+  try {
+    posts = await getInsights(insightsApiBase(env.CONTENT_API_URL, request.url), Number(requested), 12, search);
+  } catch {
+    // Keep the Insights page available when the optional posts feed is unavailable.
+  }
   if (Number(requested) > Math.max(1, Math.ceil(posts.total / posts.pageSize))) throw new Response('Page not found', { status: 404 });
   return { page, posts, siteUrl: new URL(request.url).origin, search };
 }
@@ -65,4 +68,3 @@ export default function Insights({ loaderData: { page, posts, search } }: Route.
     </div>
   );
 }
-

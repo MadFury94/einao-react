@@ -11,7 +11,8 @@
     "API_URL": "https://einao-api.einaodevv.workers.dev"
   },
   "assets": {
-    "run_worker_first": ["/auth/*"]
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "observability": {
     "enabled": true

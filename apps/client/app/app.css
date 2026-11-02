@@ -2232,10 +2232,10 @@ main:focus {
 }
 
 .about-page-marquee b {
-	font-size: .5em;
-	font-weight: 900;
+	font-size: .75em;
+	line-height: 1;
 	color: var(--ink);
-	opacity: .5;
+	opacity: .7;
 	flex-shrink: 0;
 }
 
@@ -4528,10 +4528,18 @@ main:focus {
 }
 
 .index3-marquee-track b {
-	font-size: .5em;
-	font-weight: 900;
+	font-size: .75em;
+	line-height: 1;
 	color: var(--ink);
-	opacity: .5;
+	opacity: .7;
+	flex-shrink: 0;
+}
+
+/* CMS-driven marquee block — same star treatment */
+.einao-marquee-track b {
+	font-size: .75em;
+	line-height: 1;
+	opacity: .7;
 	flex-shrink: 0;
 }
 

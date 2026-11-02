@@ -32,11 +32,13 @@ async function proxyAuth(request: Request, env: Env, path: string): Promise<Resp
 export default {
   async fetch(request, env, ctx) {
     const pathname = new URL(request.url).pathname
-    if (request.method === 'POST' && pathname === '/auth/login') return proxyAuth(request, env, 'login')
-    if (request.method === 'POST' && pathname === '/auth/logout') return proxyAuth(request, env, 'logout')
+    if (request.method === 'POST' && (pathname === '/auth/login' || pathname === '/api/v1/auth/login')) return proxyAuth(request, env, 'login')
+    if (request.method === 'POST' && (pathname === '/auth/logout' || pathname === '/api/v1/auth/logout')) return proxyAuth(request, env, 'logout')
     configureApiForRequest(env as unknown as Record<string, unknown>, request)
-    return requestHandler(request, {
+    const response = await requestHandler(request, {
       cloudflare: { env, ctx },
     })
+    if (response.status === 404 && env.ASSETS) return env.ASSETS.fetch(request)
+    return response
   },
 } satisfies ExportedHandler<Env>
