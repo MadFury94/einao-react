@@ -147,7 +147,7 @@ app.doc('/openapi.json', {
   },
   servers: [
     { url: 'http://localhost:8787', description: 'Local dev' },
-    { url: 'https://einao-api.onochieazukaeme.workers.dev', description: 'Production' },
+    { url: 'https://einao-api.einaodevv.workers.dev', description: 'Production' },
   ],
 })
 

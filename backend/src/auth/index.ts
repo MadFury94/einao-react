@@ -338,8 +338,6 @@ function cookieHost(c: { req: { header: (n: string) => string | undefined; url: 
 }
 
 function resolveCookieDomain(host: string): string | undefined {
-  if (host.endsWith('.einaosolutions.com')) return '.einaosolutions.com'
-  if (host.endsWith('.einao.solutions')) return '.einao.solutions'
   if (host.endsWith('.einaodevv.workers.dev')) return '.einaodevv.workers.dev'
   return undefined
 }

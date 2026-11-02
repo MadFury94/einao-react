@@ -1,6 +1,6 @@
 ﻿import type { Page } from "@einao/content";
 
-const FALLBACK_ORIGIN = "https://einao-client.onochieazukaeme.workers.dev";
+const FALLBACK_ORIGIN = "https://einao-client.einaodevv.workers.dev";
 const SOCIAL_IMAGE = "/assets/seo/einao-social-card.jpg";
 
 function pagePath(slug: string) {
