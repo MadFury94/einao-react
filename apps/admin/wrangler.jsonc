@@ -10,6 +10,9 @@
   "vars": {
     "API_URL": "https://einao-api.einaodevv.workers.dev"
   },
+  "assets": {
+    "run_worker_first": ["/auth/*"]
+  },
   "observability": {
     "enabled": true
   },

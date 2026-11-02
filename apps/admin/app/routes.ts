@@ -5,6 +5,8 @@ export default [
   route('config', 'routes/config.tsx'),
   route('page-settings', 'routes/page-settings.tsx'),
   route('case-studies', 'routes/case-studies.tsx'),
+  route('auth/login', 'routes/auth.login.ts'),
+  route('auth/logout', 'routes/auth.logout.ts'),
   route('work', 'routes/work.tsx'),
   route('industries', 'routes/industries.tsx'),
   route('solutions', 'routes/solutions.tsx'),
