@@ -328,7 +328,7 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 				</section>
 			)}
 
-			<div className="about-page-marquee" aria-label="Einao values"><div><span>Understand</span><b>✳</b><span>Improve</span><b>✳</b><span>Connect</span><b>✳</b><span>Deliver</span><b>✳</b><span>Understand</span><b>✳</b><span>Improve</span><b>✳</b><span>Connect</span><b>✳</b><span>Deliver</span><b>✳</b></div></div>
+			<div className="about-page-marquee" aria-label="Einao values"><div><span>Understand</span><b>✦</b><span>Improve</span><b>✦</b><span>Connect</span><b>✦</b><span>Deliver</span><b>✦</b><span>Understand</span><b>✦</b><span>Improve</span><b>✦</b><span>Connect</span><b>✦</b><span>Deliver</span><b>✦</b></div></div>
 		</div>
 	);
 }
@@ -409,7 +409,7 @@ function Section({ block }: { block: PageBlock }) {
 			<section className="einao-marquee" aria-label={c.title}>
 				<div className="einao-marquee-track">
 					{[...(c.items ?? []), ...(c.items ?? [])].map((item, index) => (
-						<span key={`${item.title}-${index}`}><b aria-hidden="true"></b>{item.title}</span>
+						<span key={`${item.title}-${index}`}><b aria-hidden="true">✦</b>{item.title}</span>
 					))}
 				</div>
 			</section>

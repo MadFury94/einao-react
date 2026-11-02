@@ -2232,10 +2232,10 @@ main:focus {
 }
 
 .about-page-marquee b {
-	font-size: .55em;
+	font-size: .5em;
 	font-weight: 900;
 	color: var(--ink);
-	opacity: .55;
+	opacity: .5;
 	flex-shrink: 0;
 }
 
@@ -4528,10 +4528,10 @@ main:focus {
 }
 
 .index3-marquee-track b {
-	font-size: .6em;
+	font-size: .5em;
 	font-weight: 900;
 	color: var(--ink);
-	opacity: .45;
+	opacity: .5;
 	flex-shrink: 0;
 }
 
