@@ -4528,7 +4528,11 @@ main:focus {
 }
 
 .index3-marquee-track b {
-	color: var(--white);
+	font-size: .6em;
+	font-weight: 900;
+	color: var(--ink);
+	opacity: .45;
+	flex-shrink: 0;
 }
 
 @keyframes index3-marquee {
