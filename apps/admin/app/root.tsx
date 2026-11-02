@@ -23,6 +23,10 @@ import { NavigationProgress } from './components/navigation-progress'
 import { API_BASE_URL } from './lib/api'
 import './app.css'
 
+export function meta() {
+  return [{ title: 'Einao Admin' }]
+}
+
 export const links: Route.LinksFunction = () => [
   { rel: 'icon', href: '/einao-logo.png', type: 'image/png' },
   { rel: 'shortcut icon', href: '/einao-logo.png', type: 'image/png' },
@@ -136,7 +140,7 @@ function LoginForm() {
     setError('')
     setLoading(true)
     try {
-      const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+      const res = await fetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -162,7 +166,7 @@ function LoginForm() {
   return (
     <div className="mx-auto w-full max-w-sm space-y-6">
       <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-bold tracking-tight">Sign in to Einao Admin Admin</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Sign in to Einao Admin</h1>
         <p className="text-sm text-muted-foreground">
           Enter your credentials to access the admin panel.
         </p>

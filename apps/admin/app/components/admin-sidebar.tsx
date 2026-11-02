@@ -29,7 +29,6 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, useLocation, useMatch } from 'react-router'
-import { API_BASE_URL } from '~/lib/api'
 
 type NavItem = { title: string; to: string; end?: boolean; icon?: LucideIcon }
 type NavGroup = {
@@ -216,7 +215,7 @@ export function AdminSidebar({
             <SidebarMenuButton
               tooltip="Log out"
               onClick={async () => {
-                await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
+                await fetch('/auth/logout', {
                   method: 'POST',
                   credentials: 'include',
                 })
