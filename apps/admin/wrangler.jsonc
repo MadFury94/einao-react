@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "einao-admin",
   "account_id": "9737fa56ccbd9abf554110c0f94e9455",
@@ -10,6 +10,9 @@
   "vars": {
     "API_URL": "https://einao-api.einaodevv.workers.dev"
   },
+  "services": [
+    { "binding": "API", "service": "einao-api" }
+  ],
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": true

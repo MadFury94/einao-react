@@ -75,7 +75,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
         <script
           dangerouslySetInnerHTML={{
-          __html: `(function(){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';document.documentElement.style.background='#0c1710'})()`,
+            __html: `(function(){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';document.documentElement.style.background='#0c1710'})()`,
           }}
         />
       </head>
@@ -140,11 +140,11 @@ function LoginForm() {
     setError('')
     setLoading(true)
     try {
-      const loginUrl = `${API_BASE_URL}/api/v1/auth/login`
-      const res = await fetch(loginUrl, {
+      // POST to the React Router action — it proxies to the API server-side
+      // and sets the session cookie on the admin domain correctly.
+      const res = await fetch('/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ email, password }),
       })
       if (res.status === 429) {
@@ -167,7 +167,7 @@ function LoginForm() {
   return (
     <div className="mx-auto w-full max-w-sm space-y-6">
       <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-bold tracking-tight">Sign in to Einao Admin</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Sign in to Einao Admin</h1>
         <p className="text-sm text-muted-foreground">
           Enter your credentials to access the admin panel.
         </p>
