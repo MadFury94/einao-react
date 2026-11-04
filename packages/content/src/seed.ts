@@ -41,14 +41,21 @@ export const solutions: ContentItem[] = [
 	{
 		label: "Digital payments / 01",
 		title: "PayX",
-		body: "Digital payments with visibility built in. PayX is positioned for organisations seeking a more structured way to collect and manage digital payments and maintain visibility over transaction activity.",
-		link: { label: "Request a PayX Demonstration", href: "/solutions/payx/" },
+		body: "A digital payment solution for organisations seeking a more structured way to manage payment activity and maintain visibility over transactions. Coming soon — speak with us about your payment requirements.",
+		link: { label: "Explore PayX", href: "/solutions/payx/" },
+		badge: "Coming soon",
 	},
 	{
-		label: "Digital workflows / 02",
-		title: "Fileonn",
-		body: "Bring organisational work into a more structured digital flow. Speak with Einao about your workflow requirements and explore whether Fileonn is the right fit.",
-		link: { label: "Enquire About Fileonn", href: "/solutions/fileonn/" },
+		label: "Application & process management / 02",
+		title: "Fylonn",
+		body: "A modular application and processing management platform designed to help organisations digitise, coordinate and monitor applications, requests and operational processes from initiation to completion.",
+		link: { label: "Explore Fylonn", href: "/solutions/fylonn/" },
+	},
+	{
+		label: "IP management / 03",
+		title: "IP PRO",
+		body: "Intellectual property management software used in the IPO Nigeria portal engagement for institutional application and registry processes.",
+		link: { label: "Explore IP PRO", href: "/solutions/ip-pro/" },
 	},
 ];
 export const industries: ContentItem[] = [
@@ -94,11 +101,7 @@ export const site: SiteConfig = {
 	address: "Suite 12, Hilltop Plaza, No. 13, Wuse Zone 4, Abuja, Nigeria.",
 	locations: ["Abuja, Nigeria", "Lagos, Nigeria"],
 	navigation: [
-		{
-			label: "Work",
-			href: "/work/",
-			children: [{ label: "IPO Nigeria Case Study", href: "/work/ipo-nigeria-portal/" }],
-		},
+		{ label: "Home", href: "/" },
 		{
 			label: "Capabilities",
 			href: "/capabilities/",
@@ -107,6 +110,11 @@ export const site: SiteConfig = {
 		{ label: "Solutions", href: "/solutions/", children: solutionLinks },
 		{ label: "Industries", href: "/industries/", children: industryLinks },
 		{ label: "Insights", href: "/insights/" },
+		{
+			label: "Our Work",
+			href: "/work/",
+			children: [{ label: "IPO Nigeria Case Study", href: "/work/ipo-nigeria-portal/" }],
+		},
 		{ label: "About", href: "/about/" },
 	],
 	enquiryTypes: [
@@ -114,7 +122,7 @@ export const site: SiteConfig = {
 		"Process Automation",
 		"Enterprise Solution or Custom Development",
 		"PayX",
-		"Fileonn",
+		"Fylonn",
 		"System Integration",
 		"Other",
 	],
@@ -607,18 +615,18 @@ export const pages: Page[] = [
 	page(
 		"solutions",
 		"Enterprise Solutions & Digital Systems | Einao Solutions",
-		"Explore PayX, Fileonn and digital solutions shaped around your organisation's operational requirements.",
+		"Explore Einao's digital solutions and enterprise systems for payment processes, organisational workflows, and specific operational requirements.",
 		[
 			hero(
 				"Our solutions",
-				"Digital solutions for real operational requirements.",
+				"Digital solutions for specific operational needs.",
 				[
-					"Einao's solutions respond to practical organisational needs: managing payments, structuring workflows, coordinating information, and delivering services through digital systems. Explore the solutions below or speak with us about a requirement that needs a tailored approach.",
+					"Einao's product portfolio addresses different requirements, from payment operations to institutional intellectual property management and application processing. Explore each product or contact us to discuss its current capabilities and suitability.",
 				],
 			),
 			["solutions", { title: "Start with the requirement.", items: solutions }],
 			editorial("Custom enterprise solutions", [
-				"Some requirements need a solution shaped around a specific operating model. Einao works with organisations to define requirements and deliver digital systems, integrations, and workflows appropriate to the scope.",
+				"When a requirement needs a tailored approach, Einao can assess the operating model and define an appropriate digital solution, integration, or development scope.",
 			]),
 		],
 	),
@@ -647,31 +655,75 @@ export const pages: Page[] = [
 		[
 			hero(
 				"PayX",
-				"Bring greater structure and visibility to payment operations.",
+				"Bring greater structure to payment operations.",
 				[
-					"PayX is a digital payment solution for organisations looking to manage payment activity through a more structured digital process. Speak with the Einao team to establish whether its confirmed capabilities align with your organisation's payment requirements.",
+					"PayX is a digital payment solution for organisations seeking a more structured way to manage payment activity and maintain visibility over transactions.",
+					"PayX is currently in final development. Speak with the Einao team to discuss your payment requirements and we will be in touch when the product is available for your organisation.",
 				],
-				contact("Request a PayX Demonstration", "PayX"),
+				contact("Enquire About PayX", "PayX"),
 			),
-			editorial("Start with your payment requirements.", [
-				"Payment processes can involve multiple channels, records, teams, and reconciliation steps. When information is fragmented, it can become difficult to maintain a clear view of transactions and prepare consistent reports.",
-				"Tell us how your organisation currently collects payments, where visibility becomes difficult, and what your teams need to manage more effectively. We will use that conversation to determine fit and next steps.",
+			editorial("Coming soon", [
+				"PayX is not yet available for general implementation. We are working to confirm its supported payment channels, transaction tracking, reconciliation, reporting, and integration capabilities before release.",
+				"Tell us how your organisation collects payments, where visibility becomes difficult, and what your teams need to manage more effectively. We will use that conversation to determine fit and keep you updated on availability.",
 			]),
 		],
 	),
 	page(
-		"solutions/fileonn",
-		"Fileonn Digital Workflow Solution | Einao Solutions",
-		"Contact Einao to learn about Fileonn and discuss whether its verified capabilities fit your organisation's workflow requirements.",
+		"solutions/fylonn",
+		"Fylonn Application & Process Management | Einao Solutions",
+		"Contact Einao to learn about Fylonn and discuss whether its verified capabilities fit your organisation's workflow requirements.",
 		[
 			hero(
-				"Fileonn",
-				"Give important organisational work a clearer digital structure.",
+				"Fylonn",
+				"Manage Applications. Connect Processes. Improve Service Delivery.",
 				[
-					"Fileonn is part of Einao's solutions portfolio. Speak with Einao about your organisation's workflow requirements and explore whether Fileonn is the right fit.",
+					"Fylonn is a modular application and processing management platform designed to help organisations digitise, coordinate and monitor applications, requests and operational processes from initiation to completion.",
+					"Bring application intake, internal processing, communication and operational oversight into a connected environment built around the way your organisation works.",
 				],
-				contact("Enquire About Fileonn", "Fileonn"),
+				contact("Discuss Your Requirements", "Fylonn"),
 			),
+			editorial("From receiving requests to managing the entire process", [
+				"Fylonn is designed to support the journey from the moment a request is submitted to the point at which it is processed, communicated, and monitored.",
+				"Rather than treating each stage as an isolated activity, the platform brings related functions together so organisations can work towards more coordinated and visible service delivery.",
+			]),
+			editorial("Five connected modules", [], [
+				{
+					title: "Fylonn Connect",
+					body: "Application and request intake. Provides the customer-facing entry point for applications, submissions, service requests, and supporting information.",
+				},
+				{
+					title: "Fylonn Flow",
+					body: "Back-office processing. Supports the internal handling of applications and requests as they move through operational workflows.",
+				},
+				{
+					title: "Fylonn Publish",
+					body: "Publication and journal management. Supports publication-related activities and the organisation of records, directories, and journal-oriented processes.",
+				},
+				{
+					title: "Fylonn Assist",
+					body: "Customer support and case management. Supports the management and resolution of enquiries, support requests, and related cases.",
+				},
+				{
+					title: "Fylonn Insight",
+					body: "Operational performance and intelligence. Provides a foundation for monitoring operational activity and presenting performance information to support oversight and decision-making.",
+				},
+			]),
+			editorial("Who Fylonn is for", [], [
+				{
+					title: "Government and Public Institutions",
+					body: "Support the management of formal applications and institutional processes through structured workflows and improved visibility. Potential applications include registrations, renewals, licences, permits, regulatory applications, and formal requests.",
+				},
+				{
+					title: "Private Businesses and Service Providers",
+					body: "Coordinate recurring business processes, reduce manual follow-ups and improve visibility into customer-facing and internal operations. Potential applications include onboarding, service requests, internal approvals, document verification, and administrative workflows.",
+				},
+			]),
+			editorial("Common questions", [], [
+				{ title: "What is Fylonn?", body: "Fylonn is a modular application and processing management platform being developed by Einao Solutions. It is intended to help organisations digitise, coordinate, manage and monitor applications, requests and structured operational processes." },
+				{ title: "Who is Fylonn designed for?", body: "Fylonn is intended for government institutions, regulatory bodies, service providers and private businesses that manage structured applications, requests or operational cases." },
+				{ title: "Is Fylonn available for implementation?", body: "Fylonn is being developed progressively. Product readiness and implementation availability should be confirmed with Einao Solutions." },
+				{ title: "Can organisations use individual modules?", body: "The product is being designed around modular adoption. The ability to deploy each module independently will depend on its technical dependencies and the final product architecture." },
+			]),
 		],
 	),
 	page(

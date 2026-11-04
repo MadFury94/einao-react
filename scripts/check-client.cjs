@@ -62,7 +62,7 @@ fs.mkdirSync(output, { recursive: true });
     await page.waitForLoadState('networkidle');
     assert.equal(await page.locator('h1').count(), 1);
     assert.ok((await page.locator('h1').innerText()).trim(), 'Capability page has a heading');
-    const routes = ['/about/', '/capabilities/', '/capabilities/business-process-automation/', '/capabilities/enterprise-solutions/', '/solutions/', '/solutions/custom-enterprise-systems/', '/privacy-notice/', '/terms-of-use/', '/solutions/payx/', '/solutions/fileonn/', '/industries/', '/industries/government/', '/industries/business/', '/industries/regulatory-services/', '/work/', '/work/ipo-nigeria-portal/', '/insights/', '/contact/?enquiry=PayX'];
+    const routes = ['/about/', '/capabilities/', '/capabilities/business-process-automation/', '/capabilities/enterprise-solutions/', '/solutions/', '/solutions/custom-enterprise-systems/', '/privacy-notice/', '/terms-of-use/', '/solutions/payx/', '/solutions/fylonn/', '/industries/', '/industries/government/', '/industries/business/', '/industries/regulatory-services/', '/work/', '/work/ipo-nigeria-portal/', '/insights/', '/contact/?enquiry=PayX'];
     for (const route of routes) {
       const response = await page.goto(base + route, { waitUntil: 'networkidle' });
       assert.equal(response.status(), 200, route);

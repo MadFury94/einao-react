@@ -7,6 +7,7 @@ export type ContentItem = {
 	link?: Link;
 	image?: string;
 	label?: string;
+	badge?: string;
 };
 export type BlockType =
 	| "hero"
@@ -25,11 +26,11 @@ export type BlockType =
 	| "process"
 	| "projects";
 export type BlockConfig = {
-  client?: string; services?: string; platform?: string; projectDate?: string;
-  overviewImage?: string; overviewImageAlt?: string; galleryLeft?: string; galleryRight?: string;
-  galleryLeftAlt?: string; galleryRightAlt?: string;
+	client?: string; services?: string; platform?: string; projectDate?: string;
+	overviewImage?: string; overviewImageAlt?: string; galleryLeft?: string; galleryRight?: string;
+	galleryLeftAlt?: string; galleryRightAlt?: string;
 
-  leadership?: LeadershipProfile;
+	leadership?: LeadershipProfile;
 	eyebrow?: string;
 	title: string;
 	body?: string[];

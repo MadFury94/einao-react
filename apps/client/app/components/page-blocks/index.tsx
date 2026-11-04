@@ -748,18 +748,19 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 
 	function SolutionCard({ item, index }: { item: NonNullable<typeof items>[number]; index: number }) {
 		const image = item.image ?? fallbackImages[index % fallbackImages.length];
-		// Parse label: "Digital payments / 01" → tags=["Digital payments"], year="01"
 		const labelParts = item.label?.split("/") ?? [];
 		const tags = labelParts[0]?.trim() ? [labelParts[0].trim()] : [];
 		const year = new Date().getFullYear();
 
 		return (
-			<Reveal className="solutions-card">
+			<Reveal className={`solutions-card${item.badge ? " solutions-card-soon" : ""}`}>
 				<div className="solutions-card-thumb">
-					{/* Dual-image hover reveal — same as work-card */}
 					<img src={image} alt="" width="900" height="620" loading="lazy" />
 					<img src={image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
-					{item.link && (
+					{item.badge && (
+						<span className="solutions-card-badge" aria-label={item.badge}>{item.badge}</span>
+					)}
+					{item.link && !item.badge && (
 						<Link to={item.link.href} className="solutions-card-arrow" aria-label={`Explore ${item.title}`}>
 							<ArrowIcon />
 						</Link>
@@ -768,7 +769,7 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 				<div className="solutions-card-content">
 					<div className="solutions-card-info">
 						<h2 className="solutions-card-title">
-							{item.link
+							{item.link && !item.badge
 								? <Link to={item.link.href}>{item.title}</Link>
 								: item.title}
 						</h2>
