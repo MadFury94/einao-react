@@ -14,10 +14,10 @@ export function insightsApiBase(configured: string | undefined, requestUrl: stri
   const host = new URL(requestUrl).hostname;
   return (host === 'localhost' || host === '127.0.0.1' ? 'http://localhost:8787' : configured || '').replace(/\/$/, '');
 }
-async function read<T>(base: string, path: string): Promise<T> {
+async function read<T>(base: string, path: string, apiFetch: typeof fetch = globalThis.fetch): Promise<T> {
   if (!base) throw new Response('Insights are temporarily unavailable.', { status: 503 });
   let response: Response;
-  try { response = await fetch(`${base}/api/v1/posts${path}`, { headers: { Accept: 'application/json' }, cache: 'no-store' }); }
+  try { response = await apiFetch(`${base}/api/v1/posts${path}`, { headers: { Accept: 'application/json' }, cache: 'no-store' }); }
   catch { throw new Response('Insights are temporarily unavailable. Please try again.', { status: 503 }); }
   if (response.status === 404) throw new Response('Insight not found.', { status: 404 });
   if (!response.ok) throw new Response('Insights are temporarily unavailable. Please try again.', { status: 503 });
@@ -37,14 +37,14 @@ export function cleanArticleHtml(html: string) {
     allowProtocolRelative: false,
   });
 }
-export async function getInsights(base: string, page = 1, pageSize = 12, search = ''): Promise<InsightList> {
+export async function getInsights(base: string, page = 1, pageSize = 12, search = '', apiFetch: typeof fetch = globalThis.fetch): Promise<InsightList> {
   const query = new URLSearchParams({ post_type: 'blog', page: String(page), pageSize: String(pageSize) });
   if (search.trim()) query.set('search', search.trim());
-  const result = await read<InsightList>(base, `?${query}`);
+  const result = await read<InsightList>(base, `?${query}`, apiFetch);
   return { ...result, items: result.items.filter(isPublishedInsight).map(post => ({ ...post, author: post.author ? { name: post.author.name } : null })) };
 }
-export async function getInsight(base: string, slug: string): Promise<Article> {
-  const post = await read<Article>(base, `/${encodeURIComponent(slug)}`);
+export async function getInsight(base: string, slug: string, apiFetch: typeof fetch = globalThis.fetch): Promise<Article> {
+  const post = await read<Article>(base, `/${encodeURIComponent(slug)}`, apiFetch);
   if (!isPublishedInsight(post)) throw new Response('Insight not found.', { status: 404 });
   return { ...post, author: post.author ? { name: post.author.name } : null, content_html: cleanArticleHtml(post.content_html) };
 }

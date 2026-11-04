@@ -4,8 +4,10 @@ import { articlePage, getInsight, getInsights, insightsApiBase } from '~/lib/ins
 import { pageMeta } from '~/lib/metadata';
 import type { Route } from './+types/insight';
 export async function loader({ request, context, params }: Route.LoaderArgs) {
-  const base = insightsApiBase(context.cloudflare.env.CONTENT_API_URL, request.url);
-  const [post, listing] = await Promise.all([getInsight(base, params.slug), getInsights(base, 1, 100)]);
+  const env = context.cloudflare.env;
+  const apiFetch = (env as unknown as { CONTENT_API?: { fetch: typeof fetch } }).CONTENT_API?.fetch.bind((env as unknown as { CONTENT_API: { fetch: typeof fetch } }).CONTENT_API) ?? globalThis.fetch;
+  const base = insightsApiBase(env.CONTENT_API_URL, request.url);
+  const [post, listing] = await Promise.all([getInsight(base, params.slug, apiFetch), getInsights(base, 1, 100, '', apiFetch)]);
   const index = listing.items.findIndex((item) => item.slug === post.slug);
   const categoryCounts = new Map<string, number>();
   const tagNames = new Set<string>();

@@ -2,7 +2,7 @@ import { client } from '@einao/api-client'
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_URL ??
-  (import.meta.env.PROD ? 'https://einao-api.einaodevv.workers.dev' : 'http://localhost:8787')
+  (import.meta.env.PROD ? window?.location?.origin ?? '' : 'http://localhost:8787')
 
 client.setConfig({ baseUrl: API_BASE_URL, credentials: 'include' })
 

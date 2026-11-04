@@ -1,5 +1,16 @@
-{
-  "$schema":"node_modules/wrangler/config-schema.json",
-  "name":"einao-client","account_id":"9737fa56ccbd9abf554110c0f94e9455","main":"./workers/app.ts","compatibility_date":"2026-03-01",
-  "compatibility_flags":["nodejs_compat"],"observability":{"enabled":true},"vars":{"SITE_INDEXABLE":"false","CONTENT_API_URL":"https://einao-api.einaodevv.workers.dev"}
+﻿{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "einao-client",
+  "account_id": "9737fa56ccbd9abf554110c0f94e9455",
+  "main": "./workers/app.ts",
+  "compatibility_date": "2026-03-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "vars": {
+    "SITE_INDEXABLE": "false",
+    "CONTENT_API_URL": "https://einao-api.einaodevv.workers.dev"
+  },
+  "services": [
+    { "binding": "CONTENT_API", "service": "einao-api" }
+  ]
 }

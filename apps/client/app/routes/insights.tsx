@@ -11,10 +11,11 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const search = params.get('search') || '';
   if (!/^[1-9]\d*$/.test(requested) || !Number.isSafeInteger(Number(requested))) throw new Response('Page not found', { status: 404 });
   const env = context.cloudflare.env;
+  const apiFetch = (env as unknown as { CONTENT_API?: { fetch: typeof fetch } }).CONTENT_API?.fetch.bind((env as unknown as { CONTENT_API: { fetch: typeof fetch } }).CONTENT_API) ?? globalThis.fetch;
   const page = await getContentStore(env.CONTENT_API_URL, request.url).getPage('insights');
   let posts = { items: [], total: 0, page: Number(requested), pageSize: 12 } as Awaited<ReturnType<typeof getInsights>>;
   try {
-    posts = await getInsights(insightsApiBase(env.CONTENT_API_URL, request.url), Number(requested), 12, search);
+    posts = await getInsights(insightsApiBase(env.CONTENT_API_URL, request.url), Number(requested), 12, search, apiFetch);
   } catch {
     // Keep the Insights page available when the optional posts feed is unavailable.
   }
