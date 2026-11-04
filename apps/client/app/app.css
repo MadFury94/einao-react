@@ -3368,24 +3368,6 @@ main:focus {
 	opacity: .65;
 }
 
-position: absolute;
-z-index: 2;
-top: 50%;
-left: 50%;
-display: grid;
-place-items: center;
-width: 90px;
-height: 90px;
-border-radius: 50%;
-background: var(--lime);
-color: var(--ink);
-transform: translate(-50%, -50%) scale(.5);
-opacity: 0;
-transition: transform .4s ease,
-opacity .4s ease;
-text-decoration: none;
-}
-
 .solutions-card-arrow svg {
 	width: 22px;
 	height: 22px;
