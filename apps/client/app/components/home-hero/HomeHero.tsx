@@ -22,60 +22,64 @@ const HOLD_PAUSE = 2200;  // ms to hold the full word before deleting
 function useTypewriter(words: string[]) {
 	const [displayed, setDisplayed] = useState(words[0]);
 	const [cursor, setCursor] = useState(true);
-	const wordIdx = useRef(0);
-	const charIdx = useRef(words[0].length);
-	const deleting = useRef(false);
-	const paused = useRef(false);
-	const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const state = useRef({ wordIdx: 0, charIdx: words[0].length, deleting: false, holding: false });
 
 	useEffect(() => {
 		if (words.length < 2) return;
 
-		const tick = () => {
-			const word = words[wordIdx.current];
+		let timer: ReturnType<typeof setTimeout>;
 
-			if (paused.current) {
-				paused.current = false;
-				deleting.current = true;
-				timer.current = setTimeout(tick, DELETE_DELAY);
+		const tick = () => {
+			const s = state.current;
+			const word = words[s.wordIdx];
+
+			if (s.holding) {
+				// Hold expired — start deleting
+				s.holding = false;
+				s.deleting = true;
+				timer = setTimeout(tick, DELETE_DELAY);
 				return;
 			}
 
-			if (!deleting.current) {
-				// Typing
-				charIdx.current++;
-				setDisplayed(word.slice(0, charIdx.current));
-				if (charIdx.current === word.length) {
-					paused.current = true;
-					timer.current = setTimeout(tick, HOLD_PAUSE);
+			if (!s.deleting) {
+				// Typing forward
+				s.charIdx++;
+				setDisplayed(word.slice(0, s.charIdx));
+				if (s.charIdx >= word.length) {
+					// Fully typed — hold
+					s.holding = true;
+					timer = setTimeout(tick, HOLD_PAUSE);
 				} else {
-					timer.current = setTimeout(tick, CHAR_DELAY);
+					timer = setTimeout(tick, CHAR_DELAY);
 				}
 			} else {
-				// Deleting
-				charIdx.current--;
-				setDisplayed(word.slice(0, charIdx.current));
-				if (charIdx.current === 0) {
-					deleting.current = false;
-					wordIdx.current = (wordIdx.current + 1) % words.length;
-					charIdx.current = 0;
-					timer.current = setTimeout(tick, 300);
+				// Deleting backward
+				s.charIdx--;
+				setDisplayed(word.slice(0, s.charIdx));
+				if (s.charIdx <= 0) {
+					// Fully deleted — advance to next word
+					s.deleting = false;
+					s.wordIdx = (s.wordIdx + 1) % words.length;
+					s.charIdx = 0;
+					timer = setTimeout(tick, 320);
 				} else {
-					timer.current = setTimeout(tick, DELETE_DELAY);
+					timer = setTimeout(tick, DELETE_DELAY);
 				}
 			}
 		};
 
-		timer.current = setTimeout(tick, HOLD_PAUSE);
+		// Start after initial hold
+		timer = setTimeout(tick, HOLD_PAUSE);
 
 		// Cursor blink
 		const blink = setInterval(() => setCursor(c => !c), 530);
 
 		return () => {
-			if (timer.current) clearTimeout(timer.current);
+			clearTimeout(timer);
 			clearInterval(blink);
 		};
-	}, [words]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []); // intentionally empty — uses ref for state, runs once
 
 	return { displayed, cursor };
 }
@@ -106,6 +110,7 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 		return () => { observer.disconnect(); preference.removeEventListener("change", update); document.removeEventListener("visibilitychange", update); media.pause(); };
 	}, []);
 
+
 	const toggleVideo = () => {
 		const media = video.current;
 		if (!media) return;
@@ -122,13 +127,6 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 				{/* Background */}
 				<img className={styles.background} src={config.image || "/assets/images/placeholder-hero-poster.webp"} alt="" width="1860" height="850" fetchPriority="high" />
 				<video ref={video} className={`${styles.background} ${styles.video}`} src={heroVideo} poster={config.image || "/assets/images/placeholder-hero-poster.webp"} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} hidden={videoFailed} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setVideoFailed(true)} />
-				{!videoFailed && (
-					<button type="button" className={styles.videoControl} onClick={toggleVideo} aria-label={playing ? "Pause background video" : "Play background video"}>
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-							{playing ? <><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></> : <path d="M7 4v16l13-8Z" />}
-						</svg>
-					</button>
-				)}
 
 				{/* Content */}
 				<div className={styles.content}>
@@ -171,6 +169,7 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 					</div>
 
 					{/* Trust badge */}
+					<div className={styles.trustRow}>
 					<div className={styles.trust}>
 						<span className={styles.trustIcon} aria-hidden="true">
 							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -184,6 +183,11 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 							<span className={styles.trustSub}>Practical technology delivery</span>
 						</div>
 					</div>
+                        <figure className={styles.clientTrust}>
+                            <img src="/assets/images/happy%20client.png" alt="Client portraits" />
+                            <figcaption>Trusted by our clients</figcaption>
+                        </figure>
+                    </div>
 				</div>
 			</div>
 		</section>

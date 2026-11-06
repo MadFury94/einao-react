@@ -126,6 +126,7 @@
     background: var(--lime);
 }
 
+
 .pause {
     position: absolute;
     top: 65px;
@@ -301,7 +302,19 @@
 }
 
 @media (max-width: 1599px) {
-    .viewport {
+    .pause {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff18;
+    color: white;
+    font-size: 12px;
+}
+
+.viewport {
         margin-right: -35%;
     }
 }
@@ -311,7 +324,19 @@
         font-size: 50px;
     }
 
-    .viewport {
+    .pause {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff18;
+    color: white;
+    font-size: 12px;
+}
+
+.viewport {
         margin-right: -55%;
     }
 
@@ -362,7 +387,19 @@
 }
 
 @media (max-width: 575px) {
-    .viewport {
+    .pause {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff18;
+    color: white;
+    font-size: 12px;
+}
+
+.viewport {
         margin-right: 0;
     }
 
@@ -393,4 +430,8 @@
 .pause {
     display: grid;
     place-items: center;
+}
+
+.pause {
+    display: none;
 }

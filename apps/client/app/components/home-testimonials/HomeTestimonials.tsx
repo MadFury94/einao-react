@@ -34,36 +34,31 @@ export function HomeTestimonials() {
     const track = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(START); // index in CARDS
     const busy = useRef(false);
+    const activeIndex = useRef(START);
     const paused = useRef(false);
     const cardW = useRef(0);
     const gapW = useRef(0);
 
-    // Measure card width on mount and resize
+    // Keep the current card centred when the viewport changes size.
     useEffect(() => {
+        const element = track.current;
+        if (!element) return;
         const measure = () => {
-            const slides = track.current?.querySelectorAll<HTMLElement>("[data-slide]");
-            if (!slides || !slides[0]) return;
-            cardW.current = slides[0].offsetWidth;
-            gapW.current = parseInt(getComputedStyle(track.current!).columnGap || "0");
+            const slide = element.querySelector<HTMLElement>("[data-slide]");
+            if (!slide) return;
+            cardW.current = slide.offsetWidth;
+            gapW.current = parseFloat(getComputedStyle(element).columnGap) || 0;
+            gsap.killTweensOf(element);
+            busy.current = false;
+            gsap.set(element, {
+                x: -(activeIndex.current * (cardW.current + gapW.current))
+                    + (element.parentElement!.offsetWidth - cardW.current) / 2,
+            });
         };
         measure();
-        const ro = new ResizeObserver(measure);
-        if (track.current) ro.observe(track.current);
-        return () => ro.disconnect();
-    }, []);
-
-    // Set initial translate so middle-copy active card is centred
-    useEffect(() => {
-        if (!track.current) return;
-        const slides = track.current.querySelectorAll<HTMLElement>("[data-slide]");
-        const container = track.current.parentElement!;
-        const cw = container.offsetWidth;
-        const sw = slides[0]?.offsetWidth || 480;
-        const gap = parseInt(getComputedStyle(track.current).columnGap || "0");
-        const offset = -(START * (sw + gap)) + (cw - sw) / 2;
-        gsap.set(track.current, { x: offset });
-        cardW.current = sw;
-        gapW.current = gap;
+        const observer = new ResizeObserver(measure);
+        observer.observe(element.parentElement!);
+        return () => { observer.disconnect(); gsap.killTweensOf(element); };
     }, []);
 
     const slideTo = useCallback((targetIdx: number) => {
@@ -87,6 +82,7 @@ export function HomeTestimonials() {
                 if (jumped !== targetIdx) {
                     const jumpOffset = -(jumped * (sw + gap)) + (cw - sw) / 2;
                     gsap.set(track.current, { x: jumpOffset });
+                    activeIndex.current = jumped;
                     setActive(jumped);
                 } else {
                     setActive(targetIdx);
@@ -94,6 +90,7 @@ export function HomeTestimonials() {
                 busy.current = false;
             },
         });
+        activeIndex.current = targetIdx;
         setActive(targetIdx);
     }, []);
 
@@ -181,6 +178,15 @@ export function HomeTestimonials() {
                         );
                     })}
                 </div>
+            </div>
+            <div className={styles.mobileControls}>
+                <button type="button" className={styles.arrowBtn} onClick={prev} aria-label="Previous testimonial">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+                </button>
+                <span>{(active % N) + 1} / {N}</span>
+                <button type="button" className={styles.arrowBtn} onClick={next} aria-label="Next testimonial">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+                </button>
             </div>
         </section>
     );

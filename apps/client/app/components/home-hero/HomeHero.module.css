@@ -202,12 +202,39 @@
 }
 
 /* Trust badge */
+.trustRow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 48px;
+    margin-top: auto;
+    padding-top: clamp(1rem, 2vh, 2rem);
+}
+
+.clientTrust {
+    margin: 0;
+    width: 190px;
+    flex-shrink: 0;
+}
+
+.clientTrust img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.clientTrust figcaption {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, .75);
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+}
+
 .trust {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: auto;
-    padding-top: clamp(1rem, 2vh, 2rem);
 }
 
 .trustIcon {
