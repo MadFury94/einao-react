@@ -1,4 +1,6 @@
-﻿import { ArrowIcon } from "../ArrowIcon";
+﻿import { AnimatedCounter } from "../AnimatedCounter";
+import { Marquee } from "../Marquee";
+import { ArrowIcon } from "../ArrowIcon";
 import type { BlockConfig, PageBlock } from "@einao/content";
 import { Link } from "react-router";
 import { ActionLink, AnimatedTitle, Reveal, Typewriter } from "../primitives";
@@ -36,7 +38,7 @@ function Heading({ config }: { config: BlockConfig }) {
  *  • Large AnimatedTitle fills the available vertical space (keeps char animation)
  *  • Bottom strip: metadata lines left + optional large italic page label right
  */
-function PageHero({
+export function PageHero({
 	eyebrow,
 	title,
 	accent,
@@ -74,7 +76,6 @@ function PageHero({
 						<span
 							className="page-hero-shared-label"
 							aria-hidden="true"
-							style={{ fontSize: pageLabel.length > 12 ? `clamp(3rem, ${Math.max(5, 11 - (pageLabel.length - 12) * 0.4)}vw, ${Math.max(60, 160 - (pageLabel.length - 12) * 6)}px)` : undefined }}
 						>
 							{pageLabel}
 						</span>
@@ -89,7 +90,7 @@ function PageHero({
 
 export function InsightCard({ item, index, author = "Einao" }: { item: NonNullable<BlockConfig["items"]>[number]; index: number; author?: string }) {
 	return (
-		<Reveal className="insight-news-card" >
+		<Reveal className="insight-news-card" delay={(index % 3) * 100}>
 			<article>
 				<div className="insight-news-thumb">
 					{item.image ? (
@@ -225,7 +226,7 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 					</Reveal>
 					<div className="about-page-process-grid">
 						{approach?.items?.map((item, index) => (
-							<Reveal key={item.title}>
+							<Reveal key={item.title} delay={index * 100}>
 								<ProcessCard
 									number={String(index + 1).padStart(2, "0")}
 									title={item.title}
@@ -252,35 +253,35 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 					<div className="about-page-proof-grid">
 
 						{/* Left: main image */}
-						<Reveal className="about-page-proof-image">
+						<Reveal direction="left" className="image-composition"><div className="about-page-proof-image">
 							<img
-								src="/assets/about-reference/choose-us.jpg"
+								src="/assets/images/Einao staff working on automation with client.jpg"
 								alt="Einao team working with an institutional client"
 								width="540"
 								height="620"
 							/>
-						</Reveal>
+						</div><img className="accent-image" src="/assets/images/Hands sketching a business workflow.png" alt="" width="240" height="240" loading="lazy" /></Reveal>
 
 						{/* Right: copy, CTA, counter tiles, secondary image */}
-						<Reveal className="about-page-proof-copy">
+						<Reveal direction="right" delay={120} className="about-page-proof-copy">
 							<p>{editorials[1]?.body?.[0] ?? "We work with organisations to understand how operations actually run before deciding what technology to use — then we build and support the systems that make those operations work reliably."}</p>
 
 							<ActionLink link={{ label: "Start a conversation", href: "/contact/" }} />
 
 							<div className="about-page-counters">
-								<div className="about-page-counter-box">
+								<Reveal direction="zoom" className="about-page-counter-box">
 									<span>Founded</span>
-									<strong>2011</strong>
+									<strong><AnimatedCounter value={2011} /></strong>
 									<p>Built around practical technology delivery.</p>
-								</div>
-								<div className="about-page-counter-box">
+								</Reveal>
+								<Reveal direction="zoom" className="about-page-counter-box">
 									<span>Since</span>
-									<strong>2013</strong>
+									<strong><AnimatedCounter value={2013} /></strong>
 									<p>Supporting institutional digital services.</p>
-								</div>
+								</Reveal>
 								<div className="about-page-counter-small-img">
 									<img
-										src="/assets/about-reference/choose-us-small.jpg"
+										src="/assets/images/Nigerian IT Consultants Reviewing a Laptop.png"
 										alt=""
 										width="260"
 										height="200"
@@ -298,7 +299,7 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 					<Reveal className="about-page-history-heading"><p className="eyebrow">05 / Our history</p><h2>Built around practical technology delivery.</h2></Reveal>
 					<div className="about-page-history-summary">
 						<div className="about-page-history-copy">{editorials[1]?.body?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-						<div className="about-page-history-founded"><span>Founded</span><strong>2011</strong><p>Practical technology delivery.</p></div>
+						<div className="about-page-history-founded"><span>Founded</span><strong><AnimatedCounter value={2011} /></strong><p>Practical technology delivery.</p></div>
 					</div>
 					<FounderProfile image={leader.image} alt={leader.imageAlt} role={leader.role} name={leader.name} credentials={leader.credentials} bio={leader.bio} />
 				</div>
@@ -332,7 +333,7 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 				</section>
 			)}
 
-			<div className="about-page-marquee" aria-label="Einao values"><div><span>Understand</span><b>✦</b><span>Improve</span><b>✦</b><span>Connect</span><b>✦</b><span>Deliver</span><b>✦</b><span>Understand</span><b>✦</b><span>Improve</span><b>✦</b><span>Connect</span><b>✦</b><span>Deliver</span><b>✦</b></div></div>
+			<Marquee label="Einao values" words={["Understand", "Improve", "Connect", "Deliver"]} />
 		</div>
 	);
 }
@@ -409,15 +410,7 @@ function Section({ block }: { block: PageBlock }) {
 	if (block.block_type === "hero")
 		return <Hero config={c} home={block.page_slug === "home"} />;
 	if (block.block_type === "marquee")
-		return (
-			<section className="einao-marquee" aria-label={c.title}>
-				<div className="einao-marquee-track">
-					{[...(c.items ?? []), ...(c.items ?? [])].map((item, index) => (
-						<span key={`${item.title}-${index}`}><b aria-hidden="true">✦</b>{item.title}</span>
-					))}
-				</div>
-			</section>
-		);
+		return <Marquee label={c.title} words={(c.items ?? []).map(item => item.title)} />;
 	if (block.block_type === "process")
 		return (
 			<section className="section process-section"><div className="container">
@@ -525,7 +518,7 @@ function Section({ block }: { block: PageBlock }) {
 				) : (
 					<div className={`items items-${block.block_type}`}>
 						{c.items?.map((item, i) => (
-							<Reveal key={item.title} className="item">
+							<Reveal key={item.title} delay={i * 90} className="item">
 								{block.block_type === "services" && (
 									<span className="item-number">
 										{String(i + 1).padStart(2, "0")}
@@ -596,7 +589,7 @@ function CapabilitiesPage({ blocks }: { blocks: PageBlock[] }) {
 				metaLines={["Technology, operations, and delivery", hero?.body?.[0] ?? ""].filter(Boolean)}
 			/>
 			<section className="capabilities-reference-services">
-				<div className="container"><div className="capabilities-reference-section-heading"><p className="eyebrow">02 / Our capabilities</p><h2><Typewriter phrases={[services?.title ?? "From understanding to implementation.", "The right technology starts with the right understanding.", "Define. Improve. Connect. Deliver."]} /></h2></div><div className="capabilities-reference-panels">{items.map((item, index) => { const image = item.image || fallbackImages[index % fallbackImages.length]; return <Reveal key={item.title} className="capabilities-reference-panel"><div className="capabilities-reference-content"><p className="capabilities-reference-number">{String(index + 1).padStart(3, "0")} / capability</p><h3>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}</h3><div className="capabilities-reference-list"><span>+ Understand</span><span>+ Design</span><span>+ Deliver</span></div><p className="capabilities-reference-description">{item.body}</p><ul><li><Link to={item.link?.href ?? "/contact/"}>Explore</Link></li><li><Link to="/contact/">Discuss a requirement</Link></li></ul></div><div className="capabilities-reference-thumb"><img src={image} alt="" width="900" height="1100" /><img src={image} alt="" width="900" height="1100" /></div></Reveal> })}</div></div>
+				<div className="container"><div className="capabilities-reference-section-heading"><p className="eyebrow">02 / Our capabilities</p><h2><Typewriter phrases={[services?.title ?? "From understanding to implementation.", "The right technology starts with the right understanding.", "Define. Improve. Connect. Deliver."]} /></h2></div><div className="capabilities-reference-panels">{items.map((item, index) => { const image = item.image || fallbackImages[index % fallbackImages.length]; return <Reveal key={item.title} className="capabilities-reference-panel" delay={index * 100}><div className="capabilities-reference-content"><p className="capabilities-reference-number">{String(index + 1).padStart(3, "0")} / capability</p><h3>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}</h3><div className="capabilities-reference-list"><span>+ Understand</span><span>+ Design</span><span>+ Deliver</span></div><p className="capabilities-reference-description">{item.body}</p><ul><li><Link to={item.link?.href ?? "/contact/"}>Explore</Link></li><li><Link to="/contact/">Discuss a requirement</Link></li></ul></div><div className="image-composition capability-composition"><div className="capabilities-reference-thumb"><img src={image} alt="" width="900" height="1100" loading="lazy" /></div><img className="accent-image" src={fallbackImages[(index + 1) % fallbackImages.length]} alt="" width="240" height="240" loading="lazy" /></div></Reveal> })}</div></div>
 			</section>
 		</div>
 	);
@@ -676,7 +669,7 @@ function CapabilityDetailPage({ blocks }: { blocks: PageBlock[] }) {
 						{/* Right: numbered step list */}
 						<div className="cap-detail-concept-right">
 							{approach.items.map((item, index) => (
-								<Reveal key={item.title} className="cap-detail-concept-box">
+								<Reveal key={item.title} delay={index * 90} className="cap-detail-concept-box">
 									<span className="cap-detail-step-num">{String(index + 1).padStart(2, "0")}</span>
 									<div>
 										<h3>{item.title}</h3>
@@ -753,7 +746,7 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 		const year = new Date().getFullYear();
 
 		return (
-			<Reveal className={`solutions-card${item.badge ? " solutions-card-soon" : ""}`}>
+			<Reveal delay={(index % 2) * 120} className={`solutions-card${item.badge ? " solutions-card-soon" : ""}`}>
 				<div className="solutions-card-thumb">
 					<img src={image} alt="" width="900" height="620" loading="lazy" />
 					<img src={image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
@@ -841,6 +834,9 @@ export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 	if (blocks[0]?.page_slug === "capabilities") return <CapabilitiesPage blocks={blocks} />;
 	if (blocks[0]?.page_slug?.startsWith("capabilities/")) return <CapabilityDetailPage blocks={blocks} />;
 	if (blocks[0]?.page_slug === "solutions") return <SolutionsPage blocks={blocks} />;
+	if (["solutions/fylonn", "solutions/payx", "solutions/ip-pro"].includes(blocks[0]?.page_slug ?? "")) {
+		return <SolutionDetailPage blocks={blocks} />;
+	}
 
 	/* Government industry page - bespoke layout with hero, IPO proof, services, process */
 	if (blocks[0]?.page_slug === "industries/government") {
@@ -859,6 +855,29 @@ export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 					<Section key={block.id} block={block} />
 				))}
 		</>
+	);
+}
+
+function SolutionDetailPage({ blocks }: { blocks: PageBlock[] }) {
+	const pageSlug = blocks[0]?.page_slug ?? "";
+	const hero = blocks.find((block) => block.block_type === "hero")?.config;
+	const label = hero?.eyebrow ?? pageSlug.split("/").pop()?.replace(/-/g, " ") ?? "Solution";
+
+	return (
+		<div className="solution-detail-page">
+			<PageHero
+				eyebrow={`Solution / ${label}`}
+				title={hero?.title ?? label}
+				accent={hero?.accent}
+				pageLabel={label}
+				metaLines={hero?.body?.slice(0, 1) ?? []}
+			>
+				{hero?.cta && <div className="page-hero-shared-cta"><ActionLink link={hero.cta} /></div>}
+			</PageHero>
+			{blocks.filter((block) => block.block_type !== "hero" && block.visible).map((block) => (
+				<Section key={block.id} block={block} />
+			))}
+		</div>
 	);
 }
 

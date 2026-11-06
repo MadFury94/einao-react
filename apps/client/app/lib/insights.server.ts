@@ -1,4 +1,4 @@
-﻿import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 import type { Page } from '@einao/content';
 export type Insight = {
   id: number; title: string; slug: string; excerpt: string; subtitle: string;
@@ -13,6 +13,12 @@ export type InsightList = { items: Insight[]; total: number; page: number; pageS
 export function insightsApiBase(configured: string | undefined, requestUrl: string) {
   const host = new URL(requestUrl).hostname;
   return (host === 'localhost' || host === '127.0.0.1' ? 'http://localhost:8787' : configured || '').replace(/\/$/, '');
+}
+/** Local previews use the HTTP API even when an unconnected service binding exists. */
+export function insightsApiFetch(requestUrl: string, service?: { fetch: typeof fetch }): typeof fetch {
+  const host = new URL(requestUrl).hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return globalThis.fetch;
+  return service ? service.fetch.bind(service) : globalThis.fetch;
 }
 async function read<T>(base: string, path: string, apiFetch: typeof fetch = globalThis.fetch): Promise<T> {
   if (!base) throw new Response('Insights are temporarily unavailable.', { status: 503 });

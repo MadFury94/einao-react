@@ -1,8 +1,8 @@
-﻿import { Link } from 'react-router';
+import { Link } from 'react-router';
 import { InsightCard } from '~/components/page-blocks';
 import { AnimatedTitle } from '~/components/primitives';
 import { getContentStore } from '~/lib/content.server';
-import { getInsights, insightsApiBase } from '~/lib/insights.server';
+import { getInsights, insightsApiBase, insightsApiFetch } from '~/lib/insights.server';
 import { pageMeta } from '~/lib/metadata';
 import type { Route } from './+types/insights';
 export async function loader({ request, context }: Route.LoaderArgs) {
@@ -11,7 +11,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const search = params.get('search') || '';
   if (!/^[1-9]\d*$/.test(requested) || !Number.isSafeInteger(Number(requested))) throw new Response('Page not found', { status: 404 });
   const env = context.cloudflare.env;
-  const apiFetch = (env as unknown as { CONTENT_API?: { fetch: typeof fetch } }).CONTENT_API?.fetch.bind((env as unknown as { CONTENT_API: { fetch: typeof fetch } }).CONTENT_API) ?? globalThis.fetch;
+  const apiFetch = insightsApiFetch(request.url, env.CONTENT_API);
   const page = await getContentStore(env.CONTENT_API_URL, request.url).getPage('insights');
   let posts = { items: [], total: 0, page: Number(requested), pageSize: 12 } as Awaited<ReturnType<typeof getInsights>>;
   try {

@@ -1,0 +1,191 @@
+//>>>>> Component Button Here <<<<<//
+.theme-btn-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  transition: all 0.4s ease;
+  text-transform: capitalize;
+  border-radius: 10px;
+
+  &.style-2 {
+    background-color: $theme-color;
+    padding: 7px 25px;
+    padding-right: 7px;
+    border-radius: 70px;
+
+    .theme-btn-arrow-left,
+    .theme-btn-arrow-right {
+      width: 43px;
+      height: 43px;
+      background: $white;
+      border-radius: 50%;
+      color: #000;
+
+      img {
+        animation: cir36 10s linear infinite;
+      }
+    }
+
+    .theme-btn {
+      background-color: transparent;
+      padding: 0;
+      margin-right: 25px;
+    }
+
+    &:hover {
+      padding-right: 25px;
+      padding-left: 7px;
+
+      .theme-btn {
+        background-color: transparent;
+      }
+
+      .theme-btn-arrow-left {
+        left: 7px;
+      }
+    }
+  }
+
+
+  .theme-btn-arrow-left,
+  .theme-btn-arrow-right {
+    width: 43px;
+    height: 43px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $theme-color;
+    border-radius: 50%;
+    transition: 0.4s;
+    text-align: center;
+
+    i {
+      font-weight: 400;
+    }
+  }
+
+  .theme-btn-arrow-left {
+    scale: 0;
+    position: absolute;
+    left: 7px;
+  }
+
+  .theme-btn {
+    background: $theme-color;
+    color: $header-color;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 13px 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    transition: 0.4s;
+
+    @include breakpoint(max-sm) {
+      font-size: 14px;
+      padding: 10px 25px;
+    }
+  }
+
+  &:hover {
+    .theme-btn-arrow-left {
+      scale: 1;
+
+      img {
+        animation: cir36 10s linear infinite;
+      }
+    }
+
+    .theme-btn-arrow-right {
+      scale: 0;
+
+      img {
+        animation: cir36 10s linear infinite;
+      }
+    }
+
+    .theme-btn {
+      transform: translateX(60px);
+      background-color: $header-color;
+    }
+  }
+
+  &.bg-white-style {
+    background-color: $white;
+
+     .theme-btn-arrow-left,
+    .theme-btn-arrow-right {
+      background: $theme-color;
+      color: #fff;
+    }
+
+    .theme-btn {
+     color: #101010;
+    }
+  }
+
+  &.bg-black-style {
+    background-color: #101010;
+
+     .theme-btn-arrow-left,
+    .theme-btn-arrow-right {
+      background: $theme-color;
+      color: #fff;
+    }
+
+    .theme-btn {
+     color: #fff;
+    }
+  }
+
+  &.border-style {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+     .theme-btn-arrow-left,
+    .theme-btn-arrow-right {
+      color: $theme-color;
+      background: #fff;
+    }
+
+    .theme-btn {
+     color: #fff;
+    }
+  }
+}
+
+
+
+//>>>>> Component Button End <<<<<//
+
+
+@keyframes slideRight {
+    49% {
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+    50% {
+      opacity: 0;
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+    51% {
+      opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    49% {
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+    }
+    50% {
+      opacity: 0;
+      -webkit-transform: translateY(100%);
+      transform: translateY(100%);
+    }
+    51% {
+      opacity: 1;
+    }
+}

@@ -1,4 +1,4 @@
-﻿import { defaultLeadershipProfile } from "./leadership.ts";
+import { defaultLeadershipProfile } from "./leadership.ts";
 import type {
 	BlockConfig,
 	BlockType,
@@ -148,14 +148,6 @@ export const site: SiteConfig = {
 		},
 	],
 };
-export const closingCta: BlockConfig = {
-	eyebrow: "Let's start a conversation",
-	title: "Have an operation that needs to work better?",
-	body: [
-		"Tell us what is slowing work down, where systems are disconnected, or what your organisation needs to deliver. We will start by understanding the requirement.",
-	],
-	cta: contact(),
-};
 const proof: BlockConfig = {
 	eyebrow: "Selected institutional work",
 	title: "Digital infrastructure must work beyond the launch.",
@@ -220,7 +212,7 @@ export const pages: Page[] = [
 				"hero",
 				{
 					eyebrow: "Technology shaped around your organisation",
-					title: "We build the systems that keep organisations moving.",
+					title: "We build systems that keep organisations moving.",
 					accent: "systems",
 					body: [
 						"Einao helps organisations improve how they operate through technology consulting, business process automation, enterprise solutions, and custom digital development. We turn operational challenges into systems that work.",
@@ -723,6 +715,24 @@ export const pages: Page[] = [
 				{ title: "Who is Fylonn designed for?", body: "Fylonn is intended for government institutions, regulatory bodies, service providers and private businesses that manage structured applications, requests or operational cases." },
 				{ title: "Is Fylonn available for implementation?", body: "Fylonn is being developed progressively. Product readiness and implementation availability should be confirmed with Einao Solutions." },
 				{ title: "Can organisations use individual modules?", body: "The product is being designed around modular adoption. The ability to deploy each module independently will depend on its technical dependencies and the final product architecture." },
+			]),
+		],
+	),
+	page(
+		"solutions/ip-pro",
+		"IP PRO Intellectual Property Management | Einao Solutions",
+		"Explore IP PRO, a structured digital solution for intellectual property application and records management.",
+		[
+			hero(
+				"IP PRO",
+				"Manage intellectual property work with greater clarity.",
+				[
+					"IP PRO is designed to support structured intellectual property applications, records, review stages, and institutional visibility from submission through decision.",
+				],
+				contact("Discuss IP PRO", "IP PRO"),
+			),
+			editorial("A clearer path through intellectual property work", [
+				"Bring application intake, records, review stages, and communication into a more visible operating process shaped around the requirements of your institution.",
 			]),
 		],
 	),

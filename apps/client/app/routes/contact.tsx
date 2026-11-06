@@ -2,7 +2,7 @@ import { ArrowIcon } from "../components/ArrowIcon";
 import { data, Form, useActionData, useLoaderData } from "react-router";
 import { getContentStore } from "~/lib/content.server";
 import { pageMeta } from "~/lib/metadata";
-import { Hero } from "~/components/page-blocks";
+import { PageHero } from "~/components/page-blocks";
 import type { Route } from "./+types/contact";
 export async function loader({ request, context }: Route.LoaderArgs) {
 	const env = context.cloudflare.env as unknown as { CONTENT_API_URL?: string };
@@ -15,7 +15,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 		site,
 		enquiry: site.enquiryTypes.includes(requestedType)
 			? requestedType
-			: "Other",
+			: "",
 	};
 }
 function escapeHtml(value: string) {
@@ -68,13 +68,20 @@ export default function Contact() {
 	const errorMessage = result && "error" in result ? result.error : undefined;
 	return (
 		<>
-			<Hero config={{ ...page.blocks[0].config, cta: undefined }} />
+			<PageHero
+				eyebrow="01 / Contact Einao"
+				title={page.blocks[0].config.title ?? "Start with the requirement."}
+				accent={page.blocks[0].config.accent}
+				pageLabel="Contact"
+				metaLines={["Technology, operations, and delivery"]}
+			/>
 			<section className="section contact-section">
 				<div className="container two-col">
 					<div>
 						<p className="eyebrow">Your next step</p>
 						<h2>Start with the requirement.</h2>
 						<p>{site.address}</p>
+						<p><a href="mailto:hello@einaosolutions.com">hello@einaosolutions.com</a></p>
 						<p className="form-notice" role="status">
 							Tell us what is happening and we will use the details to understand the requirement and identify an appropriate next step.
 						</p>
@@ -119,6 +126,7 @@ export default function Contact() {
 							<label>
 								What do you need help with?
 								<select name="enquiry" defaultValue={enquiry} key={enquiry}>
+									<option value="" disabled>Select an area of help</option>
 									{site.enquiryTypes.map((type) => (
 										<option key={type}>{type}</option>
 									))}

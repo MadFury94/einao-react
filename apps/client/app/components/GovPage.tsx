@@ -14,6 +14,7 @@
 import { EditorialImage } from "./EditorialImage";
 import { ProcessCard } from "./ProcessCard";
 import { ActionLink, Reveal } from "./primitives";
+import { PageHero } from "./page-blocks";
 import type { BlockConfig } from "@einao/content";
 
 /*  Types  */
@@ -104,11 +105,10 @@ function IpoProofBlock({ config }: { config: BlockConfig }) {
                         <div className="gov-browser-chrome">
                             {/* decorative traffic-light dots */}
                             <span /><span /><span />
-                            <div className="gov-browser-url">iponigeria.gov.ng</div>
                         </div>
                         <div className="gov-browser-screen">
                             <img
-                                src="/assets/images/ipo-nigeria.webp"
+                                src="/assets/images/Graphite monitor with enterprise dashboard.png"
                                 alt=""
                                 /* alt="" because the frame is decorative; the real info is
                                    in the surrounding copy and heading */
@@ -280,27 +280,15 @@ export function GovPage({ hero: heroConfig, proof }: GovPageProps) {
 			    component - we output the heading directly using the page title.
 			    The hero section uses the shared .page-hero dark background.
 			 */}
-            <section className="hero page-hero gov-hero">
-                <div className="container gov-hero-inner">
-                    {/* Left column */}
-                    <div className="gov-hero-text">
-                        <p className="eyebrow">{heroConfig.eyebrow}</p>
-                        <h1 className="gov-hero-title">{heroConfig.title}</h1>
-                        {/* Copy limited to ~65ch per line via CSS - see gov-hero-copy class */}
-                        {heroConfig.body?.map((p) => (
-                            <p key={p} className="gov-hero-copy">{p}</p>
-                        ))}
-                        {heroConfig.cta && (
-                            <div className="actions">
-                                <ActionLink link={heroConfig.cta} />
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Right column - stat panel fills the empty space in the hero */}
-                    <StatPanel />
-                </div>
-            </section>
+            <PageHero
+                eyebrow={heroConfig.eyebrow ?? "01 / Government & public institutions"}
+                title={heroConfig.title ?? "Technology for public institutions"}
+                accent={heroConfig.accent}
+                pageLabel="Government"
+                metaLines={heroConfig.body?.slice(0, 2) ?? []}
+            >
+                {heroConfig.cta && <div className="page-hero-shared-cta"><ActionLink link={heroConfig.cta} /></div>}
+            </PageHero>
 
             {/*  02 IPO Proof - light background  */}
             <IpoProofBlock config={proof} />

@@ -5,6 +5,8 @@ import { pages, site } from "./seed.ts";
 
 test("public reads omit drafts and hidden blocks and preserve section order", async () => {
 	const source = structuredClone(pages);
+	// This test owns its draft fixture; the live privacy notice is published.
+	source.find((page) => page.slug === "privacy-notice")!.status = "draft";
 	source[0].blocks[1].visible = false;
 	source[0].blocks.reverse();
 	const store = createContentStore(source);

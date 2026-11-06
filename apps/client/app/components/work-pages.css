@@ -3,14 +3,14 @@
 .work-reference a { text-decoration: none; }
 .work-container { width: calc(100% - 48px); max-width: 1320px; margin-inline: auto; }
 .work-container-wide { width: calc(100% - 24px); max-width: 1680px; margin-inline: auto; }
-.work-breadcrumb { position: relative; overflow: hidden; background: url('/assets/images/work-breadcrumb-lines.png') center / cover no-repeat; }
-.work-breadcrumb::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: url('/assets/images/work-breadcrumb-light.png') center / contain no-repeat; filter: hue-rotate(210deg); }
+.work-breadcrumb { position: relative; overflow: hidden; background: var(--surface) url('/assets/images/work-breadcrumb-lines.png') center / cover no-repeat; color: var(--ink); }
+.work-breadcrumb::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: url('/assets/images/work-breadcrumb-light.png') center / contain no-repeat; filter: hue-rotate(210deg); opacity: .22; }
 .work-breadcrumb .work-container { position: relative; padding-top: 180px; padding-bottom: 50px; }
-.work-breadcrumb h1 { font-size: 110px; line-height: 1.16; margin: 0; max-width: none; overflow-wrap: break-word; }
+.work-breadcrumb h1 { font-size: clamp(2.25rem, 4vw, 3.5rem); line-height: 1.12; margin: 0; max-width: 60rem; overflow-wrap: break-word; }
 .work-breadcrumb h1 em { font-family: 'Instrument Serif',serif; font-weight: 400; }
 .work-breadcrumb-bottom { display: flex; align-items: end; justify-content: space-between; margin-top: 20px; gap: 32px; }
-.work-breadcrumb-bottom>div { display: flex; gap: 60px; margin-bottom: 30px; color: #fff; font-size: 24px; font-weight: 600; }
-.work-breadcrumb-bottom h2 { flex-shrink: 0; font: italic 400 160px/1.1 'Instrument Serif',serif; margin: 0; }
+.work-breadcrumb-bottom>div { display: flex; gap: 60px; margin-bottom: 30px; color: var(--ink); font-size: 16px; font-weight: 600; }
+.work-breadcrumb-bottom h2 { flex-shrink: 0; font: italic 400 clamp(2.5rem, 7vw, 6rem)/1.1 'Instrument Serif',serif; margin: 0; }
 .work-listing { padding-bottom: 120px; }
 .work-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 24px; row-gap: 0; }
 .work-card { width: 100%; max-width: 750px; margin-top: 80px; min-width: 0; }

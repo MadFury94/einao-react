@@ -1,0 +1,297 @@
+.pricing-box-items {
+    background-color: #FBF9EF;
+    border-radius: 8px;
+    padding: 40px 30px;
+    @include transition;
+
+    .pricing-header {
+        margin-bottom: 30px;
+
+        span {
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: capitalize;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #101010;
+        }
+
+        h3 {
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 25px;
+            color: #101010;
+
+            @include breakpoint (max-xxl){
+                font-size: 55px;
+            }
+
+            sub {
+                font-size: 16px;
+                font-weight: 500;
+                color: #3D4857;
+                letter-spacing: initial;
+                margin-left: 0;
+            }
+        }
+
+        p {
+            color: #3D4857;
+            font-size: 16px;
+
+        }
+    }
+
+   .pricing-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 30px;
+    border-radius: 48px;
+    background: #101010;
+    color: $white;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: $heading-font;
+    overflow: hidden;
+    position: relative;
+    @include transition;
+
+    .content-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: relative;
+    }
+
+    .default-content,
+    .hover-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) translateY(0);
+        white-space: nowrap; // ✅ prevent line break
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .default-content {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+    }
+
+    .hover-content {
+        transform: translate(-50%, -50%) translateY(30px);
+        opacity: 0;
+    }
+
+    &:hover {
+        background: $theme-color;
+
+        .default-content {
+            transform: translate(-50%, -50%) translateY(-30px);
+            opacity: 0;
+        }
+
+        .hover-content {
+            transform: translate(-50%, -50%) translateY(0);
+            opacity: 1;
+        }
+    }
+    }
+
+    .pricing-list {
+        margin-top: 30px;
+        padding: 30px;
+        background-color: $white;
+        border-radius: 8px;
+
+        h4 {
+            font-size: 18px;
+            font-weight: 600;
+             color: #101010;
+
+            @include breakpoint (max-xl){
+                letter-spacing: inherit;
+            }
+        }
+
+        ul {
+            margin-top: 20px;
+
+            li {
+                color: #797979;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 162.5%;
+                letter-spacing: -1px;
+                @include flex;
+                gap: 8px;
+
+                i {
+                    font-size: 18px;
+                    color: #797979;
+                }
+
+                &:not(:last-child){
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+
+    &.active {
+        background-color: $theme-color;
+
+        .pricing-header {
+            margin-bottom: 30px;
+
+            span,h3,p,sub {
+               color: $white !important;
+            }
+        }
+
+        .pricing-btn {
+           background-color: $white;
+           color: #101010;
+
+            &:hover {
+                background-color: #101010;
+                color: $header-color;
+            }
+        }
+
+        .pricing-list {
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(20px);
+
+    
+            ul {
+                margin-top: 20px;
+
+                li {
+                    
+
+                    i {
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &:hover {
+        transform: translateY(-10px);
+    }
+}
+
+.pricing-wrap {
+    margin-left: -45px;
+
+    @include breakpoint (max-xl){
+        margin-left: 0;
+    }
+}
+
+.pricing-content-one {
+    @include breakpoint (max-xl){
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+     .pricing-toggle-wrapper {
+        display: inline-flex;
+        align-items: center;
+        height: 60px;
+        line-height: 60px;
+        background: #000000;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 70px;
+        padding: 7px;
+        border-radius: 70px;
+        margin-top: 50px;
+
+        @include breakpoint (max-xl){
+          margin-top: 20px;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0;
+            right: 0; bottom: 0;
+            background-color: #ddd;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+        }
+
+        input:checked + .slider {
+        background-color: $theme-color;
+        }
+
+        input:checked + .slider:before {
+        transform: translateX(26px);
+        }
+
+        .toggle-label {
+            padding: 0;
+            height: 47px;
+            line-height: 47px;
+            padding: 0 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: $white;
+            border-radius: 66.667px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .toggle-label.active {
+            background: $theme-color;
+        }
+    }
+
+    .price {
+        transition: opacity .3s ease;
+    }
+    .price.fade-out {
+        opacity: 0;
+    }
+    .price.fade-in {
+        opacity: 1;
+    }
+
+    .pricing-shape {
+        margin-top: 40px;
+        animation: rounded 5s linear infinite;
+
+        @include breakpoint (max-xl){
+           display: none;
+        }
+    }
+}
+
+.sec-line-shape {
+    img {
+        width: 100%;
+    }
+}

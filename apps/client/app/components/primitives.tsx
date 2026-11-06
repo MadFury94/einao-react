@@ -32,9 +32,15 @@ export function ActionLink({
 export function Reveal({
 	children,
 	className = "",
+	delay = 0,
+	direction = "up",
 }: {
 	children: React.ReactNode;
 	className?: string;
+	/** Stagger delay in milliseconds */
+	delay?: number;
+	/** Animation direction: "up" | "left" | "right" | "zoom" */
+	direction?: "up" | "left" | "right" | "zoom";
 }) {
 	const ref = useRef<HTMLDivElement>(null);
 	useEffect(() => {
@@ -43,23 +49,22 @@ export function Reveal({
 		if (!el || preference.matches || !("IntersectionObserver" in window))
 			return;
 		let animation: Animation | undefined;
+
+		const fromTransform =
+			direction === "left" ? "translateX(-50px)"
+				: direction === "right" ? "translateX(50px)"
+					: direction === "zoom" ? "scale(0.85)"
+						: "translateY(40px)";
+
 		const observer = new IntersectionObserver(
 			(entries) => {
 				if (entries.some((entry) => entry.isIntersecting)) {
 					animation = el.animate(
 						[
-							{
-								opacity: 0,
-								transform: "translateY(40px)",
-								filter: "blur(4px)",
-							},
-							{
-								opacity: 1,
-								transform: "translateY(0)",
-								filter: "blur(0)",
-							},
+							{ opacity: 0, transform: fromTransform, filter: "blur(4px)" },
+							{ opacity: 1, transform: direction === "zoom" ? "scale(1)" : "translate(0)", filter: "blur(0)" },
 						],
-						{ duration: 900, easing: "cubic-bezier(.22,1,.36,1)" },
+						{ duration: 800, delay, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" },
 					);
 					observer.disconnect();
 				}
@@ -79,7 +84,7 @@ export function Reveal({
 			animation?.cancel();
 			preference.removeEventListener("change", stop);
 		};
-	}, []);
+	}, [delay, direction]);
 	return (
 		<div ref={ref} className={className}>
 			{children}
@@ -186,6 +191,6 @@ export function Typewriter({ phrases, className = "" }: { phrases: string[]; cla
 		return () => window.clearTimeout(timer);
 	}, [phraseIndex, phrases, text, paused]);
 
-	return <span className={`typewriter ${className}`} aria-label={phrases[phraseIndex] ?? text}><span aria-hidden="true">{text}</span><span className="typewriter-cursor" aria-hidden="true">|</span></span>;
+	return <span className={`typewriter ${className}`}>{text}<span className="typewriter-cursor" aria-hidden="true">|</span></span>;
 }
 

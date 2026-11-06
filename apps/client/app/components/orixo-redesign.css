@@ -1,0 +1,116 @@
+/* Shared Orixo composition and motion rules, after the existing page styles. */
+:root {
+	--paper: #fff;
+	--ink: #0c1710;
+	--section-bg-light: #f5f5f5;
+	--section-bg-dark: #101010;
+	font-size: 16px;
+	line-height: 1.56;
+}
+.animated-counter { font-variant-numeric: tabular-nums; }
+.image-composition { position: relative; min-width: 0; margin: 0 20px 20px 0; }
+.image-composition > .accent-image {
+	position: absolute; bottom: -20px; right: -20px;
+	width: 34%; height: auto; aspect-ratio: 1; object-fit: cover;
+	border: 8px solid var(--paper); border-radius: 12px;
+	box-shadow: 0 12px 40px #0c171024;
+}
+.capability-composition { align-self: stretch; }
+.capability-composition .capabilities-reference-thumb { height: 100%; min-height: 260px; }
+.capability-composition .capabilities-reference-thumb img:first-child { position: static; transform: none; opacity: 1; }
+.capabilities-reference-panel:hover .capability-composition .capabilities-reference-thumb img { transform: scale(1.06); }
+.about-page-proof-image img { transition: transform .65s var(--ease); }
+.about-page-proof-image:hover img { transform: scale(1.06); }
+.operational-image, .operational-small-image, .project-showcase-image,
+.cap-detail-visual-img, .cap-detail-concept-thumb, .editorial-image { overflow: hidden; }
+:is(.operational-image, .operational-small-image, .project-showcase-image, .cap-detail-visual-img, .cap-detail-concept-thumb, .editorial-image) img {
+	transition: transform .65s var(--ease);
+}
+:is(.operational-image, .operational-small-image, .project-showcase-image, .cap-detail-visual-img, .cap-detail-concept-thumb, .editorial-image):hover img { transform: scale(1.06); }
+:is(.index3-service-card, .index3-product-card, .insight-news-card, .solutions-card, .capabilities-reference-panel, .process-card, .proof-panel, .items-cards > .item) {
+	transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+:is(.index3-service-card, .index3-product-card, .insight-news-card, .solutions-card, .capabilities-reference-panel, .process-card, .proof-panel, .items-cards > .item):is(:hover, :focus-within) {
+	transform: translateY(-8px); box-shadow: 0 18px 38px #0c171014;
+}
+.index3-service-card, .capabilities-reference-panel { position: relative; }
+.index3-service-card::after, .capabilities-reference-panel::after {
+	content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+	background: var(--lime); transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease);
+}
+:is(.index3-service-card, .capabilities-reference-panel):is(:hover, :focus-within)::after { transform: scaleX(1); }
+.index3-services, .index3-products, .about-page-process { background: var(--section-bg-light); }
+.index3-process { background: var(--section-bg-dark); color: white; }
+.index3-process :is(h2, h3, p) { color: inherit; }
+.index3-process .eyebrow { color: var(--lime); }
+.index3-process-track::before { background: #ffffff40; }
+.index3-process-icon { color: var(--ink); background: var(--lime); }
+.index3-industry-list a { padding: 1.6rem 1rem; border: 1px solid var(--border); transition: background .35s, padding .35s; }
+.index3-industry-list a:is(:hover, :focus-visible) { background: var(--lime); padding-inline: 1.6rem; }
+.eyebrow::before { width: 12px; height: 12px; border-radius: 0; background: currentColor; clip-path: polygon(50% 0, 62% 37%, 100% 50%, 62% 63%, 50% 100%, 38% 63%, 0 50%, 38% 37%); }
+.operational-eyebrow { width: fit-content; padding: .5rem .9rem; border: 1px solid var(--border); border-radius: 30px; }
+.hero-decoration { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.hero-decoration::before {
+	content: ""; position: absolute; width: min(65vw, 800px); aspect-ratio: 1;
+	right: -15%; top: 8%; border: 1px solid #ffffff26; border-radius: 46%;
+	box-shadow: 0 0 0 50px #ffffff08, 0 0 0 100px #ffffff05;
+	animation: orixo-orbit 40s linear infinite;
+}
+.index3-hero-inner { position: relative; z-index: 2; }
+.hero-info-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid #ffffff40; color: #fff; }
+.hero-info-strip .index3-hero-orbit > span { display: inline-block; animation: orixo-orbit 14s linear infinite; }
+.index3-hero-pills a { transition: background .3s, color .3s; }
+.index3-hero-pills a:is(:hover, :focus-visible) { background: var(--lime); color: var(--ink); }
+.orixo-marquee { overflow: hidden; background: var(--lime); color: var(--ink); padding-block: 1.4rem; }
+.orixo-marquee-track { display: flex; width: max-content; animation: index3-marquee 50s linear infinite; }
+.orixo-marquee-group { display: flex; flex: 0 0 auto; align-items: center; }
+.orixo-marquee-group span { display: flex; align-items: center; gap: 2.5rem; padding-right: 2.5rem; font-size: clamp(1.75rem, 2vw, 2rem); font-weight: 700; white-space: nowrap; }
+.orixo-marquee-group b { font-size: 1.4rem; }
+.orixo-marquee:hover .orixo-marquee-track { animation-play-state: paused; }
+.route-transition { animation: orixo-page-in .45s var(--ease) both; }
+.navigation-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; pointer-events: none; }
+.navigation-progress .progress-bar { background: var(--lime); height: 4px; }
+.site-header.is-scrolled { background: #ffffffeb; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 4px 24px #0c171010; }
+@keyframes orixo-orbit { to { transform: rotate(360deg); } }
+@keyframes orixo-page-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) {
+	.primary-nav { display: flex; visibility: hidden; opacity: 0; transform: translateY(-12px); pointer-events: none; transition: opacity .25s, transform .25s, visibility .25s; }
+	.primary-nav.is-open { visibility: visible; opacity: 1; transform: none; pointer-events: auto; }
+}
+@media (max-width: 767px) {
+	.image-composition { margin-right: 12px; }
+	.image-composition > .accent-image { right: -12px; border-width: 5px; }
+	.hero-info-strip { font-size: .85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.route-transition, .hero-decoration::before, .hero-info-strip .index3-hero-orbit > span, .orixo-marquee-track { animation: none; }
+	.orixo-marquee-track { width: 100%; }
+	.orixo-marquee-group { flex-wrap: wrap; gap: 1rem; }
+	.orixo-marquee-group:nth-child(2) { display: none; }
+	.orixo-marquee-group span { white-space: normal; font-size: 1.4rem; }
+	.orixo-marquee-group span:nth-child(n+5) { display: none; }
+	*, *::before, *::after { transition-duration: .01ms !important; }
+}
+
+.index3-hero-pills { display: flex; flex-wrap: wrap; flex-direction: row; gap: .75rem; justify-content: flex-start; list-style: none; padding: 0; }
+.index3-hero-pills a { text-decoration: none; display: inline-flex; padding: .55rem .9rem; }
+.operational-left .operational-image { aspect-ratio: 4 / 5; }
+.operational-card .stat-accent-image { width: 100px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.operational-stat strong .animated-counter, .operational-stat strong .animated-counter > span { font: inherit; color: inherit; }
+
+/* Keep shared image and counter treatments independent of legacy label rules. */
+.capability-composition .capabilities-reference-thumb img:first-child { filter: none; border-radius: 12px; }
+.about-page-counters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.about-page-counter-box { padding: 1.2rem; border-color: var(--border); }
+.about-page-counter-box strong { color: var(--ink); font-size: clamp(2.2rem, 3.5vw, 3.5rem); }
+.about-page-counter-box strong .animated-counter,
+.about-page-counter-box strong .animated-counter > span { font: inherit; color: inherit; letter-spacing: inherit; margin: 0; }
+.about-page-counter-small-img { min-width: 0; }
+.about-page-counter-small-img img { aspect-ratio: 1; }
+.about-page-counter-small-img:hover img { transform: scale(1.06); }
+.index3-process .index3-section-head p { color: #e1e6df; }
+.operational-section .operational-approach { color: var(--forest); }
+@media (max-width: 600px) {
+ .about-page-counters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .about-page-counter-small-img { grid-column: 1 / -1; max-height: 180px; }
+}

@@ -1,7 +1,7 @@
 import { pageMeta } from './metadata.ts';
 ﻿import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
-import { articlePage, cleanArticleHtml, getInsight, getInsights, insightsApiBase, insightSitemapPages, type Article } from './insights.server.ts';
+import { articlePage, cleanArticleHtml, getInsight, getInsights, insightsApiBase, insightsApiFetch, insightSitemapPages, type Article } from './insights.server.ts';
 const originalFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = originalFetch; });
 const post: Article = { id: 1, title: 'Published insight', slug: 'published-insight', excerpt: 'Summary', subtitle: 'Subtitle', featured_image_url: '/image.webp', status: 'published', post_type: 'blog', published_at: '2020-01-01 12:00:00', updated_at: '2020-01-02', reading_minutes: 2, author: { name: 'Einao' }, categories: [{ id: 1, name: 'Technology', slug: 'technology' }], tags: [{ id: 1, name: 'Automation' }], content_html: '<p>Hello <strong>world</strong></p>', seo_title: 'Search title', seo_description: 'Search description', seo_canonical_url: '', seo_og_image_url: '' };
@@ -81,4 +81,35 @@ test('missing editorial data does not invent dates or a personal author', () => 
  const regular = pageMeta({ ...page, slug: 'about' }).find(tag => 'script:ld+json' in tag)?.['script:ld+json'];
  assert.equal(regular?.['@type'], 'WebPage');
  assert.equal(regular?.author, undefined);
+});
+
+test('local homepage fetch bypasses an unavailable service binding and requests three posts', async () => {
+  let httpCalls = 0;
+  globalThis.fetch = async input => {
+    httpCalls++;
+    const url = new URL(String(input));
+    assert.equal(url.hostname, 'localhost');
+    assert.equal(url.searchParams.get('pageSize'), '3');
+    return Response.json({ items: [post], total: 1, page: 1, pageSize: 3 });
+  };
+  const service = { fetch: (async () => { throw new Error('Unconnected local binding'); }) as typeof fetch };
+  for (const host of ['localhost', '127.0.0.1']) {
+    const requestUrl = `http://${host}:4173/`;
+    const result = await getInsights(insightsApiBase('https://api.test', requestUrl), 1, 3, '', insightsApiFetch(requestUrl, service));
+    assert.deepEqual(result.items, [post]);
+  }
+  assert.equal(httpCalls, 2);
+});
+
+test('production fetch preserves the service binding receiver and supports HTTP without a binding', async () => {
+  globalThis.fetch = async () => { throw new Error('Unexpected HTTP fetch'); };
+  const service = {
+    fetch: async function (this: { fetch: typeof fetch }) {
+      assert.equal(this, service);
+      return Response.json({ items: [post], total: 1, page: 1, pageSize: 3 });
+    } as typeof fetch,
+  };
+  const result = await getInsights('https://api.test', 1, 3, '', insightsApiFetch('https://site.test', service));
+  assert.deepEqual(result.items, [post]);
+  assert.equal(insightsApiFetch('https://site.test'), globalThis.fetch);
 });

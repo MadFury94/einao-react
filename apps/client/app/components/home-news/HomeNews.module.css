@@ -1,0 +1,329 @@
+.section {
+    padding: 120px 0;
+    background: #101010;
+    color: #fff;
+    overflow: hidden;
+}
+
+.container {
+    width: calc(100% - clamp(1.5rem, 5vw, 4rem) * 2);
+    max-width: 1320px;
+    margin-inline: auto;
+}
+
+/* Header row: heading left, copy+link right */
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 60px;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 28px;
+    color: #fff;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #fff;
+    max-width: none;
+    text-wrap: initial;
+}
+
+.serif {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.headerRight {
+    padding-bottom: 4px;
+}
+
+.headerRight p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #999;
+    margin: 0 0 20px;
+    max-width: 340px;
+}
+
+/* Explore link with hover slide */
+.exploreLink {
+    display: inline-flex;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.exploreLinkText {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    height: 1.4em;
+    overflow: hidden;
+    gap: 0;
+}
+
+.exploreLinkText>span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.exploreLinkText>span:last-child {
+    position: absolute;
+    top: 100%;
+    color: var(--lime);
+}
+
+.exploreLink:hover .exploreLinkText>span {
+    transform: translateY(-100%);
+}
+
+/* Main grid: featured left (6/12) + side stack right (6/12) */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Featured large card */
+.featuredCard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.featuredImage {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 701 / 364;
+    background: #272727;
+}
+
+.featuredImage img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease, opacity 500ms ease, filter 500ms ease;
+}
+
+.featuredImage img:first-child {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transform: translateX(50%) scaleX(2);
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.featuredCard:is(:hover, :focus-within) .featuredImage img:first-child {
+    transform: translateX(0) scaleX(1);
+    opacity: 1;
+    filter: blur(0);
+}
+
+.featuredCard:is(:hover, :focus-within) .featuredImage img:nth-child(2) {
+    transform: translateX(-50%) scaleX(2);
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.featuredContent {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.categoryPill {
+    display: inline-block;
+    background: var(--lime);
+    color: #101010;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.categoryPill:hover {
+    background: #fff;
+    color: #101010;
+}
+
+.date {
+    font-size: 13px;
+    color: #777;
+}
+
+.featuredTitle {
+    margin: 0;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.featuredTitle a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.featuredTitle a:hover {
+    color: var(--lime);
+}
+
+.readMore {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s, gap 0.3s;
+}
+
+.readMore:hover {
+    color: var(--lime);
+    gap: 10px;
+}
+
+/* Side list */
+.sideList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sideCard {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.sideImage {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    aspect-ratio: 293 / 251;
+    background: #272727;
+    flex-shrink: 0;
+}
+
+.sideImage img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease, opacity 500ms ease, filter 500ms ease;
+}
+
+.sideImage img:first-child {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transform: translateX(50%) scaleX(2);
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.sideCard:is(:hover, :focus-within) .sideImage img:first-child {
+    transform: translateX(0) scaleX(1);
+    opacity: 1;
+    filter: blur(0);
+}
+
+.sideCard:is(:hover, :focus-within) .sideImage img:nth-child(2) {
+    transform: translateX(-50%) scaleX(2);
+    opacity: 0;
+    filter: blur(10px);
+}
+
+.sideContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sideTitle {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.sideTitle a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sideTitle a:hover {
+    color: var(--lime);
+}
+
+.imgPlaceholder {
+    width: 100%;
+    height: 100%;
+    background: #1a2a20;
+}
+
+@media (max-width: 991px) {
+    .header {
+        grid-template-columns: 1fr;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .sideCard {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .featuredImage img,
+    .sideImage img,
+    .readMore,
+    .categoryPill,
+    .exploreLink {
+        transition: none;
+    }
+}

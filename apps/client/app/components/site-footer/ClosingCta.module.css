@@ -1,0 +1,32 @@
+﻿.section { padding:120px 0 60px; background:#fff; color:#000; overflow:clip; text-align:center; }
+.container { width:100%; margin-inline:auto; padding-inline:12px; }
+.eyebrow { display:inline-flex; align-items:center; gap:10px; margin:0 0 12px; color:#000; font-family:"Instrument Serif",Georgia,serif; font-size:20px; font-style:italic; font-weight:400; line-height:28px; }
+.eyebrow svg { flex-shrink:0; }
+.eyebrow span span { display:inline-block; }
+.section .title { margin:0; max-width:none; color:#000; font-size:150px; font-weight:700; line-height:1.17; letter-spacing:-3.41px; text-transform:uppercase; text-wrap:initial; perspective:1000px; }
+.serif { font-family:"Instrument Serif",Georgia,serif; font-style:italic; font-weight:400; }
+.word { display:inline-block; white-space:nowrap; perspective:1000px; transform-style:preserve-3d; }
+.word > span { display:inline-block; }
+.inlineImage { position:relative; top:-15px; left:15px; display:inline-block; vertical-align:baseline; }
+.inlineImage img { display:inline-block; width:199px; height:106px; max-width:none; object-fit:cover; border-radius:10px; vertical-align:middle; }
+.buttonWrap { margin-top:24px; }
+.button { position:relative; display:inline-flex; align-items:center; padding:7px 7px 7px 25px; border-radius:70px; color:#000; background:rgba(0,0,0,.1); text-decoration:none; transition:padding .4s ease; }
+.buttonLabel { display:inline-block; font-size:18px; font-weight:600; line-height:28px; margin-right:25px; transition:transform .4s; white-space:nowrap; }
+.arrowLeft,.arrowRight { display:inline-grid; place-items:center; width:43px; height:43px; flex-shrink:0; border-radius:50%; background:var(--lime); color:#fff; transition:scale .4s; }
+.arrowLeft { position:absolute; left:7px; scale:0; }
+.button:is(:hover,:focus-visible) { padding-left:7px; padding-right:25px; }
+.button:is(:hover,:focus-visible) .buttonLabel { transform:translateX(60px); }
+.button:is(:hover,:focus-visible) .arrowLeft { scale:1; }
+.button:is(:hover,:focus-visible) .arrowRight { scale:0; }
+.button:focus-visible { outline:2px solid #000; outline-offset:5px; }
+@media (min-width:576px) { .container { max-width:540px; } }
+@media (min-width:768px) { .container { max-width:720px; } }
+@media (min-width:992px) { .container { max-width:960px; } }
+@media (min-width:1200px) { .container { max-width:1140px; } }
+@media (min-width:1400px) { .container { max-width:1410px; } }
+@media (max-width:1399px) { .section .title { font-size:115px; } }
+@media (max-width:1199px) { .section { padding-top:100px; } }
+@media (max-width:991px) { .section { padding-top:80px; } .section .title { font-size:100px; letter-spacing:normal; } .inlineImage { display:none; } }
+@media (max-width:767px) { .section .title { font-size:77px; } }
+@media (max-width:575px) { .section .title { font-size:60px; } .buttonLabel { font-size:14px; } }
+@media (prefers-reduced-motion:reduce) { .button,.buttonLabel,.arrowLeft,.arrowRight { transition:none; } }

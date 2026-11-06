@@ -1,11 +1,11 @@
-﻿import { Link } from 'react-router';
+import { Link } from 'react-router';
 import { AnimatedTitle } from '~/components/primitives';
-import { articlePage, getInsight, getInsights, insightsApiBase } from '~/lib/insights.server';
+import { articlePage, getInsight, getInsights, insightsApiBase, insightsApiFetch } from '~/lib/insights.server';
 import { pageMeta } from '~/lib/metadata';
 import type { Route } from './+types/insight';
 export async function loader({ request, context, params }: Route.LoaderArgs) {
   const env = context.cloudflare.env;
-  const apiFetch = (env as unknown as { CONTENT_API?: { fetch: typeof fetch } }).CONTENT_API?.fetch.bind((env as unknown as { CONTENT_API: { fetch: typeof fetch } }).CONTENT_API) ?? globalThis.fetch;
+  const apiFetch = insightsApiFetch(request.url, env.CONTENT_API);
   const base = insightsApiBase(env.CONTENT_API_URL, request.url);
   const [post, listing] = await Promise.all([getInsight(base, params.slug, apiFetch), getInsights(base, 1, 100, '', apiFetch)]);
   const index = listing.items.findIndex((item) => item.slug === post.slug);

@@ -9,6 +9,7 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import "./app.css";
+import "./components/orixo-redesign.css";
 
 export const links: Route.LinksFunction = () => [
 	{

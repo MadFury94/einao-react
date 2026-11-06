@@ -14,28 +14,30 @@
 	font-display: swap;
 }
 
-/* Einao tokens retained from the existing design. Orixo index-3 supplies composition and motion references. */
+/* Einao tokens — Orixo-inspired light/white design direction */
 :root {
 	--ink: #0c1710;
-	--paper: #f6f8f5;
+	--paper: #ffffff;
 	--white: #fff;
-	--muted: #b8c2bc;
+	--muted: #6b7c6e;
 	--muted-dark: #4d5b50;
 	--lime: #95c11f;
 	--forest: #346934;
-	--surface: #12211a;
-	--border: rgba(12, 23, 16, 0.16);
+	--surface: #f5f7f4;
+	--surface-dark: #101010;
+	--border: rgba(12, 23, 16, 0.12);
 	--dark-border: rgba(255, 255, 255, 0.14);
 	--wide: 1320px;
-	--gutter: clamp(1.25rem, 3vw, 2rem);
-	--section: clamp(4rem, 8vw, 8rem);
+	--gutter: clamp(1.5rem, 5vw, 4rem);
+	--section: clamp(4rem, 8vw, 7rem);
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	color: var(--ink);
 	background: var(--paper);
 	font-family: Urbanist, "Segoe UI", sans-serif;
 	font-synthesis: none;
-	font-weight: 450;
-	line-height: 1.6;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.56;
 }
 
 * {
@@ -91,27 +93,27 @@ p {
 h1,
 h2,
 h3 {
-	font-weight: 500;
-	line-height: 1.08;
+	font-weight: 700;
+	line-height: 1.15;
 	text-wrap: balance;
 }
 
 h1 {
-	font-size: clamp(3.1rem, 7.5vw, 7.8rem);
-	letter-spacing: -0.055em;
+	font-size: clamp(2.4rem, 5vw, 4.8rem);
+	letter-spacing: -0.01em;
 	margin-bottom: 0;
 }
 
 h2 {
-	font-size: clamp(2.2rem, 4.5vw, 4.8rem);
-	letter-spacing: -0.045em;
+	font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+	letter-spacing: -0.01em;
 	max-width: 57rem;
-	margin-bottom: 2rem;
+	margin-bottom: 1.5rem;
 }
 
 h3 {
-	font-size: clamp(1.5rem, 2.5vw, 2rem);
-	letter-spacing: -0.025em;
+	font-size: clamp(1.2rem, 2vw, 1.6rem);
+	letter-spacing: -0.01em;
 }
 
 p {
@@ -317,27 +319,108 @@ main:focus {
 	right: 0;
 	z-index: 30;
 	color: var(--paper);
-	background: var(--ink);
-	border-bottom: 1px solid var(--dark-border);
+	background: transparent;
+	border-bottom: 1px solid transparent;
 	transition:
 		background 0.4s var(--ease),
 		border-color 0.4s var(--ease),
 		box-shadow 0.4s var(--ease),
-		padding 0.4s var(--ease);
+		backdrop-filter 0.4s var(--ease);
 }
 
-/* Keep hero-page navigation readable before scrolling. */
+/* Transparent state over hero — no border, no band */
 .site-header.header-transparent {
-	background: var(--ink);
-	border-bottom-color: var(--dark-border);
+	background: transparent;
+	border-bottom-color: transparent;
 }
 
-/* Scrolled state — dark background slides in */
+/* Scrolled state — white with blur (#7) */
 .site-header.is-scrolled {
+	background: rgba(255, 255, 255, 0.92);
+	border-bottom-color: rgba(12, 23, 16, .12);
+	box-shadow: 0 2px 20px rgba(12, 23, 16, .06);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+	color: var(--ink);
+}
+
+/* Nav links: white on transparent hero, ink on scrolled */
+.header-transparent .primary-nav>a,
+.header-transparent .primary-nav summary {
+	color: var(--paper);
+}
+
+.is-scrolled .primary-nav>a,
+.is-scrolled .primary-nav summary {
+	color: var(--ink);
+}
+
+.is-scrolled .primary-nav>a::after {
+	background: var(--lime);
+}
+
+.is-scrolled .primary-nav>a:is(:hover, [aria-current="page"]),
+.is-scrolled .primary-nav summary:hover {
+	color: var(--forest);
+}
+
+/* ── Header CTA button — scoped to .header-contact only ─────────
+   Transparent state over hero: ink bg · white text · lime arrow
+   Scrolled state (white header): same — always high contrast
+──────────────────────────────────────────────────────────────── */
+.header-contact .arrow-button {
 	background: var(--ink);
-	border-bottom-color: var(--dark-border);
-	box-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
-	animation: header-drop 0.4s var(--ease) both;
+	color: #fff;
+	min-height: 46px;
+	padding: 8px 8px 8px 20px;
+	font-size: .85rem;
+	font-weight: 700;
+	border-radius: 100px;
+}
+
+.header-contact .arrow-button .ab-arrow {
+	background: var(--lime);
+	color: var(--ink);
+	width: 32px;
+	height: 32px;
+	flex: 0 0 32px;
+}
+
+.header-contact .arrow-button .ab-label {
+	padding: 0 .9rem;
+}
+
+/* On transparent hero: lime bg to stand out against dark video */
+.header-transparent .header-contact .arrow-button {
+	background: var(--lime);
+	color: var(--ink);
+}
+
+.header-transparent .header-contact .arrow-button .ab-arrow {
+	background: var(--ink);
+	color: var(--lime);
+}
+
+/* On scrolled white header: ink stays, looks crisp on white */
+.is-scrolled .header-contact .arrow-button {
+	background: var(--ink);
+	color: #fff;
+}
+
+.is-scrolled .header-contact .arrow-button .ab-arrow {
+	background: var(--lime);
+	color: var(--ink);
+}
+
+/* Sidebar toggle: visible on both states */
+.header-transparent .sidebar-toggle {
+	border-color: rgba(255, 255, 255, .4);
+	color: var(--paper);
+}
+
+.is-scrolled .sidebar-toggle {
+	border-color: var(--border);
+	color: var(--ink);
 }
 
 .header-inner {
@@ -360,9 +443,10 @@ main:focus {
 
 .brand img {
 	object-fit: contain;
-	width: 160px;
+	width: 192px;
 	height: auto;
-	max-height: 54px;
+	max-height: 65px;
+	padding-block: 6px;
 }
 
 .primary-nav {
@@ -492,9 +576,9 @@ main:focus {
 	align-items: center;
 	justify-content: center;
 	background: transparent;
-	border: 1px solid var(--dark-border);
+	border: 1px solid var(--border);
 	border-radius: 40px;
-	color: var(--paper);
+	color: var(--ink);
 	width: 52px;
 	height: 44px;
 	cursor: pointer;
@@ -747,8 +831,8 @@ main:focus {
    • Bottom strip: metadata left + large italic page label right
 ──────────────────────────────────────────────────────────────────────── */
 .page-hero-shared {
-	background: var(--ink);
-	color: var(--paper);
+	background: var(--surface);
+	color: var(--ink);
 	position: relative;
 	overflow: hidden;
 }
@@ -783,11 +867,11 @@ main:focus {
 }
 
 .page-hero-shared h1 {
-	font-size: 110px;
+	font-size: clamp(2.25rem, 4vw, 3.5rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	margin: 0;
-	max-width: none;
+	max-width: 60rem;
 	overflow-wrap: break-word;
 }
 
@@ -814,10 +898,10 @@ main:focus {
 /* Large italic serif page label right — mirrors .work-breadcrumb-bottom h2 */
 .page-hero-shared-label {
 	flex-shrink: 0;
-	font: italic 400 160px/1.1 "Instrument Serif", Georgia, serif;
+	font: italic 400 clamp(2.5rem, 7vw, 6rem)/1.1 "Instrument Serif", Georgia, serif;
 	margin: 0;
 	color: var(--paper);
-	letter-spacing: -.02em;
+	letter-spacing: -0.01em;
 	user-select: none;
 }
 
@@ -827,11 +911,11 @@ main:focus {
 
 @media (max-width: 1399px) {
 	.page-hero-shared h1 {
-		font-size: 80px;
+		font-size: clamp(2.25rem, 4vw, 3.5rem);
 	}
 
 	.page-hero-shared-label {
-		font-size: 150px;
+		font-size: clamp(2.5rem, 7vw, 6rem);
 	}
 }
 
@@ -857,37 +941,37 @@ main:focus {
 
 @media (max-width: 991px) {
 	.page-hero-shared h1 {
-		font-size: 70px;
+		font-size: clamp(2.1rem, 6vw, 3rem);
 	}
 }
 
 @media (max-width: 767px) {
 	.page-hero-shared h1 {
-		font-size: 55px;
+		font-size: clamp(2rem, 8vw, 2.75rem);
 	}
 
 	.page-hero-shared-label {
-		font-size: 100px;
+		font-size: clamp(2.5rem, 14vw, 4.5rem);
 	}
 }
 
 @media (max-width: 575px) {
 	.page-hero-shared h1 {
-		font-size: 50px;
+		font-size: clamp(1.9rem, 9vw, 2.5rem);
 	}
 
 	.page-hero-shared-label {
-		font-size: 70px;
+		font-size: clamp(2.25rem, 15vw, 3.75rem);
 	}
 }
 
 @media (max-width: 374px) {
 	.page-hero-shared h1 {
-		font-size: 40px;
+		font-size: 1.9rem;
 	}
 
 	.page-hero-shared-label {
-		font-size: 60px;
+		font-size: 3rem;
 	}
 }
 
@@ -1017,8 +1101,8 @@ main:focus {
 }
 
 .proof {
-	background: var(--ink);
-	color: var(--paper);
+	background: var(--surface);
+	color: var(--ink);
 }
 
 .proof .eyebrow:before {
@@ -1094,7 +1178,7 @@ main:focus {
 
 .items-solutions .item:nth-child(even) {
 	background: var(--surface);
-	color: var(--paper);
+	color: var(--ink);
 }
 
 .items-solutions .item:nth-child(even) h3 {
@@ -1122,8 +1206,8 @@ main:focus {
 	padding: 1.5rem;
 	border-radius: 1rem;
 	overflow: hidden;
-	background: var(--surface);
-	color: var(--white);
+	background: #fff;
+	color: var(--ink);
 }
 
 .card-image {
@@ -1235,7 +1319,7 @@ main:focus {
 	margin: 0;
 	font-size: clamp(2.4rem, 5vw, 5.8rem);
 	line-height: .96;
-	letter-spacing: -.055em;
+	letter-spacing: -0.01em;
 }
 
 .insights-news-heading>p {
@@ -1311,7 +1395,7 @@ main:focus {
 	color: var(--lime);
 	font-size: clamp(4rem, 7vw, 7rem);
 	font-weight: 700;
-	letter-spacing: -.08em;
+	letter-spacing: -0.01em;
 }
 
 .insight-news-content {
@@ -1346,7 +1430,7 @@ main:focus {
 	margin: 1.15rem 0 .9rem;
 	font-size: clamp(1.45rem, 2.2vw, 2.15rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 }
 
 .insight-news-content>p {
@@ -1576,9 +1660,9 @@ main:focus {
 .about-page-intro h2 {
 	max-width: none;
 	margin: 0 0 2.5rem;
-	font-size: clamp(2.8rem, 5.5vw, 6rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: .94;
-	letter-spacing: -.07em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-copy-columns {
@@ -1648,10 +1732,10 @@ main:focus {
 .about-page-section-heading h2 {
 	max-width: none;
 	margin: 0;
-	color: var(--paper);
-	font-size: clamp(3rem, 6vw, 6.4rem);
+	color: var(--ink);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: .95;
-	letter-spacing: -.065em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-section-heading>p {
@@ -1762,7 +1846,7 @@ main:focus {
 	margin: 0 0 1.25rem;
 	color: var(--paper);
 	font-size: clamp(1.4rem, 1.8vw, 2rem);
-	letter-spacing: -.03em;
+	letter-spacing: -0.01em;
 	line-height: 1.1;
 }
 
@@ -1829,8 +1913,8 @@ main:focus {
 
 .about-page-proof {
 	padding: clamp(5rem, 10vw, 10rem) 0;
-	background: var(--ink);
-	color: var(--paper);
+	background: var(--surface);
+	color: var(--ink);
 }
 
 /* Full-width heading at the top — italic serif accent + regular sans */
@@ -1841,9 +1925,9 @@ main:focus {
 .about-page-proof-heading h2 {
 	max-width: 80rem;
 	margin: .8rem 0 0;
-	font-size: clamp(2.2rem, 5vw, 5.5rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 }
 
 /* Italic serif accent words inside the heading */
@@ -1929,7 +2013,7 @@ main:focus {
 	color: var(--paper);
 	font-size: clamp(2.8rem, 5vw, 4.5rem);
 	line-height: .9;
-	letter-spacing: -.07em;
+	letter-spacing: -0.01em;
 	margin-bottom: .75rem;
 }
 
@@ -1966,9 +2050,9 @@ main:focus {
 .about-page-history-heading h2 {
 	max-width: 65rem;
 	margin: 0;
-	font-size: clamp(3.2rem, 7vw, 8rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: .93;
-	letter-spacing: -.07em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-history-summary {
@@ -1998,7 +2082,7 @@ main:focus {
 	margin: .8rem 0;
 	font-size: clamp(3.5rem, 6vw, 6rem);
 	line-height: .85;
-	letter-spacing: -.08em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-history-founded p {
@@ -2044,7 +2128,7 @@ main:focus {
 	margin: .8rem 0;
 	font-size: clamp(3.5rem, 6vw, 6rem);
 	line-height: .85;
-	letter-spacing: -.08em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-history-facts p {
@@ -2078,7 +2162,7 @@ main:focus {
 .about-page-founder h3 {
 	margin: .7rem 0 .25rem;
 	font-size: clamp(1.3rem, 2vw, 2rem);
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-founder p {
@@ -2131,7 +2215,7 @@ main:focus {
 	color: var(--lime);
 	font-size: clamp(3rem, 8vw, 6rem);
 	font-weight: 700;
-	letter-spacing: -.08em;
+	letter-spacing: -0.01em;
 }
 
 /* Role label — same small-caps treatment as .eyebrow but without the dot */
@@ -2144,7 +2228,7 @@ main:focus {
 .founder-profile-name {
 	margin: 0 0 0.5rem;
 	font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-	letter-spacing: -0.04em;
+	letter-spacing: -0.01em;
 	line-height: 1.1;
 	white-space: nowrap;
 }
@@ -2228,7 +2312,7 @@ main:focus {
 	animation: about-marquee 22s linear infinite;
 	font-size: clamp(2rem, 4vw, 4.5rem);
 	font-weight: 700;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 }
 
 .about-page-marquee b {
@@ -2388,7 +2472,7 @@ main:focus {
 	/* Slightly smaller than home hero — matches about-page heading scale */
 	font-size: clamp(3rem, 6.5vw, 7rem);
 	line-height: .94;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 	max-width: 18ch;
 	margin-bottom: 0;
 }
@@ -2433,7 +2517,7 @@ main:focus {
 	font-size: clamp(2.4rem, 4vw, 3.8rem);
 	font-weight: 400;
 	line-height: .9;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	color: var(--lime);
 }
 
@@ -2471,7 +2555,7 @@ main:focus {
 	max-width: none;
 	font-size: clamp(2.2rem, 3.8vw, 4.2rem);
 	line-height: 1.02;
-	letter-spacing: -.045em;
+	letter-spacing: -0.01em;
 	margin-bottom: 1.75rem;
 }
 
@@ -2490,11 +2574,11 @@ main:focus {
 /* ── IPO card (right column) ─────────────────────────────────────── */
 
 .gov-proof-card {
-	background: var(--surface);
-	border: 1px solid var(--dark-border);
+	background: #fff;
+	border: 1px solid var(--border);
 	border-radius: 1.25rem;
 	overflow: hidden;
-	color: var(--paper);
+	color: var(--ink);
 	padding: clamp(1.5rem, 2.5vw, 2.5rem);
 	display: flex;
 	flex-direction: column;
@@ -2518,7 +2602,7 @@ main:focus {
 	font-size: clamp(2.5rem, 4vw, 4rem);
 	font-weight: 400;
 	line-height: 1.05;
-	letter-spacing: -.03em;
+	letter-spacing: -0.01em;
 	color: var(--lime);
 	margin: 0;
 }
@@ -2682,7 +2766,7 @@ main:focus {
 
 .gov-how {
 	background: var(--surface);
-	color: var(--paper);
+	color: var(--ink);
 }
 
 .gov-how .eyebrow:before {
@@ -2694,7 +2778,7 @@ main:focus {
 }
 
 .gov-how-heading h2 {
-	color: var(--paper);
+	color: var(--ink);
 	margin-bottom: 0;
 	font-size: clamp(2.2rem, 4vw, 4rem);
 }
@@ -2724,22 +2808,22 @@ main:focus {
 	font-size: clamp(3rem, 5vw, 5rem);
 	font-weight: 400;
 	line-height: .9;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 	color: var(--lime);
 	margin: 0 0 1.5rem;
 }
 
 .gov-how-title {
 	font-size: clamp(1.25rem, 1.8vw, 1.6rem);
-	letter-spacing: -.025em;
-	color: var(--paper);
+	letter-spacing: -0.01em;
+	color: var(--ink);
 	margin: 0 0 .75rem;
 }
 
 .gov-how-body {
 	font-size: clamp(.9375rem, 1.1vw, 1rem);
 	line-height: 1.65;
-	color: var(--muted);
+	color: var(--muted-dark);
 	margin: 0;
 }
 
@@ -2902,7 +2986,7 @@ main:focus {
 
 .closing-cta h2 {
 	margin-inline: auto;
-	font-size: clamp(2.6rem, 5vw, 5.3rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 }
 
 .closing-cta>p:not(.eyebrow) {
@@ -3138,16 +3222,16 @@ main:focus {
 		align-items: center;
 		justify-content: center;
 		background: transparent;
-		border: 1px solid var(--dark-border);
+		border: 1px solid var(--border);
 		border-radius: 40px;
-		color: var(--paper);
+		color: var(--ink);
 		padding: 0.6rem 1rem;
 		width: 52px;
 		height: 44px;
 	}
 
 	/* Hide the desktop drawer toggle on mobile */
-	.sidebar-toggle {
+	.site-header .header-inner>.sidebar-toggle {
 		display: none;
 	}
 
@@ -3157,14 +3241,14 @@ main:focus {
 		top: 100%;
 		left: 0;
 		right: 0;
-		background: var(--ink);
+		background: #fff;
 		max-height: calc(100dvh - 80px);
 		overflow-y: auto;
 		padding: 1rem var(--gutter) 2rem;
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0;
-		border-top: 1px solid var(--dark-border);
+		border-top: 1px solid var(--border);
 	}
 
 	.primary-nav.is-open {
@@ -3241,7 +3325,7 @@ main:focus {
    image-led overview, then large text/image service panels. */
 .capabilities-reference-page {
 	background: var(--ink);
-	color: var(--paper);
+	color: var(--ink);
 }
 
 /* capabilities-reference-hero is now .page-hero-shared — no extra rules needed */
@@ -3445,7 +3529,7 @@ main:focus {
 .solutions-cta-inner h2 {
 	font-size: clamp(2rem, 4vw, 3.5rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	margin: .5rem 0 1rem;
 }
 
@@ -3534,7 +3618,7 @@ main:focus {
 	margin: .8rem 0 .3rem;
 	font-size: clamp(2.8rem, 5vw, 5rem);
 	line-height: .9;
-	letter-spacing: -.07em;
+	letter-spacing: -0.01em;
 }
 
 .capabilities-reference-stats p {
@@ -3544,7 +3628,7 @@ main:focus {
 
 .capabilities-reference-services {
 	padding: 7rem 0;
-	background: #101010;
+	background: var(--surface);
 }
 
 .capabilities-reference-section-heading {
@@ -3558,9 +3642,9 @@ main:focus {
 .capabilities-reference-section-heading h2 {
 	margin: 0;
 	max-width: 38rem;
-	font-size: clamp(2rem, 4.5vw, 4.8rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: .98;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 }
 
 .typewriter {
@@ -3613,7 +3697,7 @@ main:focus {
 	margin: 1.8rem 0 0;
 	font-size: clamp(2.3rem, 4.8vw, 5rem);
 	line-height: .98;
-	letter-spacing: -.065em;
+	letter-spacing: -0.01em;
 	text-transform: uppercase;
 }
 
@@ -3657,18 +3741,20 @@ main:focus {
 
 .capabilities-reference-content ul a {
 	display: inline-block;
-	border: 1px solid rgba(255, 255, 255, .18);
+	border: 1px solid var(--border);
 	border-radius: 2rem;
 	padding: .6rem .9rem;
-	color: var(--paper);
+	color: var(--ink);
 	font-size: .82rem;
 	text-decoration: none;
-	transition: background .3s ease, color .3s ease;
+	background: #fff;
+	transition: background .3s ease, color .3s ease, border-color .3s ease;
 }
 
 .capabilities-reference-content ul a:hover {
 	background: var(--lime);
 	color: var(--ink);
+	border-color: var(--lime);
 }
 
 .capabilities-reference-thumb {
@@ -3756,7 +3842,7 @@ main:focus {
 .cap-detail-intro-left h2 {
 	font-size: clamp(2rem, 4vw, 3.8rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	margin: 0 0 1.5rem;
 }
 
@@ -3845,7 +3931,7 @@ main:focus {
 .cap-detail-concept-left h2 {
 	font-size: clamp(1.8rem, 3.5vw, 3rem);
 	line-height: 1.1;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	margin: 0 0 2rem;
 }
 
@@ -3895,7 +3981,7 @@ main:focus {
 
 .cap-detail-concept-box h3 {
 	font-size: clamp(1.1rem, 2vw, 1.45rem);
-	letter-spacing: -.02em;
+	letter-spacing: -0.01em;
 	margin: 0 0 .5rem;
 	line-height: 1.2;
 }
@@ -3946,8 +4032,8 @@ main:focus {
 
 /* ── 06 FAQ ── */
 .cap-detail-faq {
-	background: var(--ink);
-	color: var(--paper);
+	background: var(--surface);
+	color: var(--ink);
 }
 
 .cap-detail-faq .eyebrow::before {
@@ -3962,11 +4048,11 @@ main:focus {
 }
 
 .cap-detail-faq-grid h2 {
-	font-size: clamp(2rem, 4vw, 3.5rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: 1.05;
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 	margin: .75rem 0 0;
-	color: var(--paper);
+	color: var(--ink);
 }
 
 .cap-detail-accordion details {
@@ -4365,7 +4451,7 @@ main:focus {
 	margin: 1rem 0 2.25rem;
 	font-size: clamp(3.5rem, 8vw, 8.75rem);
 	line-height: .91;
-	letter-spacing: -.065em;
+	letter-spacing: -0.01em;
 }
 
 .index3-hero-pills {
@@ -4478,9 +4564,9 @@ main:focus {
 .index3-insights h2 {
 	max-width: none;
 	margin: .8rem 0 1.5rem;
-	font-size: clamp(2.4rem, 4.7vw, 5rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: .98;
-	letter-spacing: -.055em;
+	letter-spacing: -0.01em;
 	text-wrap: unset;
 }
 
@@ -4516,7 +4602,7 @@ main:focus {
 
 .index3-counter strong {
 	font-size: 3rem;
-	letter-spacing: -.08em;
+	letter-spacing: -0.01em;
 }
 
 .index3-counter span {
@@ -4575,8 +4661,12 @@ main:focus {
 .index3-services,
 .index3-projects,
 .index3-products {
-	background: var(--ink);
-	color: var(--white);
+	background: var(--surface);
+	color: var(--ink);
+}
+
+.index3-projects {
+	background: var(--paper);
 }
 
 .index3-section-head {
@@ -4653,7 +4743,7 @@ main:focus {
 .index3-service-card h3 {
 	margin: auto 0 1rem;
 	font-size: clamp(1.8rem, 3vw, 3rem);
-	letter-spacing: -.055em;
+	letter-spacing: -0.01em;
 }
 
 .index3-service-card p {
@@ -4714,7 +4804,7 @@ main:focus {
 .index3-choose-counter strong {
 	font-size: 5rem;
 	line-height: .8;
-	letter-spacing: -.09em;
+	letter-spacing: -0.01em;
 }
 
 .index3-choose-counter strong span {
@@ -4840,7 +4930,7 @@ main:focus {
 	margin: 1rem 0;
 	font-size: clamp(2rem, 4vw, 4.5rem);
 	line-height: .95;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 }
 
 .index3-project-meta p {
@@ -4909,7 +4999,7 @@ main:focus {
 	border-bottom: 1px solid rgba(12, 23, 16, .35);
 	color: var(--ink);
 	font-size: clamp(1.4rem, 3vw, 2.6rem);
-	letter-spacing: -.04em;
+	letter-spacing: -0.01em;
 }
 
 .index3-industry-list span {
@@ -5051,7 +5141,7 @@ main:focus {
 	--hero-top-space: clamp(128px, 10vw, 162px);
 	min-height: auto;
 	padding: var(--hero-top-space) clamp(24px, 2.2vw, 45px) 24px;
-	background: #101010;
+	background: var(--paper);
 	display: block;
 }
 
@@ -5121,10 +5211,10 @@ main:focus {
 
 .index3-hero h1 {
 	margin: 44px 0 0;
-	max-width: 1100px;
-	font-size: clamp(3rem, 6.2vw, 6.8rem);
+	max-width: 60rem;
+	font-size: clamp(2.5rem, 4.5vw, 3.5rem);
 	font-weight: 600;
-	letter-spacing: -.02em;
+	letter-spacing: -0.01em;
 	line-height: .96;
 }
 
@@ -5310,7 +5400,7 @@ main:focus {
 	margin: .8rem 0 1.5rem;
 	font-size: clamp(2.5rem, 5vw, 5rem);
 	line-height: .95;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 }
 
 .index3-project-sticky p {
@@ -5551,7 +5641,7 @@ main:focus {
 	font-size: clamp(2.5rem, 3.5vw, 3rem);
 	font-weight: 600;
 	line-height: 1.1;
-	letter-spacing: -.06em;
+	letter-spacing: -0.01em;
 }
 
 .operational-stat p {
@@ -5598,10 +5688,10 @@ main:focus {
 	margin: 0;
 	max-width: none;
 	text-wrap: unset;
-	font-size: clamp(2.35rem, 3.65vw, 3.85rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	font-weight: 600;
 	line-height: 1.14;
-	letter-spacing: -.025em;
+	letter-spacing: -0.01em;
 	perspective: 1000px;
 }
 
@@ -5643,7 +5733,7 @@ main:focus {
 	margin: 0 0 8px;
 	font-size: 22px;
 	line-height: 1.2;
-	letter-spacing: -.025em;
+	letter-spacing: -0.01em;
 }
 
 .operational-values p {
@@ -5798,8 +5888,8 @@ main:focus {
 
 /* Project cards scroll and stack while the introduction remains in view. */
 .project-showcase {
-	background: #101010;
-	color: #fff;
+	background: var(--paper);
+	color: var(--ink);
 	--project-top: 112px;
 }
 
@@ -5835,10 +5925,10 @@ main:focus {
 
 .project-showcase-intro h2 {
 	margin: 0 0 28px;
-	font-size: clamp(2.5rem, 4.15vw, 4.5rem);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	font-weight: 600;
 	line-height: 1.15;
-	letter-spacing: -.025em;
+	letter-spacing: -0.01em;
 }
 
 .project-showcase-intro h2 em {
@@ -5923,7 +6013,7 @@ main:focus {
 	font-size: clamp(1.5rem, 2.2vw, 2.2rem);
 	font-weight: 600;
 	line-height: 1.4;
-	letter-spacing: -.025em;
+	letter-spacing: -0.01em;
 }
 
 .project-showcase-content h3 a {
@@ -6243,7 +6333,7 @@ main:focus {
 .home-industry-description {
 	max-width: 720px;
 	font-size: 16px;
-	font-weight: 450;
+	font-weight: 400;
 	line-height: 1.6;
 	letter-spacing: normal;
 	margin: 12px 0 0;
@@ -6288,8 +6378,8 @@ main:focus {
 /* Full-width connected systems statement and opposing tile marquees. */
 .connected-systems {
 	padding: clamp(64px, 7vw, 110px) 0 40px;
-	background: #101010;
-	color: #fff;
+	background: var(--surface);
+	color: var(--ink);
 	overflow: clip;
 	text-align: center;
 }
@@ -6320,9 +6410,9 @@ main:focus {
 .connected-heading h2 {
 	max-width: none;
 	width: 100%;
-	font-size: clamp(32px, 4vw, 76px);
+	font-size: clamp(2rem, 3vw, 2.5rem);
 	line-height: 1.18;
-	letter-spacing: -.025em;
+	letter-spacing: -0.01em;
 	font-weight: 600;
 	margin: 0;
 }
@@ -6585,7 +6675,7 @@ main:focus {
 	border-bottom: 1px solid rgba(12, 23, 16, .3);
 	color: var(--ink);
 	font-size: clamp(1.7rem, 4vw, 2.5rem);
-	letter-spacing: -.05em;
+	letter-spacing: -0.01em;
 }
 
 .einao-offcanvas-action span {
@@ -7026,7 +7116,7 @@ main:focus {
 	max-width: 58rem;
 	font-size: clamp(3rem, 7vw, 7.4rem);
 	line-height: .94;
-	letter-spacing: -.065em;
+	letter-spacing: -0.01em;
 }
 
 .insight-article-header-inner .insights-page-intro {
@@ -7188,7 +7278,7 @@ main:focus {
 .insight-sidebar-widget h2 {
 	margin: 0 0 1.1rem;
 	font-size: 1.05rem;
-	letter-spacing: -.02em;
+	letter-spacing: -0.01em;
 }
 
 .insight-search {
@@ -7321,4 +7411,652 @@ main:focus {
 		text-align: left;
 		align-items: flex-start;
 	}
+}
+
+/* Stage 1: light editorial system */
+:root {
+	--ink: #0f172a;
+	--paper: #ffffff;
+	--white: #ffffff;
+	--muted: #64748b;
+	--muted-dark: #475569;
+	--lime: #95c11f;
+	--forest: #346934;
+	--surface: #f8fafc;
+	--border: #e5e7eb;
+	--dark-border: rgba(255, 255, 255, 0.16);
+	--wide: 1280px;
+	--gutter: clamp(1.25rem, 4vw, 2.5rem);
+	--section: clamp(4.5rem, 9vw, 8rem);
+	--ease: cubic-bezier(0.22, 1, 0.36, 1);
+	background: var(--paper);
+	font-family: Urbanist, "Segoe UI", sans-serif;
+	font-weight: 400;
+	line-height: 1.6;
+}
+
+body {
+	background: var(--paper);
+	color: var(--ink);
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+
+h1 {
+	font-size: clamp(2.75rem, 6vw, 3.75rem);
+	letter-spacing: -0.01em;
+}
+
+h2 {
+	font-size: clamp(2rem, 4vw, 2.75rem);
+	letter-spacing: -0.01em;
+}
+
+h3 {
+	font-size: clamp(1.125rem, 2vw, 1.25rem);
+	letter-spacing: -0.01em;
+}
+
+p {
+	color: var(--muted-dark);
+	font-size: 1rem;
+}
+
+.section-intro {
+	font-size: 1rem;
+	max-width: 42rem;
+}
+
+.eyebrow {
+	color: var(--forest);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	margin-bottom: 1.25rem;
+}
+
+.arrow-button,
+.text-link {
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+.arrow-button {
+	min-height: 46px;
+	border-radius: 10px;
+	background: var(--forest);
+	color: #fff;
+	box-shadow: 0 6px 18px rgba(52, 105, 52, 0.16);
+}
+
+.arrow-button:hover,
+.arrow-button:focus-visible {
+	background: #28552d;
+}
+
+.site-header,
+.site-header.header-transparent,
+.site-header.is-scrolled {
+	background: rgba(255, 255, 255, 0.96);
+	backdrop-filter: blur(14px);
+	color: var(--ink);
+	border-bottom: 1px solid var(--border);
+	box-shadow: 0 2px 16px rgba(15, 23, 42, 0.04);
+}
+
+.header-inner {
+	min-height: 76px;
+}
+
+.is-scrolled .header-inner {
+	min-height: 66px;
+}
+
+.primary-nav {
+	font-size: 0.875rem;
+}
+
+.primary-nav>a,
+.primary-nav summary {
+	color: var(--ink);
+	font-weight: 500;
+	padding: 0.75rem 0;
+}
+
+.primary-nav>a::after {
+	background: var(--forest);
+	bottom: 0.35rem;
+}
+
+.primary-nav>a:is(:hover, [aria-current="page"]),
+.primary-nav summary:hover,
+.primary-nav details[open] summary {
+	color: var(--forest);
+}
+
+.mega-panel {
+	background: #fff;
+	color: var(--ink);
+	border-color: var(--border);
+	box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+}
+
+.mega-links a {
+	font-size: 1rem;
+	border-radius: 10px;
+	padding: 0.9rem;
+}
+
+.mega-links a:hover {
+	background: var(--surface);
+}
+
+.site-footer {
+	background: #0f172a;
+	color: #f8fafc;
+}
+
+.site-footer p,
+.site-footer .footer-bottom,
+.site-footer .footer-intro p {
+	color: #cbd5e1;
+}
+
+.site-footer .eyebrow {
+	color: #cbd5e1;
+}
+
+.footer-links a {
+	font-size: 0.875rem;
+	font-weight: 400;
+}
+
+.footer-links h2 {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: #94a3b8;
+}
+
+.items-cards .item,
+.solutions-card,
+.insight-news-card article {
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.items-cards .item:is(:hover, :focus-within),
+.solutions-card:is(:hover, :focus-within),
+.insight-news-card article:is(:hover, :focus-within) {
+	box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
+	transform: translateY(-4px);
+}
+
+@media (max-width: 767px) {
+
+	.header-inner,
+	.is-scrolled .header-inner {
+		min-height: 68px;
+	}
+
+	h1 {
+		font-size: clamp(2.35rem, 12vw, 3.25rem);
+	}
+
+	.section {
+		padding-block: 4.5rem;
+	}
+}
+
+/* Contrast guardrails for the existing dark feature bands. */
+.index3-hero p,
+.operational-section p,
+.site-footer p {
+	color: #cbd5e1;
+}
+
+.operational-section .index3-section-head>div:last-child {
+	color: #cbd5e1;
+}
+
+.operational-values p,
+.operational-challenges,
+.operational-section .connected-eyebrow {
+	color: #cbd5e1;
+}
+
+.operational-right h2,
+.operational-values h3,
+.connected-heading h2 {
+	color: #f8fafc;
+}
+
+/* Service cards use a light surface inside the dark capabilities band. */
+.index3-service-card,
+.index3-service-card h3 {
+	color: var(--ink);
+}
+
+.index3-service-card p {
+	color: var(--muted-dark);
+}
+
+/* About process cards use a light surface; their hover state remains dark. */
+.about-page-process {
+	color: var(--ink);
+}
+
+.about-page-process .about-page-section-heading h2,
+.about-page-process .about-page-section-heading>p {
+	color: var(--ink);
+}
+
+.about-page-process .about-page-section-heading>p {
+	color: var(--muted-dark);
+}
+
+.about-page-process .about-page-process-grid {
+	border-color: var(--border);
+}
+
+.about-page-process .process-card {
+	background: #fff;
+	border-color: var(--border);
+}
+
+.about-page-process .process-card-title {
+	color: var(--ink);
+}
+
+.about-page-process .process-card-desc {
+	color: var(--muted-dark);
+}
+
+.about-page-process .process-card:hover .process-card-title,
+.about-page-process .process-card:focus-visible .process-card-title {
+	color: #f8fafc;
+}
+
+.about-page-process .process-card:hover .process-card-desc,
+.about-page-process .process-card:focus-visible .process-card-desc {
+	color: #cbd5e1;
+}
+
+.about-page-proof .eyebrow {
+	color: #c4df5c;
+}
+
+.about-page-proof .about-page-proof-copy>p,
+.about-page-proof .about-page-counter-box p {
+	color: #cbd5e1;
+}
+
+/* Stage 1 header contrast: the header and both navigation surfaces stay light. */
+.menu-toggle,
+.sidebar-toggle {
+	border-color: var(--border);
+	color: var(--ink);
+}
+
+.menu-toggle-bars span,
+.sidebar-toggle .menu-toggle-bars span {
+	background: var(--ink);
+}
+
+.primary-nav .mega-panel {
+	background: #fff;
+	color: var(--ink);
+	border-color: var(--border);
+	box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+}
+
+.primary-nav .mega-title {
+	border-bottom-color: var(--border);
+}
+
+.primary-nav .mega-title>span,
+.primary-nav .mega-title>a,
+.primary-nav .mega-links a,
+.primary-nav .mega-links a span {
+	color: var(--ink);
+}
+
+@media (max-width: 900px) {
+	.primary-nav {
+		background: #fff;
+		color: var(--ink);
+		border-top-color: var(--border);
+	}
+
+	.primary-nav>a,
+	.primary-nav summary,
+	.primary-nav .mega-links a {
+		color: var(--ink);
+		border-bottom-color: var(--border);
+	}
+
+	.primary-nav .mega-panel {
+		background: var(--surface);
+		color: var(--ink);
+		border-color: var(--border);
+	}
+
+	.primary-nav .mega-title>span,
+	.primary-nav .mega-title>a,
+	.primary-nav .mega-links a,
+	.primary-nav .mega-links a span {
+		color: var(--ink);
+	}
+}
+
+/* Light-band contrast audit. Keep the single dark feature band in the
+   operational section; all other editorial sections use paper or surface. */
+.page-hero-shared,
+.capabilities-reference-services,
+.cap-detail-faq,
+.about-page-proof,
+.project-showcase,
+.connected-systems,
+.index3-services,
+.index3-projects,
+.index3-products {
+	background: var(--paper);
+	color: var(--ink);
+}
+
+.capabilities-reference-services,
+.cap-detail-faq,
+.about-page-proof,
+.index3-services,
+.index3-products,
+.connected-systems {
+	background: var(--surface);
+}
+
+.page-hero-shared h1,
+.page-hero-shared-label,
+.page-hero-shared-meta,
+.capabilities-reference-section-heading h2,
+.capabilities-reference-content h3 a,
+.cap-detail-faq-grid h2,
+.cap-detail-accordion summary,
+.about-page-proof-heading h2,
+.about-page-proof-copy>p,
+.about-page-counter-box strong,
+.project-showcase-intro h2,
+.project-showcase-content h3 a,
+.connected-heading h2,
+.index3-section-head h2,
+.index3-products .index3-product-card h3,
+.index3-services .index3-section-head h2 {
+	color: var(--ink);
+}
+
+.page-hero-shared .eyebrow,
+.capabilities-reference-services .eyebrow,
+.cap-detail-faq .eyebrow,
+.about-page-proof .eyebrow,
+.connected-systems .connected-eyebrow,
+.project-showcase-eyebrow {
+	color: var(--forest);
+}
+
+.page-hero-shared .page-hero-shared-meta,
+.page-hero-shared .page-hero-shared-label {
+	color: var(--ink);
+}
+
+.capabilities-reference-section-heading,
+.capabilities-reference-panel,
+.cap-detail-accordion details {
+	border-color: var(--border);
+}
+
+.capabilities-reference-content p,
+.capabilities-reference-list,
+.cap-detail-faq p,
+.project-showcase-intro>p:not(.project-showcase-eyebrow),
+.project-showcase-content p,
+.project-showcase-context p,
+.connected-systems .connected-eyebrow,
+.index3-products .index3-product-card p,
+.index3-services .index3-section-head>div:last-child {
+	color: var(--muted-dark);
+}
+
+.capabilities-reference-content h3 a:hover,
+.cap-detail-accordion summary span,
+.index3-product-card a,
+.project-showcase-eyebrow span {
+	color: var(--forest);
+}
+
+.index3-product-card,
+.index3-service-card {
+	background: #fff;
+	color: var(--ink);
+	border: 1px solid var(--border);
+}
+
+.index3-product-card>span,
+.index3-service-card .index3-number {
+	color: var(--forest);
+}
+
+.gov-services .process-card,
+.gov-services .process-card-title {
+	background: #fff;
+	color: var(--ink);
+}
+
+.gov-services .process-card-desc {
+	color: var(--muted-dark);
+}
+
+.site-footer .closing-cta>p:not(.eyebrow),
+.site-footer .footer-intro p,
+.site-footer .footer-bottom {
+	color: #cbd5e1;
+}
+
+/* Round 2 light-system corrections. */
+.index3-hero {
+	background: var(--paper);
+}
+
+.home-hero-copy p {
+	display: block;
+	overflow: visible;
+	-webkit-line-clamp: unset;
+}
+
+.operational-section {
+	background: var(--surface);
+	color: var(--ink);
+}
+
+.operational-section .operational-eyebrow,
+.operational-section .operational-right h2,
+.operational-section .operational-values h3,
+.operational-section .operational-stat,
+.operational-section .operational-card-copy,
+.operational-section .operational-card-copy p,
+.operational-section .operational-values p,
+.operational-section .operational-challenges li {
+	color: var(--ink);
+}
+
+.operational-section .operational-card {
+	background: #fff;
+	border: 1px solid var(--border);
+}
+
+.operational-section .operational-logo-tile,
+.connected-tile {
+	background: #fff;
+	border: 1px solid var(--border);
+}
+
+.index3-industry-list a {
+	text-decoration: none;
+}
+
+.index3-industry-list a:hover,
+.index3-industry-list a:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: .18em;
+}
+
+.operational-values h3,
+.index3-service-card h3,
+.index3-product-card h3 {
+	font-size: clamp(1.375rem, 2vw, 1.75rem);
+}
+
+.process-card,
+.gov-services .process-card,
+.about-page-process .process-card {
+	background: #fff;
+	color: var(--ink);
+	border-color: var(--border);
+}
+
+.process-card-title {
+	color: var(--ink);
+}
+
+.process-card-desc {
+	color: var(--muted-dark);
+}
+
+.process-card:hover .process-card-title,
+.process-card:focus-visible .process-card-title,
+.gov-services .process-card:hover .process-card-title,
+.gov-services .process-card:focus-visible .process-card-title,
+.about-page-process .process-card:hover .process-card-title,
+.about-page-process .process-card:focus-visible .process-card-title {
+	color: #f8fafc;
+}
+
+.process-card:hover .process-card-desc,
+.process-card:focus-visible .process-card-desc,
+.gov-services .process-card:hover .process-card-desc,
+.gov-services .process-card:focus-visible .process-card-desc,
+.about-page-process .process-card:hover .process-card-desc,
+.about-page-process .process-card:focus-visible .process-card-desc {
+	color: #cbd5e1;
+}
+
+.about-page-proof .about-page-proof-copy>p,
+.about-page-proof .about-page-counter-box p {
+	color: var(--muted-dark);
+}
+
+.gov-proof-card,
+.gov-proof-card-label,
+.gov-proof-card-name,
+.gov-proof-fact span,
+.gov-proof-tag {
+	color: var(--ink);
+}
+
+.gov-proof-card-name,
+.gov-proof-fact strong {
+	color: var(--forest);
+}
+
+.gov-proof-facts {
+	border-color: var(--border);
+}
+
+.gov-proof-tag {
+	border-color: var(--border);
+}
+
+.project-showcase-eyebrow,
+.project-showcase-eyebrow span {
+	color: var(--forest);
+}
+
+.coming-soon-badge {
+	display: inline-flex;
+	width: fit-content;
+	padding: .35rem .65rem;
+	border: 1px solid var(--forest);
+	border-radius: 999px;
+	color: var(--forest);
+	font-size: .7rem;
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
+/* The transplanted reference page normally reveals #page after its preloader.
+   The preloader is intentionally removed, so reveal the page immediately. */
+.orixo-home-reference #page {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+/* Small labels on light cards need the dark forest tone for AA contrast. */
+.operational-section p,
+.operational-section .operational-values p,
+.process-card-num,
+.cap-detail-step-num,
+.about-page-mark span,
+.index3-industries .eyebrow,
+.home-industry-description,
+.about-page-counter-box span,
+.about-page-purpose-label,
+.cap-detail-intro-left p {
+	color: var(--forest);
+}
+
+.index3-industries .eyebrow,
+.home-industry-description {
+	color: var(--ink);
+}
+
+/* Home video sits beneath the fixed header; interior pages retain the light header. */
+.site-header.header-transparent {
+	background: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	color: #fff;
+	border-bottom-color: #ffffff26;
+	box-shadow: none;
+}
+
+.site-header.header-transparent .primary-nav>a,
+.site-header.header-transparent .primary-nav summary {
+	color: #fff;
+}
+
+.site-header.header-transparent .primary-nav>a::after {
+	background: var(--lime);
+}
+
+.site-header.header-transparent .primary-nav>a:is(:hover, [aria-current="page"]),
+.site-header.header-transparent .primary-nav summary:hover,
+.site-header.header-transparent .primary-nav details[open] summary {
+	color: var(--lime);
+}
+
+.site-header.header-transparent .menu-toggle,
+.site-header.header-transparent .sidebar-toggle {
+	background: transparent;
+	border-color: #ffffff66;
+	color: #fff;
+}
+
+.site-header.header-transparent .menu-toggle-bars span {
+	background: #fff;
 }

@@ -1,4 +1,5 @@
-﻿import { ArrowIcon } from "./ArrowIcon";
+﻿import { AnimatedCounter } from "./AnimatedCounter";
+import { ArrowIcon } from "./ArrowIcon";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import type { BlockConfig } from "@einao/content";
@@ -42,13 +43,10 @@ export function OperationalSection({ config }: { config?: BlockConfig }) {
 	return <section className="section operational-section" id="about" aria-labelledby="operational-title" data-home-section="operational-reality">
 		<div className="container operational-grid">
 			<div className="operational-left">
-				<Reveal className="operational-image"><img src="/assets/images/Team Navigates Pending Approvals.png" alt="Connected operational workflows" width="1200" height="900" loading="lazy" /></Reveal>
-				<Reveal className="operational-card">
-					<div className="operational-stat"><span className="operational-pill">Since</span><strong>2011</strong><p>Practical technology delivery</p></div>
-					<div className="operational-card-copy"><p>{config?.body?.[1]}</p>{config?.cta && <ActionLink link={config.cta} />}</div>
-				</Reveal>
+				<Reveal direction="left" className="image-composition"><div className="operational-image"><img src="/assets/images/Team Navigates Pending Approvals.png" alt="Connected operational workflows" width="1200" height="900" loading="lazy" /></div><img className="accent-image" src="/assets/images/Nigerian IT Consultants Reviewing a Laptop.png" alt="" width="240" height="240" loading="lazy" /></Reveal>
+
 			</div>
-			<div className="operational-right">
+			<Reveal direction="right" className="operational-right">
 				<Reveal className="operational-eyebrow"><span aria-hidden="true"></span> The operational reality</Reveal>
 				<SectionTitle text={config?.title ?? "When operations become complicated, the whole organisation feels it."} />
 				<div className="operational-values">
@@ -56,11 +54,15 @@ export function OperationalSection({ config }: { config?: BlockConfig }) {
 					<Reveal><LineIcon eye /><h3>Business impact</h3><p>Service delivery, productivity, accountability and the ability to grow.</p></Reveal>
 				</div>
 				<ul className="operational-challenges">{config?.items?.map(item => <li key={item.title}>{item.title}</li>)}</ul>
+				<Reveal direction="zoom" className="operational-card">
+					<div className="operational-stat"><span className="operational-pill">Since</span><strong><AnimatedCounter value={2011} /></strong><p>Practical technology delivery</p></div>
+					<div className="operational-card-copy"><img className="stat-accent-image" src="/assets/images/Hands sketching a business workflow.png" alt="" width="120" height="100" loading="lazy" /><p>{config?.body?.[1]}</p>{config?.cta && <ActionLink link={config.cta} />}</div>
+				</Reveal>
 				<div className="operational-bottom">
 					<Reveal className="operational-approach"><Link to="#index3-process"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M30 81C5 67 10 33 29 15M70 81c25-14 20-48 1-66M25 70l-12-2m9-9-12-5m12-7-10-9m14-3-8-11m57 46 12-2m-9-9 12-5m-12-7 10-9m-14-3 8-11" /><path d="m50 28 17 9v21L50 68l-17-10V37l17-9Zm0 0v40M33 37l17 10 17-10" /></svg><p><strong>Understand first.</strong><br />Explore our approach <span aria-hidden="true"><ArrowIcon /></span></p></Link></Reveal>
 					<Reveal className="operational-small-image"><img src="/assets/images/Hands sketching a business workflow.png" alt="Connected systems and information" width="900" height="620" loading="lazy" /></Reveal>
 				</div>
-			</div>
+			</Reveal>
 		</div>
 	</section>;
 }
