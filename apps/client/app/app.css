@@ -11085,3 +11085,42 @@ p {
 	background: var(--lime) !important;
 	color: var(--ink) !important;
 }
+
+/* ── Mobile nav — drawer-group on white background ─────────────────────── */
+@media (max-width: 900px) {
+
+	/* White mobile nav bg means we need dark text */
+	.drawer-group {
+		border-bottom-color: var(--border) !important;
+	}
+
+	.drawer-group-trigger {
+		color: var(--ink) !important;
+	}
+
+	.drawer-item {
+		color: rgba(12, 23, 16, .8) !important;
+		border-left-color: rgba(12, 23, 16, .15) !important;
+	}
+
+	.drawer-item:hover {
+		color: var(--ink) !important;
+		border-left-color: var(--forest) !important;
+	}
+
+	.drawer-item-desc {
+		opacity: 1 !important;
+		color: var(--muted) !important;
+	}
+
+	/* Also ensure nav-group takes full width on mobile */
+	.primary-nav .nav-group {
+		width: 100% !important;
+		border-bottom: 1px solid var(--border);
+	}
+
+	/* Remove the bottom border from drawer-group since nav-group has one */
+	.primary-nav .nav-group .drawer-group {
+		border-bottom: none !important;
+	}
+}
