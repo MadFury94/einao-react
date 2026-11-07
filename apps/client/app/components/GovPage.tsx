@@ -1,304 +1,223 @@
 /**
- * GovPage - dedicated layout for the Government & Public Institutions industry page.
- *
- * Sections:
- *  1. Hero          - dark (--ink), two-column: animated title + stat panel right
- *  2. Work/Proof    - light (--paper), rebuilt IPO proof block with browser-frame mockup
- *  3. What we help  - light (--paper), four hover-reveal process cards
- *  4. How we work   - dark (--surface), three-step horizontal strip
- *  5. CTA / Footer  - handled by the shared Shell footer
- *
- * All colours use tokens only. No hardcoded hex values.
+ * GovPage — Government & Public Institutions industry page.
+ * Layout mirrors Orixo service-details.html structure.
  */
 
-import { EditorialImage } from "./EditorialImage";
-import { ProcessCard } from "./ProcessCard";
+import { Link } from "react-router";
 import { ActionLink, Reveal } from "./primitives";
 import { PageHero } from "./page-blocks";
+import { ArrowIcon } from "./ArrowIcon";
 import type { BlockConfig } from "@einao/content";
 
-/*  Types  */
 interface GovPageProps {
     hero: BlockConfig;
     proof: BlockConfig;
 }
 
-/*  Sub-components  */
-
-/**
- * StatPanel - fills the right column of the hero with 2-3 key figures.
- * Keeps the hero heading readable without a competing image at the same
- * visual weight.
- */
-function StatPanel() {
-    const stats = [
-        /* PLACEHOLDER - replace with final copy when approved */
-        { value: "2013", label: "Supporting institutional digital services" },
-        { value: "01", label: "Federal Ministry client on record" },
-        { value: "Live", label: "Public-facing portal in active use" },
+// ── 01 Intro strip ────────────────────────────────────────────────────────
+function IntroStrip() {
+    const checks = [
+        "Applications and approvals",
+        "Records and information management",
+        "Payments and transactions",
+        "Public-facing digital services",
     ];
     return (
-        <div className="gov-hero-stats" aria-label="Key facts">
-            {stats.map((s) => (
-                <div key={s.label} className="gov-hero-stat">
-                    {/* Large serif numeral - consistent with about-page counters */}
-                    <strong>{s.value}</strong>
-                    <span>{s.label}</span>
-                </div>
-            ))}
-        </div>
-    );
-}
-
-/**
- * IpoProofBlock - the rebuilt IPO Nigeria proof section on the light background.
- *
- * Left column is widened (7fr vs 5fr) so the heading breaks naturally at ~2 lines.
- * Right column shows a browser-frame mockup placeholder + fact chips.
- */
-function IpoProofBlock({ config }: { config: BlockConfig }) {
-    /* Three key facts displayed as number + label inside the card */
-    const facts = [
-        /* PLACEHOLDER - replace with real figures */
-        { value: "Since\u00a02013", label: "Active client relationship" },
-        { value: "3+", label: "Application streams supported" },
-        { value: "Live", label: "Public-facing portal" },
-    ];
-
-    /* Service-area tags - explicitly listed so they can differ per page */
-    const tags = ["Trademarks", "Patents", "Industrial designs"];
-
-    return (
-        <section className="section gov-proof" aria-labelledby="gov-proof-heading">
-            <div className="container gov-proof-grid">
-
-                {/*  Left: heading, copy, CTA  */}
-                <Reveal className="gov-proof-text">
-                    {config.eyebrow && (
-                        <p className="eyebrow">{config.eyebrow}</p>
-                    )}
-                    {/* id referenced by aria-labelledby on the section */}
-                    <h2 id="gov-proof-heading">{config.title}</h2>
-
-                    {/* Body copy - 16px min via CSS token */}
-                    {config.body?.map((p) => (
-                        <p key={p} className="gov-proof-body">{p}</p>
-                    ))}
-
-                    {config.cta && (
-                        <div className="gov-proof-cta">
-                            <ActionLink link={config.cta} />
-                        </div>
-                    )}
+        <section className="section gov-intro">
+            <div className="container gov-intro-grid">
+                <Reveal direction="left" className="gov-intro-left">
+                    <h2>Digital systems shaped around institutional work.</h2>
+                    <ul className="gov-checklist">
+                        {checks.map((item) => (
+                            <li key={item}>
+                                <span className="gov-check" aria-hidden="true">
+                                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M2.5 8.5 6.5 12.5 13.5 4" />
+                                    </svg>
+                                </span>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
                 </Reveal>
-
-                {/*  Right: IPO card with browser-frame treatment  */}
-                <Reveal className="gov-proof-card">
-                    {/* Small-label + serif client name - matches existing proof-panel pattern */}
-                    <p className="gov-proof-card-label">{config.items?.[0]?.label}</p>
-
-                    {/* Serif accent for client name - reuses .proof-name token */}
-                    <p className="gov-proof-card-name">{config.items?.[0]?.title}</p>
-
-                    {/* Browser-frame mockup - swap src once the real screenshot is ready */}
-                    <div className="gov-browser-frame" aria-hidden="true">
-                        <div className="gov-browser-chrome">
-                            {/* decorative traffic-light dots */}
-                            <span /><span /><span />
-                        </div>
-                        <div className="gov-browser-screen">
-                            <img
-                                src="/assets/images/Graphite monitor with enterprise dashboard.png"
-                                alt=""
-                                /* alt="" because the frame is decorative; the real info is
-                                   in the surrounding copy and heading */
-                                width="800"
-                                height="500"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Fact chips - numbers + labels */}
-                    <div className="gov-proof-facts">
-                        {facts.map((f) => (
-                            <div key={f.label} className="gov-proof-fact">
-                                <strong>{f.value}</strong>
-                                <span>{f.label}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Tag chips - 14px min, readable size */}
-                    <div className="gov-proof-tags" role="list" aria-label="Service areas covered">
-                        {tags.map((t) => (
-                            <span key={t} className="gov-proof-tag" role="listitem">{t}</span>
-                        ))}
-                    </div>
+                <Reveal direction="right" delay={100} className="gov-intro-right">
+                    <p>Public institutions manage applications, approvals, records, payments, and services involving multiple stakeholders and defined processes. Einao's work in institutional digital systems includes the IPO Nigeria portal engagement — building the portal and continuing to support its technical operation, maintenance, and upgrades.</p>
+                    <p>We start from the operational reality of the institution before deciding on a technical approach — understanding the workflows, information flows, users, and constraints before writing a line of code.</p>
+                    <ActionLink link={{ label: "Discuss an institutional requirement", href: "/contact/" }} />
                 </Reveal>
             </div>
         </section>
     );
 }
 
-/**
- * WhatWeHelp - four hover-reveal cards showing institutional service areas.
- *
- * Rules (same as ProcessCard):
- *  - No layout shift - paragraph always in DOM, toggled via opacity/visibility.
- *  - prefers-reduced-motion: cards show text always (CSS handles it).
- *  - Mobile: text always visible (no hover dependency).
- */
-function WhatWeHelp() {
-    const cards = [
-        {
-            number: "01",
-            title: "Applications and approvals",
-            /* PLACEHOLDER - replace with final copy */
-            description:
-                "Digital intake, workflow routing, and status tracking for structured application and approval processes.",
-            image: "/assets/images/process/understand.png",
-        },
-        {
-            number: "02",
-            title: "Records and information",
-            /* PLACEHOLDER - replace with final copy */
-            description:
-                "Organised records management, search, retrieval, and information access for institutional teams and the public.",
-            image: "/assets/images/process/design.png",
-        },
-        {
-            number: "03",
-            title: "Payments and transactions",
-            /* PLACEHOLDER - replace with final copy */
-            description:
-                "Integrated payment flows for fees, levies, and transactions within a regulated service environment.",
-            image: "/assets/images/process/solve.png",
-        },
-        {
-            number: "04",
-            title: "Public-facing services",
-            /* PLACEHOLDER - replace with final copy */
-            description:
-                "Portals and interfaces that give applicants and stakeholders clear, reliable access to institutional services.",
-            image: "/assets/images/process/deliver.png",
-        },
-    ];
-
+// ── 02 Feature image ──────────────────────────────────────────────────────
+function FeatureImage() {
     return (
-        <section className="section gov-services" aria-labelledby="gov-services-heading">
+        <section className="gov-feature-image">
             <div className="container">
-                <Reveal className="gov-services-heading">
-                    <p className="eyebrow">02 / What we help with</p>
-                    <h2 id="gov-services-heading">
-                        Processes that need to work reliably, at scale.
-                    </h2>
+                <Reveal>
+                    <div className="gov-feature-thumb">
+                        <img src="/assets/images/Collaborative technology team in Abuja office.png" alt="" width="1400" height="700" loading="lazy" />
+                    </div>
                 </Reveal>
-
-                {/* Reuse the process-card grid + ProcessCard component so hover behaviour
-				    is identical to the About page - no new interaction logic needed. */}
-                <div className="gov-services-grid">
-                    {cards.map((card) => (
-                        <Reveal key={card.title}>
-                            <ProcessCard
-                                number={card.number}
-                                title={card.title}
-                                description={card.description}
-                                image={card.image}
-                            />
-                        </Reveal>
-                    ))}
-                </div>
             </div>
         </section>
     );
 }
 
-/**
- * HowWeWork - three-step horizontal strip on the dark --surface background.
- * Numbers are large serifs; text stays readable on dark via --paper token.
- */
+// ── 03 How we work — numbered steps + image ───────────────────────────────
 function HowWeWork() {
     const steps = [
-        {
-            number: "01",
-            title: "Define requirements",
-            /* PLACEHOLDER - replace with final copy */
-            body: "We work with institutional teams to map the operational process before writing a line of code.",
-        },
-        {
-            number: "02",
-            title: "Build or support delivery",
-            /* PLACEHOLDER - replace with final copy */
-            body: "Whether building a new portal or supporting an existing one, we follow the operational context.",
-        },
-        {
-            number: "03",
-            title: "Maintain and improve",
-            /* PLACEHOLDER - replace with final copy */
-            body: "Institutional systems need ongoing support. We provide maintenance, technical operation, and upgrades.",
-        },
+        { number: "01", title: "Define requirements", body: "We work with institutional teams to map the operational process before deciding on a technical approach." },
+        { number: "02", title: "Build or support delivery", body: "Whether building a new portal or supporting an existing one, we follow the operational context at every step." },
+        { number: "03", title: "Maintain and improve", body: "Institutional systems need ongoing support. We provide maintenance, technical operation, and upgrades." },
     ];
-
     return (
-        <section className="section gov-how" aria-labelledby="gov-how-heading">
+        <section className="section gov-how-section">
             <div className="container">
-                <Reveal className="gov-how-heading">
-                    <p className="eyebrow">03 / How we work with institutions</p>
-                    <h2 id="gov-how-heading">
-                        From the first requirement to continued support.
-                    </h2>
-                </Reveal>
-
-                <div className="gov-how-steps">
-                    {steps.map((step, i) => (
-                        <Reveal key={step.title} className="gov-how-step">
-                            {/* Large serif number - consistent with about-page step pattern */}
-                            <p className="gov-how-num" aria-hidden="true">{step.number}</p>
-                            {/* Thin top rule - visual connector between steps */}
-                            <div className="gov-how-rule" aria-hidden="true" />
-                            <h3 className="gov-how-title">{step.title}</h3>
-                            <p className="gov-how-body">{step.body}</p>
-                        </Reveal>
-                    ))}
+                <div className="gov-how-grid">
+                    <Reveal direction="left" className="gov-how-left">
+                        <div className="gov-how-count">
+                            <span>0</span><span className="gov-how-count-num">3</span>
+                        </div>
+                        <p className="gov-how-subtitle">Our proven engagement model</p>
+                        <div className="gov-how-image">
+                            <img src="/assets/images/Einao staff working on automation with client.jpg" alt="" width="600" height="480" loading="lazy" />
+                        </div>
+                    </Reveal>
+                    <Reveal direction="right" delay={80} className="gov-how-right">
+                        <h2>From the first requirement to continued support.</h2>
+                        {steps.map((step) => (
+                            <div key={step.title} className="gov-how-step">
+                                <h3><span className="gov-how-num">{step.number}</span>{step.title}</h3>
+                                <p>{step.body}</p>
+                            </div>
+                        ))}
+                    </Reveal>
                 </div>
             </div>
         </section>
     );
 }
 
-/*  Page root  */
+// ── 04 Visual pair ────────────────────────────────────────────────────────
+function VisualPair() {
+    return (
+        <section className="section gov-visual-section">
+            <div className="container">
+                <Reveal className="gov-visual-heading">
+                    <h2>Institutional systems that serve the public.</h2>
+                </Reveal>
+                <div className="gov-visual-grid">
+                    <Reveal direction="left" className="gov-visual-item">
+                        <p>The IPO Nigeria portal supports application processes relating to trademarks, patents, and industrial designs. Einao built the portal and continues to support it through maintenance, technical support, optimisation, and upgrades as requirements evolve.</p>
+                        <div className="gov-visual-thumb">
+                            <img src="/assets/images/Team Navigates Pending Approvals.png" alt="" width="680" height="460" loading="lazy" />
+                        </div>
+                    </Reveal>
+                    <Reveal direction="right" delay={100} className="gov-visual-item">
+                        <p>A digital platform is not finished operationally when it launches. Systems need continued technical attention as requirements evolve, users interact with the service, and improvements become necessary.</p>
+                        <div className="gov-visual-thumb">
+                            <img src="/assets/images/Graphite monitor with enterprise dashboard.png" alt="" width="680" height="460" loading="lazy" />
+                        </div>
+                    </Reveal>
+                </div>
+            </div>
+        </section>
+    );
+}
 
-export function GovPage({ hero: heroConfig, proof }: GovPageProps) {
+// ── 05 Solutions showcase ─────────────────────────────────────────────────
+const govProjects = [
+    { title: "IP PRO", label: "Intellectual property management", image: "/assets/images/about hero/Focused duo Einao studying a tablet.png", link: { label: "Explore IP PRO", href: "/solutions/ip-pro/" } },
+    { title: "Fylonn", label: "Application & process management", image: "/assets/images/about hero/Einao Profiles in emerald light.png", link: { label: "Explore Fylonn", href: "/solutions/fylonn/" } },
+];
+
+function SolutionsShowcase() {
+    const year = new Date().getFullYear();
+    const left = govProjects.filter((_, i) => i % 2 === 0);
+    const right = govProjects.filter((_, i) => i % 2 === 1);
+    return (
+        <section className="section gov-showcase-section">
+            <div className="container">
+                <Reveal className="gov-showcase-heading">
+                    <p className="eyebrow">Solutions</p>
+                    <h2>Relevant products for institutional work.</h2>
+                </Reveal>
+            </div>
+            <div className="container solutions-grid-container">
+                <div className="solutions-grid">
+                    <div className="solutions-col">
+                        {left.map((item) => (
+                            <Reveal key={item.title} direction="left" className="solutions-card">
+                                <div className="solutions-card-thumb">
+                                    <img src={item.image} alt="" width="900" height="620" loading="lazy" />
+                                    <img src={item.image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
+                                    <Link to={item.link.href} className="solutions-card-arrow" aria-label={`Explore ${item.title}`}><ArrowIcon /></Link>
+                                    <div className="solutions-card-content">
+                                        <div className="solutions-card-info">
+                                            <h2 className="solutions-card-title"><Link to={item.link.href}>{item.title}</Link></h2>
+                                            <div className="solutions-card-tags"><span>{item.label}</span></div>
+                                        </div>
+                                        <span className="solutions-card-year">[ {year} ]</span>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </div>
+                    <div className="solutions-col solutions-col-offset">
+                        {right.map((item) => (
+                            <Reveal key={item.title} direction="right" delay={150} className="solutions-card">
+                                <div className="solutions-card-thumb">
+                                    <img src={item.image} alt="" width="900" height="620" loading="lazy" />
+                                    <img src={item.image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
+                                    <Link to={item.link.href} className="solutions-card-arrow" aria-label={`Explore ${item.title}`}><ArrowIcon /></Link>
+                                    <div className="solutions-card-content">
+                                        <div className="solutions-card-info">
+                                            <h2 className="solutions-card-title"><Link to={item.link.href}>{item.title}</Link></h2>
+                                            <div className="solutions-card-tags"><span>{item.label}</span></div>
+                                        </div>
+                                        <span className="solutions-card-year">[ {year} ]</span>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ── Page root ─────────────────────────────────────────────────────────────
+export function GovPage({ hero: heroConfig }: GovPageProps) {
     return (
         <div className="gov-page">
-
-            {/*  01 Hero - dark background 
-			    Two columns: animated title + CTA left, stat panel right.
-			    AnimatedTitle is NOT used here because we're inside a custom
-			    component - we output the heading directly using the page title.
-			    The hero section uses the shared .page-hero dark background.
-			 */}
             <PageHero
-                eyebrow={heroConfig.eyebrow ?? "01 / Government & public institutions"}
+                eyebrow="Industry / Government & Public Institutions"
                 title={heroConfig.title ?? "Technology for public institutions"}
                 accent={heroConfig.accent}
                 pageLabel="Government"
-                metaLines={heroConfig.body?.slice(0, 2) ?? []}
-            >
-                {heroConfig.cta && <div className="page-hero-shared-cta"><ActionLink link={heroConfig.cta} /></div>}
-            </PageHero>
-
-            {/*  02 IPO Proof - light background  */}
-            <IpoProofBlock config={proof} />
-
-            {/*  03 What we help with - light background  */}
-            <WhatWeHelp />
-
-            {/*  04 How we work - dark background  */}
+                metaLines={heroConfig.body?.slice(0, 1) ?? []}
+                bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
+                secondaryLink={{ label: "All industries", href: "/industries/" }}
+            />
+            <IntroStrip />
+            <FeatureImage />
             <HowWeWork />
-
+            <VisualPair />
+            <SolutionsShowcase />
+            <section className="section solutions-cta-strip">
+                <div className="container">
+                    <Reveal className="solutions-cta-inner">
+                        <div>
+                            <p className="eyebrow">Work with us</p>
+                            <h2>Discuss a digital requirement for your institution.</h2>
+                        </div>
+                        <ActionLink link={{ label: "Start a conversation", href: "/contact/" }} />
+                    </Reveal>
+                </div>
+            </section>
         </div>
     );
 }

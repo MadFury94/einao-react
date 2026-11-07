@@ -7,19 +7,19 @@ const DATA = [
         quote: "Einao brought a clear understanding of our operational requirements and delivered a portal that continues to support our institutional processes reliably. Their ongoing technical support has been consistent over many years.",
         author: "Commercial Law Department",
         role: "Federal Ministry of Industry, Trade & Investment",
-        avatar: "/assets/about-reference/team-1.jpg",
+        avatar: "/assets/images/testimonials/ipo-logo.png",
     },
     {
         quote: "The team took time to understand how our workflows operated before proposing any solution. The result was a system that reflected our actual processes rather than a generic tool we had to adapt to.",
         author: "IT Director",
         role: "Government Institution",
-        avatar: "/assets/about-reference/team-2.jpg",
+        avatar: null,
     },
     {
         quote: "What stood out was their willingness to define requirements properly before development began. That clarity reduced cost and the system has needed far fewer changes after launch.",
         author: "Operations Manager",
         role: "Regulatory Organisation",
-        avatar: "/assets/about-reference/team-3.jpg",
+        avatar: null,
     },
 ];
 
@@ -162,7 +162,14 @@ export function HomeTestimonials() {
                                 <div className={styles.quoteChar}>"</div>
                                 <p className={styles.quoteText}>{t.quote}</p>
                                 <div className={`${styles.author} ${isActive ? styles.authorCentre : ""}`}>
-                                    <img src={t.avatar} alt="" width="75" height="75" className={styles.avatar} />
+                                    {t.avatar ? <img src={t.avatar} alt="" width="75" height="75" className={styles.avatar} /> : (
+                                        <span className={`${styles.avatar} ${styles.userIcon}`} aria-hidden="true">
+                                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                                <circle cx="12" cy="8" r="4" />
+                                                <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+                                            </svg>
+                                        </span>
+                                    )}
                                     <div>
                                         <strong>{t.author}</strong>
                                         <span>{t.role}</span>

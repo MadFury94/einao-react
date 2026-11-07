@@ -1,0 +1,82 @@
+/* Orixo service.html structure and measurements, isolated from global page styles. */
+.section {
+    margin-top: 16px;
+    padding: 48px 0 120px;
+    overflow: hidden;
+    font-family: Urbanist, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: normal;
+    color: #797979;
+    background: var(--paper);
+}
+.container { width: 100%; padding: 0 12px; margin-inline: auto; }
+.panel {
+    margin-top: 60px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 60px;
+    background: var(--paper);
+    color: #797979;
+    font-family: Urbanist, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: normal;
+    transform-origin: center center;
+}
+.row { display: flex; flex-wrap: wrap; margin: -24px -12px 0; }
+.column { flex-shrink: 0; width: 50%; max-width: 100%; padding: 0 12px; margin-top: 24px; align-self: center; }
+.content { margin-right: 10px; }
+.number { margin: 0; padding: 0; font-size: 20px; font-weight: 700; text-transform: uppercase; line-height: 28px; color: #797979; }
+.title { margin: 40px 0 0; padding: 0; max-width: none; font-size: 65px; font-weight: 700; text-transform: uppercase; line-height: 115%; letter-spacing: normal; text-wrap: wrap; color: var(--ink); }
+.title a { color: inherit; text-decoration: none; transition: all .4s ease-in-out; }
+.title a:is(:hover, :focus-visible) { color: var(--lime); }
+.topics { display: flex; align-items: center; gap: 50px; margin-top: 64px; }
+.topics ul { padding: 0; margin: 0; list-style: none; }
+.topics li { font-size: 14px; font-weight: 600; text-transform: uppercase; line-height: 28px; color: #797979; }
+.topics li:not(:last-child) { margin-bottom: 15px; }
+.description { padding: 0; max-width: 481px; margin: 90px 0 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #797979; text-wrap: wrap; letter-spacing: normal; }
+.links { display: flex; align-items: center; gap: 8px; margin: 40px 0 0; padding: 0; list-style: none; }
+.links a { display: inline-block; border: 1px solid var(--border); padding: 8px 13px; border-radius: 35px; font-size: 16px; font-weight: 600; line-height: 1; color: var(--ink); text-decoration: none; transition: all .4s ease-in-out; }
+.links a:is(:hover, :focus-visible) { background: var(--lime); border-color: var(--lime); }
+.image { height: 626px; position: relative; overflow: hidden; }
+.image img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 20px; transition: all .5s ease; }
+.image img:first-child { position: absolute; inset: 0; z-index: 1; transform: translateX(50%) scaleX(2); opacity: 0; filter: blur(10px); }
+.panel:is(:hover, :focus-within) .image img:first-child { transform: translateX(0) scaleX(1); opacity: 1; filter: blur(0); }
+.panel:is(:hover, :focus-within) .image img:nth-child(2) { transform: translateX(-50%) scaleX(2); opacity: 0; filter: blur(10px); }
+@media (min-width: 576px) { .container { max-width: 540px; } }
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1140px; } }
+@media (min-width: 1400px) { .container { max-width: 1410px; } }
+@media (max-width: 1600px) {
+    .number { font-size: 18px; }
+    .title { font-size: 48px; }
+    .description { font-size: 18px; line-height: 130%; }
+}
+@media (max-width: 1399px) { .section, .panel { font-size: 18px; } }
+@media (max-width: 1199px) {
+    .section { padding-bottom: 100px; }
+    .section, .panel { font-size: 16px; }
+    .content { margin-right: 0; }
+}
+@media (max-width: 991px) {
+    .section { padding-bottom: 80px; }
+    .column { width: 100%; }
+    .title { font-size: 36px; }
+    .topics { margin-top: 25px; }
+    .description { margin-top: 40px; }
+    .links { margin-top: 25px; }
+    .image { height: 500px; }
+}
+@media (max-width: 767px) {
+    .number, .description { font-size: 16px; }
+    .links { flex-wrap: wrap; }
+}
+@media (max-width: 575px) { .title { font-size: 32px; } }
+@media (prefers-reduced-motion: reduce) {
+    .panel *, .panel *::before { transition: none; }
+    .image img:first-child { display: none; }
+    .panel:is(:hover, :focus-within) .image img:nth-child(2) { transform: none; opacity: 1; filter: none; }
+}

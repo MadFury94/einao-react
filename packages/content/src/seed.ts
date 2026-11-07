@@ -1,3 +1,4 @@
+import { capabilityDetailDefaults } from "./capability-details.ts";
 import { defaultLeadershipProfile } from "./leadership.ts";
 import type {
 	BlockConfig,
@@ -979,3 +980,14 @@ export const insightBriefs = [
 	status: "draft" as const,
 }));
 
+
+// Additional detail sections use normal blocks so they remain editable in admin.
+let detailBlockId = 90000;
+for (const [slug, defaults] of Object.entries(capabilityDetailDefaults)) {
+    const page = pages.find(page => page.slug === slug);
+    if (!page) continue;
+    if (!page.blocks.some(block => block.block_type === "approach")) {
+        page.blocks.push({ id: detailBlockId++, page_slug: slug, block_type: "approach", position: 20, visible: true, config: { ...defaults.process, image: defaults.processImage } });
+    }
+    page.blocks.push({ id: detailBlockId++, page_slug: slug, block_type: "editorial", position: 21, visible: true, config: defaults.visual });
+}

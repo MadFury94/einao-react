@@ -64,7 +64,25 @@ export type Page = {
 	article?: { author?: string; publishedAt?: string | null; modifiedAt?: string };
 	blocks: PageBlock[];
 };
-export type NavItem = Link & { children?: Link[] };
+export type NavChild = Link & {
+	description?: string;
+	icon?: string;   // icon name key
+	badge?: string;  // e.g. "Coming soon"
+};
+
+export type NavFeatured = {
+	eyebrow: string;
+	title: string;
+	body: string;
+	href: string;
+	linkLabel: string;
+	image?: string;
+};
+
+export type NavItem = Link & {
+	children?: NavChild[];
+	featured?: NavFeatured;
+};
 export type SiteConfig = {
 	name: string;
 	tagline: string;

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { gsap } from "~/lib/motion";
-import type { LeadershipProfile } from "@einao/content";
+import { defaultLeadershipProfile, type LeadershipProfile } from "@einao/content";
 import styles from "./HomeTeam.module.css";
 
 export function HomeTeam({ leader }: { leader: LeadershipProfile }) {
@@ -36,7 +36,7 @@ export function HomeTeam({ leader }: { leader: LeadershipProfile }) {
                     <div className={styles.imageCol} data-image>
                         <div className={styles.imageWrap}>
                             <img
-                                src={leader.image || "/assets/about-reference/choose-us.jpg"}
+                                src={leader.image || defaultLeadershipProfile.image}
                                 alt={leader.imageAlt || leader.name}
                                 width="446"
                                 height="714"

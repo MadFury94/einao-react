@@ -1,4 +1,6 @@
-﻿import { AnimatedCounter } from "../AnimatedCounter";
+import { CapabilityDetailBody } from "../capability-details/CapabilityDetailBody";
+import { CapabilitiesList } from "../capabilities-list/CapabilitiesList";
+import { AnimatedCounter } from "../AnimatedCounter";
 import { Marquee } from "../Marquee";
 import { ArrowIcon } from "../ArrowIcon";
 import type { BlockConfig, PageBlock } from "@einao/content";
@@ -44,43 +46,88 @@ export function PageHero({
 	accent,
 	pageLabel,
 	metaLines,
+	bgImage,
+	typewriterWords,
+	secondaryLink,
+	hideCtas,
 	children,
 }: {
 	eyebrow: string;
 	title: string;
 	accent?: string;
-	/** Large italic serif label shown bottom-right (e.g. "Capabilities") */
 	pageLabel?: string;
-	/** 2–3 short lines shown bottom-left */
 	metaLines?: string[];
-	/** Optional extra content (e.g. a CTA) */
+	bgImage?: string;
+	typewriterWords?: string[];
+	secondaryLink?: { label: string; href: string };
+	/** Pass true to suppress the default Start a conversation / Explore buttons */
+	hideCtas?: boolean;
 	children?: React.ReactNode;
 }) {
+	// metaLines[0] = subtitle line, metaLines[1] = body text (optional)
+	const subtitle = metaLines?.[0];
+	const bodyText = metaLines?.[1];
+	const secondary = secondaryLink ?? (pageLabel ? { label: `Explore ${pageLabel.toLowerCase()}`, href: `/${pageLabel.toLowerCase().replace(/\s+/g, "-")}/` } : undefined);
+
 	return (
-		<section className="page-hero-shared">
+		<section
+			className="page-hero-shared"
+			style={{ backgroundImage: `url("${bgImage || "/assets/images/about hero/Einao Profiles in emerald light.png"}")`, backgroundSize: "cover", backgroundPosition: "center" }}
+		>
 			<div className="container page-hero-shared-inner">
-				{/* Top: eyebrow */}
+				{/* Eyebrow */}
 				<p className="eyebrow page-hero-shared-eyebrow">{eyebrow}</p>
 
-				{/* Middle: giant animated title — takes up all available space */}
+				{/* Large headline */}
 				<div className="page-hero-shared-title">
 					<AnimatedTitle text={title} accent={accent} />
 				</div>
 
-				{/* Bottom strip: meta left + page label right */}
-				<div className="page-hero-shared-bottom">
-					<div className="page-hero-shared-meta">
-						{metaLines?.map((line) => <span key={line}>{line}</span>)}
+				{/* Typewriter */}
+				{typewriterWords && typewriterWords.length > 0 && (
+					<div className="page-hero-shared-typewriter">
+						<Typewriter phrases={typewriterWords} className="page-hero-typewriter-text" />
 					</div>
-					{pageLabel && (
+				)}
+
+				{/* Subtitle */}
+				{subtitle && <p className="page-hero-shared-subtitle">{subtitle}</p>}
+
+				{/* Body text */}
+				{bodyText && <p className="page-hero-shared-body">{bodyText}</p>}
+
+				{/* CTAs */}
+				{!hideCtas && (
+					<div className="page-hero-shared-ctas">
+						<Link className="page-hero-shared-cta-primary" to="/contact/">
+							<span className="page-hero-shared-cta-arrow page-hero-shared-cta-arrow-left" aria-hidden="true"><ArrowIcon /></span>
+							<span className="page-hero-shared-cta-label">Start a conversation</span>
+							<span className="page-hero-shared-cta-arrow page-hero-shared-cta-arrow-right" aria-hidden="true">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="m4 8 8 0M8 4l4 4-4 4" /></svg>
+							</span>
+						</Link>
+						{secondary && (
+							<Link className="page-hero-shared-cta-secondary" to={secondary.href}>
+								{secondary.label}
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+							</Link>
+						)}
+					</div>
+				)}
+
+				{/* Bottom: page label right-aligned */}
+				{pageLabel && (
+					<div className="page-hero-shared-bottom">
+						<span />
 						<span
 							className="page-hero-shared-label"
 							aria-hidden="true"
+							style={{ fontSize: pageLabel.length > 12 ? `clamp(3rem, ${Math.max(5, 11 - (pageLabel.length - 12) * 0.4)}vw, ${Math.max(60, 160 - (pageLabel.length - 12) * 6)}px)` : undefined }}
 						>
 							{pageLabel}
 						</span>
-					)}
-				</div>
+					</div>
+				)}
 
 				{children}
 			</div>
@@ -131,6 +178,8 @@ function InsightsPage({ blocks }: { blocks: PageBlock[] }) {
 				title="Latest insights and practical perspectives"
 				pageLabel="Insights"
 				metaLines={["Technology, operations, and change", "Einao Solutions"]}
+				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
+				typewriterWords={["Technology.", "Operations.", "Automation.", "Delivery."]}
 			/>
 			<section className="section insights-news-section">
 				<div className="container">
@@ -173,6 +222,8 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 				accent={hero?.accent}
 				pageLabel="About"
 				metaLines={["Established 2011", "Technology, operations, and delivery"]}
+				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
+				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
 			/>
 
 			<Reveal className="about-page-image-wrap">
@@ -214,25 +265,19 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 				</div>
 			</section>
 
-			{/*  03 How we work - process cards 
-			    4 cards in a 22 grid on tablet, 4-column row on desktop.
-			    Each card uses ProcessCard for consistent hover behaviour.
-			 */}
+			{/*  03 How we work — sdp-style numbered cards, clean on light bg */}
 			<section className="section about-page-process">
 				<div className="container">
 					<Reveal className="about-page-section-heading">
 						<div><p className="eyebrow">03 / How we work</p><h2>We understand first, then build what the organisation needs.</h2></div>
 						<p>From the first conversation to implementation, our work follows the operating reality. Each step makes the next decision clearer.</p>
 					</Reveal>
-					<div className="about-page-process-grid">
+					<div className="sdp-process-grid">
 						{approach?.items?.map((item, index) => (
-							<Reveal key={item.title} delay={index * 100}>
-								<ProcessCard
-									number={String(index + 1).padStart(2, "0")}
-									title={item.title}
-									description={item.body}
-									image={processImages[index] ?? processImages[0]}
-								/>
+							<Reveal key={item.title} delay={index * 80} className="sdp-process-card">
+								<span className="sdp-process-number">{String(index + 1).padStart(2, "0")}</span>
+								<h3>{item.title}</h3>
+								<p>{item.body}</p>
 							</Reveal>
 						))}
 					</div>
@@ -297,9 +342,17 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 			<section className="section about-page-history">
 				<div className="container">
 					<Reveal className="about-page-history-heading"><p className="eyebrow">05 / Our history</p><h2>Built around practical technology delivery.</h2></Reveal>
-					<div className="about-page-history-summary">
-						<div className="about-page-history-copy">{editorials[1]?.body?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-						<div className="about-page-history-founded"><span>Founded</span><strong><AnimatedCounter value={2011} /></strong><p>Practical technology delivery.</p></div>
+					<div className="about-page-history-body">
+						<div className="about-page-history-image">
+							<img src="/assets/images/Einao staff working on automation.jpg" alt="" width="700" height="520" loading="lazy" />
+						</div>
+						<div className="about-page-history-text">
+							<div className="about-page-history-founded">
+								<span className="about-page-history-year"><AnimatedCounter value={2011} /></span>
+								<p className="about-page-history-caption">Founded — practical technology delivery</p>
+							</div>
+							<div className="about-page-history-copy">{editorials[1]?.body?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+						</div>
 					</div>
 					<FounderProfile image={leader.image} alt={leader.imageAlt} role={leader.role} name={leader.name} credentials={leader.credentials} bio={leader.bio} />
 				</div>
@@ -573,48 +626,58 @@ function Section({ block }: { block: PageBlock }) {
 function CapabilitiesPage({ blocks }: { blocks: PageBlock[] }) {
 	const hero = blocks.find((block) => block.block_type === "hero")?.config;
 	const services = blocks.find((block) => block.block_type === "services")?.config;
-	const items = services?.items ?? [];
-	const fallbackImages = [
-		"/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
-		"/assets/images/Hands mapping a streamlined workflow.png",
-		"/assets/images/Graphite monitor with enterprise dashboard.png",
-	];
 	return (
-		<div className="capabilities-reference-page">
+		<div className="capabilities-reference-page capabilities-index-page">
 			<PageHero
 				eyebrow="01 / Our capabilities"
 				title={hero?.title ?? "Our capabilities"}
 				accent={hero?.accent}
 				pageLabel="Capabilities"
 				metaLines={["Technology, operations, and delivery", hero?.body?.[0] ?? ""].filter(Boolean)}
+				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
+				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
 			/>
-			<section className="capabilities-reference-services">
-				<div className="container"><div className="capabilities-reference-section-heading"><p className="eyebrow">02 / Our capabilities</p><h2><Typewriter phrases={[services?.title ?? "From understanding to implementation.", "The right technology starts with the right understanding.", "Define. Improve. Connect. Deliver."]} /></h2></div><div className="capabilities-reference-panels">{items.map((item, index) => { const image = item.image || fallbackImages[index % fallbackImages.length]; return <Reveal key={item.title} className="capabilities-reference-panel" delay={index * 100}><div className="capabilities-reference-content"><p className="capabilities-reference-number">{String(index + 1).padStart(3, "0")} / capability</p><h3>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}</h3><div className="capabilities-reference-list"><span>+ Understand</span><span>+ Design</span><span>+ Deliver</span></div><p className="capabilities-reference-description">{item.body}</p><ul><li><Link to={item.link?.href ?? "/contact/"}>Explore</Link></li><li><Link to="/contact/">Discuss a requirement</Link></li></ul></div><div className="image-composition capability-composition"><div className="capabilities-reference-thumb"><img src={image} alt="" width="900" height="1100" loading="lazy" /></div><img className="accent-image" src={fallbackImages[(index + 1) % fallbackImages.length]} alt="" width="240" height="240" loading="lazy" /></div></Reveal> })}</div></div>
-			</section>
+			{services && <CapabilitiesList config={services} />}
 		</div>
 	);
+}
+
+function IndustriesPage({ blocks }: { blocks: PageBlock[] }) {
+	const hero = blocks.find((block) => block.block_type === "hero")?.config;
+	const industriesBlock = blocks.find((block) => block.block_type === "industries")?.config;
+	return (
+		<div className="capabilities-reference-page industries-index-page">
+			<PageHero
+				eyebrow="01 / Who we work with"
+				title={hero?.title ?? "Technology shaped around the realities of your organisation."}
+				accent={hero?.accent}
+				pageLabel="Industries"
+				metaLines={["Government, business, and service organisations", hero?.body?.[0] ?? ""].filter(Boolean)}
+				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
+				typewriterWords={["Government.", "Business.", "Regulatory.", "Institutions."]}
+			/>
+			{industriesBlock && <IndustriesList config={industriesBlock} />}
+		</div>
+	);
+}
+
+function IndustriesList({ config }: { config: BlockConfig }) {
+	const items = config.items ?? [];
+	const images = [
+		"/assets/images/Collaborative technology team in Abuja office.png",
+		"/assets/images/Einao staff working on automation with client.jpg",
+		"/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+	];
+	// Re-use identical layout/CSS as CapabilitiesList — same module, same scroll-pin GSAP
+	// We pass it through a wrapper that matches the exact same DOM structure
+	return <CapabilitiesList config={{ ...config, items: items.map((item, i) => ({ ...item, image: item.image ?? images[i % images.length], label: item.label ?? ["Government / Public Sector", "Business / Corporate", "Regulatory / Services"][i % 3] })) }} />;
 }
 
 function CapabilityDetailPage({ blocks }: { blocks: PageBlock[] }) {
 	const pageSlug = blocks[0]?.page_slug ?? "";
 	const hero = blocks.find((block) => block.block_type === "hero")?.config;
-	const editorialBlocks = blocks.filter((block) => block.block_type === "editorial");
-	const faqBlock = editorialBlocks.find((block) => /question/i.test(block.config.title));
-	const contentEditorials = editorialBlocks.filter((block) => block !== faqBlock);
-	const approach = blocks.find((block) => block.block_type === "approach")?.config;
-	const items = contentEditorials[0]?.config.items ?? [];
-
-	const visualImages = pageSlug.includes("automation")
-		? ["/assets/images/Einao staff working on automation with client.jpg", "/assets/images/Einao staff working on automation.jpg"]
-		: pageSlug.includes("enterprise")
-			? ["/assets/images/Graphite monitor with enterprise dashboard.png", "/assets/images/Bridging paper records and digital systems.png"]
-			: ["/assets/images/Nigerian IT Consultants Reviewing a Laptop.png", "/assets/images/Hands sketching a business workflow.png"];
-
-	// Banner image: first visual image used as full-width banner
-	const bannerImage = visualImages[0];
-
 	return (
-		<div className="capability-detail-page">
+		<div className={`capability-detail-page${pageSlug === "capabilities/it-consulting" ? " it-consulting-page" : pageSlug === "capabilities/business-process-automation" ? " automation-page" : pageSlug === "capabilities/enterprise-solutions" ? " enterprise-page" : ""}`}>
 
 			{/* ── 01 Hero — Work-breadcrumb style with AnimatedTitle + CTA ── */}
 			<PageHero
@@ -622,106 +685,372 @@ function CapabilityDetailPage({ blocks }: { blocks: PageBlock[] }) {
 				title={hero?.title ?? "Capability"}
 				accent={hero?.accent}
 				pageLabel={hero?.eyebrow ?? "Capability"}
+				secondaryLink={{ label: "View all capabilities", href: "/capabilities/" }}
 				metaLines={["Technology, operations, and delivery"]}
+				bgImage={pageSlug === "capabilities/it-consulting" ? "/assets/images/about hero/Business Einao professionals reviewing laptop analytics.png" : pageSlug === "capabilities/business-process-automation" ? "/assets/images/about hero/Einao Hand Reaching Toward Glowing Workflow Nodes.png" : pageSlug === "capabilities/enterprise-solutions" ? "/assets/images/about hero/Focused duo Einao studying a tablet.png" : undefined}
 			>
-				{hero?.cta && (
+				{pageSlug !== "capabilities/it-consulting" && pageSlug !== "capabilities/business-process-automation" && pageSlug !== "capabilities/enterprise-solutions" && hero?.cta && (
 					<div className="page-hero-shared-cta">
 						<ActionLink link={hero.cta} />
 					</div>
 				)}
 			</PageHero>
 
-			{/* ── 02 Intro — two-column: h2 + body left, checklist right ── */}
-			<section className="cap-detail-intro">
-				<div className="container cap-detail-intro-grid">
-					<div className="cap-detail-intro-left">
-						<h2>{contentEditorials[0]?.config.title ?? hero?.title}</h2>
-						<p>{hero?.body?.[0]}</p>
-					</div>
-					<ul className="cap-detail-checklist">
-						{items.slice(0, 4).map((item) => (
-							<li key={item.title}>
-								<span aria-hidden="true">✓</span>
-								{item.title}
-							</li>
-						))}
-					</ul>
-				</div>
-			</section>
-
-			{/* ── 03 Full-width banner image ── */}
-			<div className="cap-detail-banner">
-				<img src={bannerImage} alt="" width="1680" height="700" loading="lazy" />
-			</div>
-
-			{/* ── 04 Process — image left, numbered steps right ── */}
-			{approach?.items && (
-				<section className="section cap-detail-concept">
-					<div className="container cap-detail-concept-grid">
-						{/* Left: heading + image */}
-						<div className="cap-detail-concept-left">
-							<p className="eyebrow">How we approach it</p>
-							<h2>{approach.title ?? "From requirement to delivery."}</h2>
-							<div className="cap-detail-concept-thumb">
-								<img src={visualImages[1] ?? visualImages[0]} alt="" width="540" height="600" loading="lazy" />
-							</div>
-						</div>
-						{/* Right: numbered step list */}
-						<div className="cap-detail-concept-right">
-							{approach.items.map((item, index) => (
-								<Reveal key={item.title} delay={index * 90} className="cap-detail-concept-box">
-									<span className="cap-detail-step-num">{String(index + 1).padStart(2, "0")}</span>
-									<div>
-										<h3>{item.title}</h3>
-										<p>{item.body}</p>
-									</div>
-								</Reveal>
-							))}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* ── 05 Visual section — two columns: copy + image ── */}
-			<section className="cap-detail-visuals">
-				<div className="container cap-detail-visual-grid">
-					{visualImages.map((image, index) => (
-						<Reveal key={image} className="cap-detail-visual-item">
-							<p>{contentEditorials[index + 1]?.config.body?.[0] ?? hero?.body?.[0]}</p>
-							<div className="cap-detail-visual-img">
-								<img src={image} alt="" width="900" height="700" loading="lazy" />
-							</div>
-						</Reveal>
-					))}
-				</div>
-			</section>
-
-			{/* ── 06 FAQ — two-column accordion ── */}
-			{faqBlock?.config.items && faqBlock.config.items.length > 0 && (
-				<section className="section cap-detail-faq">
-					<div className="container cap-detail-faq-grid">
-						<div>
-							<p className="eyebrow">Common questions</p>
-							<h2>Quick answers before the work begins.</h2>
-						</div>
-						<div className="cap-detail-accordion">
-							{faqBlock.config.items.map((item, index) => (
-								<details key={item.title} open={index === 0}>
-									<summary>
-										{item.title}
-										<span aria-hidden="true">+</span>
-									</summary>
-									<p>{item.body}</p>
-								</details>
-							))}
-						</div>
-					</div>
-				</section>
-			)}
+			<CapabilityDetailBody blocks={blocks} />
 
 		</div>
 	);
 }
+// ── Shared project showcase card (used by Solutions page + Industry detail pages) ──
+const showcaseFallbackImages = [
+	"/assets/images/Hands mapping a streamlined workflow.png",
+	"/assets/images/Graphite monitor with enterprise dashboard.png",
+	"/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+	"/assets/images/Bridging paper records and digital systems.png",
+	"/assets/images/Collaborative technology team in Abuja office.png",
+	"/assets/images/Team Navigates Pending Approvals.png",
+];
+
+type ShowcaseItem = {
+	title: string;
+	body?: string;
+	image?: string;
+	label?: string;
+	badge?: string;
+	link?: { label: string; href: string };
+};
+
+function ShowcaseCard({ item, index }: { item: ShowcaseItem; index: number }) {
+	const image = item.image ?? showcaseFallbackImages[index % showcaseFallbackImages.length];
+	const labelParts = item.label?.split("/") ?? [];
+	const tags = labelParts[0]?.trim() ? [labelParts[0].trim()] : [];
+	const year = new Date().getFullYear();
+	const direction = index % 2 === 0 ? "left" : "right";
+	return (
+		<Reveal direction={direction} delay={index % 2 === 1 ? 150 : 0} className={`solutions-card${item.badge ? " solutions-card-soon" : ""}`}>
+			<div className="solutions-card-thumb">
+				<img src={image} alt="" width="900" height="620" loading="lazy" />
+				<img src={image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
+				{item.badge && <span className="solutions-card-badge" aria-label={item.badge}>{item.badge}</span>}
+				{item.link && !item.badge && (
+					<Link to={item.link.href} className="solutions-card-arrow" aria-label={`Explore ${item.title}`}><ArrowIcon /></Link>
+				)}
+				<div className="solutions-card-content">
+					<div className="solutions-card-info">
+						<h2 className="solutions-card-title">
+							{item.link && !item.badge ? <Link to={item.link.href}>{item.title}</Link> : item.title}
+						</h2>
+						{tags.length > 0 && (
+							<div className="solutions-card-tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+						)}
+					</div>
+					<span className="solutions-card-year">[ {year} ]</span>
+				</div>
+			</div>
+		</Reveal>
+	);
+}
+
+function ShowcaseGrid({ items, heading, subheading }: { items: ShowcaseItem[]; heading?: string; subheading?: string }) {
+	const left = items.filter((_, i) => i % 2 === 0);
+	const right = items.filter((_, i) => i % 2 === 1);
+	return (
+		<section className="section solutions-grid-section">
+			{(heading || subheading) && (
+				<div className="container">
+					<Reveal className="showcase-heading">
+						{subheading && <p className="eyebrow">{subheading}</p>}
+						{heading && <h2>{heading}</h2>}
+					</Reveal>
+				</div>
+			)}
+			<div className="container solutions-grid-container">
+				<div className="solutions-grid">
+					<div className="solutions-col">
+						{left.map((item, i) => <ShowcaseCard key={item.title} item={item} index={i * 2} />)}
+					</div>
+					<div className="solutions-col solutions-col-offset">
+						{right.map((item, i) => <ShowcaseCard key={item.title} item={item} index={i * 2 + 1} />)}
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}
+
+// Per-industry project/solution showcases
+const industryProjects: Record<string, ShowcaseItem[]> = {
+	"industries/government": [
+		{
+			title: "IP PRO",
+			label: "Intellectual property management",
+			body: "Structured IP application and registry management used in the IPO Nigeria portal engagement.",
+			image: "/assets/images/about hero/Focused duo Einao studying a tablet.png",
+			link: { label: "Explore IP PRO", href: "/solutions/ip-pro/" },
+		},
+		{
+			title: "Fylonn",
+			label: "Application & process management",
+			body: "A modular platform for digitising, coordinating and monitoring applications and operational processes.",
+			image: "/assets/images/about hero/Einao Profiles in emerald light.png",
+			link: { label: "Explore Fylonn", href: "/solutions/fylonn/" },
+		},
+	],
+	"industries/business": [
+		{
+			title: "Fylonn",
+			label: "Application & process management",
+			body: "Coordinate recurring business processes, reduce manual follow-ups and improve operational visibility.",
+			image: "/assets/images/Collaborative technology team in Abuja office.png",
+			link: { label: "Explore Fylonn", href: "/solutions/fylonn/" },
+		},
+		{
+			title: "PayX",
+			label: "Digital payments",
+			body: "A structured digital payment solution for managing payment activity and maintaining visibility over transactions.",
+			image: "/assets/images/about hero/Business Einao professionals reviewing laptop analytics.png",
+			badge: "Coming soon",
+			link: { label: "Explore PayX", href: "/solutions/payx/" },
+		},
+		{
+			title: "Custom Enterprise Systems",
+			label: "Bespoke development",
+			body: "When a requirement needs a tailored approach — digital portals, integrations, workflow systems, or custom software.",
+			image: "/assets/images/Graphite monitor with enterprise dashboard.png",
+			link: { label: "Discuss a requirement", href: "/solutions/custom-enterprise-systems/" },
+		},
+	],
+	"industries/regulatory-services": [
+		{
+			title: "Fylonn",
+			label: "Application & process management",
+			body: "Digital intake, back-office processing, and operational oversight for regulatory applications and service requests.",
+			image: "/assets/images/Team Navigates Pending Approvals.png",
+			link: { label: "Explore Fylonn", href: "/solutions/fylonn/" },
+		},
+		{
+			title: "IP PRO",
+			label: "Records & registry management",
+			body: "Structured intellectual property application, records, and review management for service institutions.",
+			image: "/assets/images/Hands mapping a streamlined workflow.png",
+			link: { label: "Explore IP PRO", href: "/solutions/ip-pro/" },
+		},
+		{
+			title: "Custom Enterprise Systems",
+			label: "Bespoke development",
+			body: "Tailored digital systems for structured service processes, defined workflows, and regulatory requirements.",
+			image: "/assets/images/Bridging paper records and digital systems.png",
+			link: { label: "Discuss a requirement", href: "/solutions/custom-enterprise-systems/" },
+		},
+	],
+};
+
+// ── Per-industry page content ──────────────────────────────────────────────
+const industryContent: Record<string, {
+	heading: string;
+	intro: string;
+	intro2: string;
+	checks: string[];
+	steps: { title: string; body: string }[];
+	visual1: string;
+	visual2: string;
+	featureImage: string;
+	visualImg1: string;
+	visualImg2: string;
+	ctaLabel: string;
+}> = {
+	"industries/business": {
+		heading: "Technology that helps your business work better.",
+		intro: "As businesses grow, processes can become fragmented across teams, spreadsheets, and disconnected applications. Einao helps organisations assess their operations, improve workflows, connect systems, and define digital solutions that support their business requirements.",
+		intro2: "Whether the need is process automation, a new enterprise application, or integrating existing systems, we start by understanding how your business actually works before recommending a technical approach.",
+		checks: [
+			"Operations assessment and process mapping",
+			"Workflow automation and digital approvals",
+			"System integration and data flow",
+			"Enterprise applications and portals",
+			"Custom software development",
+		],
+		steps: [
+			{ title: "Assess the operation", body: "We examine current workflows, identify fragmented processes, and define what technology needs to do." },
+			{ title: "Design the approach", body: "Automation, integration, a new system — we define the right response to the operational problem." },
+			{ title: "Build and support", body: "We implement the solution and can provide continued technical support and improvement." },
+		],
+		visual1: "When processes are fragmented across spreadsheets, emails, and disconnected tools, coordination becomes the bottleneck. Einao maps those workflows and defines digital systems that reduce the administrative effort and make progress visible.",
+		visual2: "Integrating existing business systems — CRMs, ERPs, finance tools — can eliminate repeated data entry and create a more connected operational picture. We assess what's technically feasible before committing to an approach.",
+		featureImage: "/assets/images/Einao staff working on automation with client.jpg",
+		visualImg1: "/assets/images/Hands mapping a streamlined workflow.png",
+		visualImg2: "/assets/images/Graphite monitor with enterprise dashboard.png",
+		ctaLabel: "Discuss a business requirement",
+	},
+	"industries/regulatory-services": {
+		heading: "Clearer processes for organisations that manage structured services.",
+		intro: "Regulatory and service organisations manage defined applications, structured reviews, records, decisions, and public-facing processes. When these workflows are fragmented or manual, they become harder to track, audit, and improve.",
+		intro2: "Einao can assess those requirements and determine an appropriate automation, integration, or development approach — helping organisations build digital systems that reflect how their service processes actually work.",
+		checks: [
+			"Application and request intake",
+			"Back-office processing and case management",
+			"Records and information management",
+			"Structured review and approval workflows",
+			"Public-facing service portals",
+		],
+		steps: [
+			{ title: "Map the service process", body: "We document current workflows, hand-offs, decision points, and information requirements before suggesting a solution." },
+			{ title: "Define the digital requirements", body: "Intake forms, routing rules, approval stages, records — we turn process knowledge into functional requirements." },
+			{ title: "Build and maintain", body: "We implement the agreed system and provide ongoing support as requirements evolve." },
+		],
+		visual1: "Service organisations handling applications and cases often struggle with visibility — applicants don't know where things stand, and managers lack reliable operational data. A well-structured digital system addresses both.",
+		visual2: "Einao's experience with the IPO Nigeria portal — which supports trademark, patent, and industrial design applications — demonstrates the kind of structured digital processes we help institutions build and maintain.",
+		featureImage: "/assets/images/Team Navigates Pending Approvals.png",
+		visualImg1: "/assets/images/Bridging paper records and digital systems.png",
+		visualImg2: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+		ctaLabel: "Discuss your service process",
+	},
+};
+
+function IndustryDetailPage({ blocks }: { blocks: PageBlock[] }) {
+	const pageSlug = blocks[0]?.page_slug ?? "";
+	const hero = blocks.find((b) => b.block_type === "hero")?.config;
+	const projects = industryProjects[pageSlug] ?? [];
+	const content = industryContent[pageSlug];
+
+	// Per-industry hero images
+	const bgImage =
+		pageSlug === "industries/business"
+			? "/assets/images/about hero/Business Einao professionals reviewing laptop analytics.png"
+			: pageSlug === "industries/regulatory-services"
+				? "/assets/images/about hero/Einao Hand Reaching Toward Glowing Workflow Nodes.png"
+				: "/assets/images/about hero/Einao Profiles in emerald light.png";
+
+	const industryLabel = pageSlug === "industries/business"
+		? "Business"
+		: pageSlug === "industries/regulatory-services"
+			? "Regulatory"
+			: hero?.eyebrow ?? pageSlug.split("/").pop()?.replace(/-/g, " ") ?? "Industry";
+
+	return (
+		<div className="industry-detail-page">
+			{/* ── Hero ── */}
+			<PageHero
+				eyebrow={`Industry / ${hero?.eyebrow ?? industryLabel}`}
+				title={hero?.title ?? industryLabel}
+				accent={hero?.accent}
+				pageLabel={industryLabel}
+				metaLines={hero?.body?.slice(0, 1) ?? []}
+				bgImage={bgImage}
+				secondaryLink={{ label: "All industries", href: "/industries/" }}
+			/>
+
+			{content && (<>
+				{/* ── Intro strip ── */}
+				<section className="section gov-intro">
+					<div className="container gov-intro-grid">
+						<Reveal direction="left" className="gov-intro-left">
+							<h2>{content.heading}</h2>
+							<ul className="gov-checklist">
+								{content.checks.map((item) => (
+									<li key={item}>
+										<span className="gov-check" aria-hidden="true">
+											<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 8.5 6.5 12.5 13.5 4" /></svg>
+										</span>
+										{item}
+									</li>
+								))}
+							</ul>
+						</Reveal>
+						<Reveal direction="right" delay={100} className="gov-intro-right">
+							<p>{content.intro}</p>
+							<p>{content.intro2}</p>
+							<ActionLink link={{ label: content.ctaLabel, href: "/contact/" }} />
+						</Reveal>
+					</div>
+				</section>
+
+				{/* ── Feature image ── */}
+				<section className="gov-feature-image">
+					<div className="container">
+						<Reveal>
+							<div className="gov-feature-thumb">
+								<img src={content.featureImage} alt="" width="1400" height="700" loading="lazy" />
+							</div>
+						</Reveal>
+					</div>
+				</section>
+
+				{/* ── How we work steps ── */}
+				<section className="section gov-how-section">
+					<div className="container">
+						<div className="gov-how-grid">
+							<Reveal direction="left" className="gov-how-left">
+								<div className="gov-how-count">
+									<span>0</span><span className="gov-how-count-num">{content.steps.length}</span>
+								</div>
+								<p className="gov-how-subtitle">Our engagement approach</p>
+								<div className="gov-how-image">
+									<img src={content.visualImg1} alt="" width="600" height="480" loading="lazy" />
+								</div>
+							</Reveal>
+							<Reveal direction="right" delay={80} className="gov-how-right">
+								<h2>From understanding the requirement to building the solution.</h2>
+								{content.steps.map((step, i) => (
+									<div key={step.title} className="gov-how-step">
+										<h3><span className="gov-how-num">{String(i + 1).padStart(2, "0")}</span>{step.title}</h3>
+										<p>{step.body}</p>
+									</div>
+								))}
+							</Reveal>
+						</div>
+					</div>
+				</section>
+
+				{/* ── Visual pair ── */}
+				<section className="section gov-visual-section">
+					<div className="container">
+						<Reveal className="gov-visual-heading">
+							<h2>Technology shaped around operational reality.</h2>
+						</Reveal>
+						<div className="gov-visual-grid">
+							<Reveal direction="left" className="gov-visual-item">
+								<p>{content.visual1}</p>
+								<div className="gov-visual-thumb">
+									<img src={content.visualImg1} alt="" width="680" height="460" loading="lazy" />
+								</div>
+							</Reveal>
+							<Reveal direction="right" delay={100} className="gov-visual-item">
+								<p>{content.visual2}</p>
+								<div className="gov-visual-thumb">
+									<img src={content.visualImg2} alt="" width="680" height="460" loading="lazy" />
+								</div>
+							</Reveal>
+						</div>
+					</div>
+				</section>
+			</>)}
+
+			{/* ── Solutions showcase ── */}
+			{projects.length > 0 && (
+				<ShowcaseGrid
+					items={projects}
+					heading="Relevant solutions for this industry"
+					subheading="Solutions"
+				/>
+			)}
+
+			{/* ── CTA strip ── */}
+			<section className="section solutions-cta-strip">
+				<div className="container">
+					<Reveal className="solutions-cta-inner">
+						<div>
+							<p className="eyebrow">Work with us</p>
+							<h2>Discuss a requirement for your organisation.</h2>
+						</div>
+						<ActionLink link={{ label: "Start a conversation", href: "/contact/" }} />
+					</Reveal>
+				</div>
+			</section>
+		</div>
+	);
+}
+
 function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 	const hero = blocks.find((b) => b.block_type === "hero")?.config;
 	const solutionsBlock = blocks.find((b) => b.block_type === "solutions")?.config;
@@ -732,52 +1061,6 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 	const left = items.filter((_, i) => i % 2 === 0);
 	const right = items.filter((_, i) => i % 2 === 1);
 
-	const fallbackImages = [
-		"/assets/images/Hands mapping a streamlined workflow.png",
-		"/assets/images/Graphite monitor with enterprise dashboard.png",
-		"/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
-		"/assets/images/Bridging paper records and digital systems.png",
-	];
-
-	function SolutionCard({ item, index }: { item: NonNullable<typeof items>[number]; index: number }) {
-		const image = item.image ?? fallbackImages[index % fallbackImages.length];
-		const labelParts = item.label?.split("/") ?? [];
-		const tags = labelParts[0]?.trim() ? [labelParts[0].trim()] : [];
-		const year = new Date().getFullYear();
-
-		return (
-			<Reveal delay={(index % 2) * 120} className={`solutions-card${item.badge ? " solutions-card-soon" : ""}`}>
-				<div className="solutions-card-thumb">
-					<img src={image} alt="" width="900" height="620" loading="lazy" />
-					<img src={image} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
-					{item.badge && (
-						<span className="solutions-card-badge" aria-label={item.badge}>{item.badge}</span>
-					)}
-					{item.link && !item.badge && (
-						<Link to={item.link.href} className="solutions-card-arrow" aria-label={`Explore ${item.title}`}>
-							<ArrowIcon />
-						</Link>
-					)}
-				</div>
-				<div className="solutions-card-content">
-					<div className="solutions-card-info">
-						<h2 className="solutions-card-title">
-							{item.link && !item.badge
-								? <Link to={item.link.href}>{item.title}</Link>
-								: item.title}
-						</h2>
-						{tags.length > 0 && (
-							<div className="solutions-card-tags">
-								{tags.map((tag) => <span key={tag}>{tag}</span>)}
-							</div>
-						)}
-					</div>
-					<span className="solutions-card-year">[ {year} ]</span>
-				</div>
-			</Reveal>
-		);
-	}
-
 	return (
 		<div className="solutions-page">
 			{/* Hero — shared Work-style header */}
@@ -786,7 +1069,9 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 				title={hero?.title ?? "Digital solutions for real operational requirements."}
 				accent={hero?.accent}
 				pageLabel="Solutions"
-				metaLines={["Einao Solutions", "©2011 — 2026"]}
+				metaLines={["Digital solutions for real operations", hero?.body?.[0] ?? ""].filter(Boolean)}
+				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
+				typewriterWords={["Connecting.", "Simplifying.", "Automating.", "Delivering."]}
 			/>
 
 			{/* Project-style two-column grid */}
@@ -796,13 +1081,13 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 						{/* Left column */}
 						<div className="solutions-col">
 							{left.map((item, i) => (
-								<SolutionCard key={item.title} item={item} index={i * 2} />
+								<ShowcaseCard key={item.title} item={item} index={i * 2} />
 							))}
 						</div>
 						{/* Right column — offset down to create staggered layout */}
 						<div className="solutions-col solutions-col-offset">
 							{right.map((item, i) => (
-								<SolutionCard key={item.title} item={item} index={i * 2 + 1} />
+								<ShowcaseCard key={item.title} item={item} index={i * 2 + 1} />
 							))}
 						</div>
 					</div>
@@ -828,6 +1113,63 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 	);
 }
 
+function WorkPage({ blocks }: { blocks: PageBlock[] }) {
+	const hero = blocks.find((b) => b.block_type === "hero")?.config;
+	const proof = blocks.find((b) => b.block_type === "proof")?.config;
+
+	const caseStudies: ShowcaseItem[] = (proof?.items ?? []).map((item, i) => ({
+		title: item.title,
+		label: item.label ?? "Case study",
+		body: item.body,
+		image: item.image ?? showcaseFallbackImages[i % showcaseFallbackImages.length],
+		link: item.link,
+	}));
+
+	// Pad with a placeholder if we only have one real case study
+	if (caseStudies.length === 1) {
+		caseStudies.push({
+			title: "More case studies coming",
+			label: "In progress",
+			body: "We are documenting additional engagements. Check back for updates on our institutional and enterprise work.",
+			image: "/assets/images/Calm Green Network in Negative Space (1).png",
+		});
+	}
+
+	return (
+		<div className="work-page">
+			<PageHero
+				eyebrow="01 / Our work"
+				title={hero?.title ?? "The work behind systems people rely on."}
+				accent={hero?.accent}
+				pageLabel="Our Work"
+				metaLines={["Case studies and selected engagements", hero?.body?.[0] ?? ""].filter(Boolean)}
+				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
+				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
+			/>
+
+			{caseStudies.length > 0 && (
+				<ShowcaseGrid
+					items={caseStudies}
+					heading="Selected work"
+					subheading="02 / Engagements"
+				/>
+			)}
+
+			<section className="section solutions-cta-strip">
+				<div className="container">
+					<Reveal className="solutions-cta-inner">
+						<div>
+							<p className="eyebrow">Work with us</p>
+							<h2>Tell us what your organisation needs to do better.</h2>
+						</div>
+						<ActionLink link={{ label: "Start a conversation", href: "/contact/" }} />
+					</Reveal>
+				</div>
+			</section>
+		</div>
+	);
+}
+
 export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 	if (blocks[0]?.page_slug === "insights") return <InsightsPage blocks={blocks} />;
 	if (blocks[0]?.page_slug === "about") return <AboutPage blocks={blocks} />;
@@ -837,6 +1179,8 @@ export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 	if (["solutions/fylonn", "solutions/payx", "solutions/ip-pro"].includes(blocks[0]?.page_slug ?? "")) {
 		return <SolutionDetailPage blocks={blocks} />;
 	}
+	if (blocks[0]?.page_slug === "industries") return <IndustriesPage blocks={blocks} />;
+	if (blocks[0]?.page_slug === "work") return <WorkPage blocks={blocks} />;
 
 	/* Government industry page - bespoke layout with hero, IPO proof, services, process */
 	if (blocks[0]?.page_slug === "industries/government") {
@@ -845,6 +1189,11 @@ export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 		if (heroBlock && proofBlock) {
 			return <GovPage hero={heroBlock} proof={proofBlock} />;
 		}
+	}
+
+	/* Other industry detail pages */
+	if (blocks[0]?.page_slug?.startsWith("industries/")) {
+		return <IndustryDetailPage blocks={blocks} />;
 	}
 
 	return (
@@ -858,31 +1207,247 @@ export function PageBlocks({ blocks }: { blocks: PageBlock[] }) {
 	);
 }
 
+// ── Per-solution image sets ────────────────────────────────────────────────
+const solutionAssets: Record<string, {
+	hero: string;
+	feature: string;
+	detail: string;
+	pair: [string, string];
+	category: string;
+	year: string;
+}> = {
+	"solutions/fylonn": {
+		hero: "/assets/images/about hero/Einao Profiles in emerald light.png",
+		feature: "/assets/images/Collaborative technology team in Abuja office.png",
+		detail: "/assets/images/Team Navigates Pending Approvals.png",
+		pair: [
+			"/assets/images/Hands mapping a streamlined workflow.png",
+			"/assets/images/Graphite monitor with enterprise dashboard.png",
+		],
+		category: "Application & Process Management",
+		year: "2024",
+	},
+	"solutions/payx": {
+		hero: "/assets/images/about hero/Business Einao professionals reviewing laptop analytics.png",
+		feature: "/assets/images/Einao staff working on automation with client.jpg",
+		detail: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+		pair: [
+			"/assets/images/Bridging paper records and digital systems.png",
+			"/assets/images/Hands sketching a business workflow.png",
+		],
+		category: "Digital Payments",
+		year: "2024",
+	},
+	"solutions/ip-pro": {
+		hero: "/assets/images/about hero/Focused duo Einao studying a tablet.png",
+		feature: "/assets/images/Einao staff working on automation.jpg",
+		detail: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+		pair: [
+			"/assets/images/Faint process sketch in deep green.png",
+			"/assets/images/Quiet deep green blueprint grid.png",
+		],
+		category: "Intellectual Property Management",
+		year: "2023",
+	},
+};
+
 function SolutionDetailPage({ blocks }: { blocks: PageBlock[] }) {
 	const pageSlug = blocks[0]?.page_slug ?? "";
 	const hero = blocks.find((block) => block.block_type === "hero")?.config;
 	const label = hero?.eyebrow ?? pageSlug.split("/").pop()?.replace(/-/g, " ") ?? "Solution";
+	const editorials = blocks.filter((b) => b.block_type === "editorial").map((b) => b.config);
+
+	const assets = solutionAssets[pageSlug] ?? solutionAssets["solutions/fylonn"];
+
+	const intro = editorials[0];
+	const modules = editorials[1];
+	const audience = editorials[2];
+
+	const checklistItems = (modules?.items ?? audience?.items ?? []).slice(0, 5);
+	const processSteps = (modules?.items ?? []).slice(0, 4);
+
+	const slugs = ["solutions/fylonn", "solutions/payx", "solutions/ip-pro"];
+	const currentIdx = slugs.indexOf(pageSlug);
+	const prevSlug = currentIdx > 0 ? slugs[currentIdx - 1] : null;
+	const nextSlug = currentIdx < slugs.length - 1 ? slugs[currentIdx + 1] : null;
+	const prevLabel = prevSlug ? (prevSlug.split("/").pop()?.replace(/-/g, " ") ?? "") : null;
+	const nextLabel = nextSlug ? (nextSlug.split("/").pop()?.replace(/-/g, " ") ?? "") : null;
 
 	return (
 		<div className="solution-detail-page">
+			{/* ── 01 Hero ── */}
 			<PageHero
 				eyebrow={`Solution / ${label}`}
 				title={hero?.title ?? label}
 				accent={hero?.accent}
 				pageLabel={label}
 				metaLines={hero?.body?.slice(0, 1) ?? []}
-			>
-				{hero?.cta && <div className="page-hero-shared-cta"><ActionLink link={hero.cta} /></div>}
-			</PageHero>
-			{blocks.filter((block) => block.block_type !== "hero" && block.visible).map((block) => (
-				<Section key={block.id} block={block} />
-			))}
+				bgImage={assets.hero}
+				secondaryLink={{ label: "All solutions", href: "/solutions/" }}
+			/>
+
+			{/* ── 02 Full-width feature image ── */}
+			<section className="sdp-feature-image">
+				<div className="container">
+					<Reveal>
+						<div className="sdp-feature-thumb">
+							<img src={assets.feature} alt="" width="1400" height="700" loading="lazy" />
+						</div>
+					</Reveal>
+				</div>
+			</section>
+
+			{/* ── 03 Info strip: heading + meta + intro ── */}
+			<section className="section sdp-info-strip">
+				<div className="container sdp-info-container">
+					<Reveal direction="left" className="sdp-info-text">
+						<h2>{intro?.title ?? hero?.title ?? label}</h2>
+						<p>{intro?.body?.[0] ?? hero?.body?.[0] ?? ""}</p>
+					</Reveal>
+					<Reveal direction="right" delay={100} className="sdp-meta-grid">
+						<div className="sdp-meta-item">
+							<span>Category</span>
+							<p>{assets.category}</p>
+						</div>
+						<div className="sdp-meta-item">
+							<span>Developed by</span>
+							<p>Einao Solutions</p>
+						</div>
+						<div className="sdp-meta-item">
+							<span>Type</span>
+							<p>Enterprise software</p>
+						</div>
+						<div className="sdp-meta-item sdp-meta-item-last">
+							<span>Year</span>
+							<p>{assets.year}</p>
+						</div>
+					</Reveal>
+				</div>
+			</section>
+
+			{/* ── 04 Large detail image ── */}
+			<section className="sdp-detail-image">
+				<div className="container">
+					<Reveal>
+						<div className="sdp-detail-thumb">
+							<img src={assets.detail} alt="" width="1400" height="800" loading="lazy" />
+						</div>
+					</Reveal>
+				</div>
+			</section>
+
+			{/* ── 05 Two-column body + checklist ── */}
+			<section className="section sdp-body-section">
+				<div className="container">
+					<div className="sdp-body-grid">
+						<Reveal direction="left" className="sdp-body-left">
+							<h2>{modules?.title ?? "Key capabilities"}</h2>
+						</Reveal>
+						<Reveal direction="right" delay={100} className="sdp-body-right">
+							{(intro?.body ?? []).slice(1).map((p, i) => <p key={i}>{p}</p>)}
+							{checklistItems.length > 0 && (
+								<ul className="sdp-checklist">
+									{checklistItems.map((item) => (
+										<li key={item.title}>
+											<span className="sdp-check" aria-hidden="true">
+												<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 8.5 6.5 12.5 13.5 4" /></svg>
+											</span>
+											{item.title}
+										</li>
+									))}
+								</ul>
+							)}
+						</Reveal>
+					</div>
+				</div>
+			</section>
+
+			{/* ── 06 Dual images side-by-side ── */}
+			<section className="sdp-dual-images">
+				<div className="container">
+					<div className="sdp-dual-grid">
+						<Reveal direction="left">
+							<div className="sdp-dual-thumb">
+								<img src={assets.pair[0]} alt="" width="700" height="520" loading="lazy" />
+							</div>
+						</Reveal>
+						<Reveal direction="right" delay={120}>
+							<div className="sdp-dual-thumb">
+								<img src={assets.pair[1]} alt="" width="700" height="520" loading="lazy" />
+							</div>
+						</Reveal>
+					</div>
+				</div>
+			</section>
+
+			{/* ── 07 Numbered process/module cards ── */}
+			{processSteps.length > 0 && (
+				<section className="section sdp-process-section">
+					<div className="container">
+						<Reveal className="sdp-process-heading">
+							<h2>{modules?.title ?? "How it works"}</h2>
+						</Reveal>
+						<div className="sdp-process-grid">
+							{processSteps.map((item, i) => (
+								<Reveal key={item.title} delay={i * 80} className="sdp-process-card">
+									<span className="sdp-process-number">{String(i + 1).padStart(2, "0")}</span>
+									<h3>{item.title}</h3>
+									<p>{item.body}</p>
+								</Reveal>
+							))}
+						</div>
+					</div>
+				</section>
+			)}
+
+			{/* ── 08 Who it's for / audience ── */}
+			{audience && (audience.items?.length ?? 0) > 0 && (
+				<section className="section sdp-result-section">
+					<div className="container">
+						<div className="sdp-result-grid">
+							<Reveal direction="left" className="sdp-result-left">
+								<h2>{audience.title ?? "Who this is for"}</h2>
+							</Reveal>
+							<Reveal direction="right" delay={100} className="sdp-result-right">
+								{(audience.items ?? []).slice(0, 2).map((item) => (
+									<div key={item.title} className="sdp-result-item">
+										<h3>{item.title}</h3>
+										<p>{item.body}</p>
+									</div>
+								))}
+							</Reveal>
+						</div>
+					</div>
+				</section>
+			)}
+
+			{/* ── 09 Prev / Next nav ── */}
+			<nav className="sdp-nav" aria-label="Solution navigation">
+				<div className="container sdp-nav-inner">
+					{prevSlug ? (
+						<Link to={`/${prevSlug}/`} className="sdp-nav-item sdp-nav-prev">
+							<span className="sdp-nav-arrow" aria-hidden="true">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m14 5-7 7 7 7" /></svg>
+							</span>
+							<span className="sdp-nav-meta"><span className="sdp-nav-label">Previous</span><span className="sdp-nav-name">{prevLabel}</span></span>
+						</Link>
+					) : <span />}
+					<Link to="/solutions/" className="sdp-nav-grid" aria-label="All solutions">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
+					</Link>
+					{nextSlug ? (
+						<Link to={`/${nextSlug}/`} className="sdp-nav-item sdp-nav-next">
+							<span className="sdp-nav-meta"><span className="sdp-nav-label">Next</span><span className="sdp-nav-name">{nextLabel}</span></span>
+							<span className="sdp-nav-arrow" aria-hidden="true">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m10 5 7 7-7 7" /></svg>
+							</span>
+						</Link>
+					) : <span />}
+				</div>
+			</nav>
 		</div>
 	);
 }
-
-
-
 
 
 

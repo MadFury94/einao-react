@@ -1,0 +1,127 @@
+import type { BlockConfig } from "./types";
+
+export const capabilityDetailDefaults: Record<string, { banner: string; processImage: string; faqImage: string; process: BlockConfig; visual: BlockConfig }> = {
+  "capabilities/it-consulting": {
+    "banner": "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
+    "processImage": "/assets/images/Hands sketching a business workflow.png",
+    "faqImage": "/assets/images/process/our-process.jpg",
+    "process": {
+      "title": "From uncertainty to a practical plan.",
+      "body": [
+        "A structured consulting engagement"
+      ],
+      "items": [
+        {
+          "title": "Understand the operation",
+          "body": "We start with the people doing the work. Discussions with process owners and users establish the business context, current systems, information requirements, constraints, and intended outcome. We examine routine activities as well as the exceptions that make a process difficult to manage."
+        },
+        {
+          "title": "Assess the options",
+          "body": "We map workflows, clarify requirements, and review dependencies before recommending a technology direction. The assessment considers process changes, existing tools, integration, and custom development. Assumptions and trade-offs are made explicit so stakeholders can compare options against the operational need."
+        },
+        {
+          "title": "Define the next step",
+          "body": "The engagement establishes a practical basis for action: agreed priorities, a clearer scope, relevant dependencies, and implementation considerations. These outputs can guide an Einao delivery engagement or help your team evaluate another delivery route with better-defined requirements."
+        }
+      ]
+    },
+    "visual": {
+      "eyebrow": "capability-delivery",
+      "title": "Clarity before commitment.",
+      "items": [
+        {
+          "title": "Make the current operation visible.",
+          "body": "A useful technology plan starts with an accurate account of how the organisation works today. We examine how requests enter a process, who reviews them, what information is needed, and where responsibility changes hands. Process maps make duplication, manual workarounds, approval delays, and unclear ownership easier to discuss.\n\nThis work also considers the applications and records already in use. Understanding their role and limitations helps distinguish a process problem from a software gap. Your team gains a shared language for the problem before investing in a new platform or commissioning development.",
+          "image": "/assets/images/Hands mapping a streamlined workflow.png"
+        },
+        {
+          "title": "Turn requirements into delivery decisions.",
+          "body": "Stakeholder needs must be specific enough to guide design, evaluation, and implementation. We clarify user groups, permissions, workflow rules, information flows, reporting needs, integrations, and the constraints that affect delivery. Priorities are considered alongside dependencies so the proposed scope reflects what the organisation can realistically put into use.\n\nThe resulting direction can include improving an existing tool, connecting systems, configuring a platform, or developing a new application. Scope and deliverables are agreed for each engagement; recommendations are shaped around the operational requirement rather than a predetermined product.",
+          "image": "/assets/images/process/our-process.jpg"
+        }
+      ]
+    }
+  },
+  "capabilities/business-process-automation": {
+    "banner": "/assets/images/Einao staff working on automation with client.jpg",
+    "processImage": "/assets/images/Hands mapping a streamlined workflow.png",
+    "faqImage": "/assets/images/Einao staff working on automation.jpg",
+    "process": {
+      "title": "From manual effort to managed workflow.",
+      "body": [
+        "A practical path to workflow improvement"
+      ],
+      "items": [
+        {
+          "title": "Map and simplify",
+          "body": "We work with process owners to identify each step, decision, hand-off, and exception. Delays, duplicated entry, unclear responsibilities, and manual reporting are examined before automation is proposed. Together, we define the desired outcome and the rules that should govern the improved process."
+        },
+        {
+          "title": "Design and connect",
+          "body": "The proposed workflow sets out tasks, review routes, approvals, notifications, and escalation paths. We identify the information each stage requires and consider connections to existing systems where suitable interfaces are available. Configuration and development follow the agreed scope and operational priorities."
+        },
+        {
+          "title": "Validate and introduce",
+          "body": "Representative scenarios help check that the workflow handles normal activity and expected exceptions. Process owners review how work moves, what users can see, and where intervention is required. Rollout, user guidance, and subsequent improvement are planned around the organisation and the agreed engagement."
+        }
+      ]
+    },
+    "visual": {
+      "eyebrow": "capability-delivery",
+      "title": "Better flow. Clearer responsibility.",
+      "items": [
+        {
+          "title": "Give every stage a clear owner.",
+          "body": "A workflow is more than a sequence of screens. It needs clear responsibilities, agreed decision rules, and a reliable way to handle information that is missing or needs correction. We help define how work is assigned, reviewed, approved, rejected, or escalated, with notifications and status visibility appropriate to the process.\n\nThe aim is to reduce reliance on repeated reminders and informal hand-offs. Managers and users should be able to understand the current stage of a request and what is needed next. Exceptions remain part of the design, with human review retained wherever judgement or policy requires it.",
+          "image": "/assets/images/Einao staff working on automation with client.jpg"
+        },
+        {
+          "title": "Connect information to the work.",
+          "body": "Repeated data entry and manual report preparation often grow around disconnected applications. We examine where information originates, how it moves, and which systems need to remain authoritative. Suitable integrations can reduce unnecessary transfers while respecting the technical constraints of existing platforms.\n\nReporting is considered alongside the workflow rather than added as an afterthought. Relevant statuses, dates, decisions, and hand-offs can inform operational views that help teams follow activity and identify bottlenecks. The measures and reporting scope are agreed around the process being improved.",
+          "image": "/assets/images/Einao staff working on automation.jpg"
+        }
+      ]
+    }
+  },
+  "capabilities/enterprise-solutions": {
+    "banner": "/assets/images/Graphite monitor with enterprise dashboard.png",
+    "processImage": "/assets/images/Bridging paper records and digital systems.png",
+    "faqImage": "/assets/images/process/our-process.jpg",
+    "process": {
+      "title": "From requirements to working systems.",
+      "body": [
+        "A structured approach to digital delivery"
+      ],
+      "items": [
+        {
+          "title": "Define the system",
+          "body": "We establish the users, workflows, information structures, permissions, integrations, and operating constraints the solution must support. Existing applications and service models are reviewed so the scope reflects how the organisation works. Priorities and acceptance expectations are agreed before detailed implementation."
+        },
+        {
+          "title": "Design and build",
+          "body": "The solution is shaped around the agreed requirements, with appropriate interfaces, data flows, and workflow rules. Configuration, integration, and custom development are considered together. Reviews with relevant stakeholders help validate the direction and surface questions before they become expensive changes."
+        },
+        {
+          "title": "Implement and support",
+          "body": "Deployment is planned alongside data preparation, user readiness, and operational ownership. Agreed checks establish whether the system supports the intended workflows and service scenarios. Maintenance, support, and subsequent improvement can be included, with responsibilities and scope defined for the engagement."
+        }
+      ]
+    },
+    "visual": {
+      "eyebrow": "capability-delivery",
+      "title": "Digital systems built around real work.",
+      "items": [
+        {
+          "title": "Support the complete service journey.",
+          "body": "Enterprise applications and portals need to reflect the process behind the interface. Depending on the agreed requirements, a solution can support requests, document submission, review, assessment, approvals, payments, and service progress tracking. Different user groups may need distinct permissions, tasks, and views of the same information.\n\nWe consider those relationships together so a public-facing portal and the internal operation can function as parts of the same service. The design addresses how information is received, how decisions are recorded, and how users understand what happens next.",
+          "image": "/assets/images/Graphite monitor with enterprise dashboard.png"
+        },
+        {
+          "title": "Plan for the environment around the system.",
+          "body": "New software rarely operates in isolation. Existing records, applications, integration interfaces, and organisational practices influence what can be delivered and how it should be introduced. We assess those dependencies alongside the required workflows and consider where configuration or integration is more appropriate than building a replacement.\n\nImplementation also needs operational preparation: agreed ownership, relevant user guidance, and a practical approach to maintenance and change. Where support or improvement is included, its scope is established around the solution and the organisation rather than assumed as an undefined commitment.",
+          "image": "/assets/images/Bridging paper records and digital systems.png"
+        }
+      ]
+    }
+  }
+};

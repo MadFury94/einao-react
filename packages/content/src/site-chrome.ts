@@ -4,7 +4,7 @@
 export const closingCta: BlockConfig = {
     eyebrow: "Let's start a conversation",
     title: "Let’s talk now.",
-    image: "/assets/images/home-expertise/consultants.png",
+    image: "/assets/images/before-footer.jpg",
     cta: { label: "Start a Conversation", href: "/contact/" },
 };
 

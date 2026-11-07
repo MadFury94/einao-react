@@ -89,7 +89,6 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 	useHeroEntrance(root);
 	const video = useRef<HTMLVideoElement>(null);
 	const userPaused = useRef(false);
-	const [playing, setPlaying] = useState(false);
 	const [videoFailed, setVideoFailed] = useState(false);
 	const { displayed, cursor } = useTypewriter(WORDS);
 
@@ -111,14 +110,6 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 	}, []);
 
 
-	const toggleVideo = () => {
-		const media = video.current;
-		if (!media) return;
-		userPaused.current = !media.paused;
-		if (userPaused.current) media.pause();
-		else void media.play().catch(() => { });
-	};
-
 	const body = config.body?.[0] ?? "Einao helps organisations improve how they operate through technology consulting, business process automation, enterprise solutions, and custom digital development.";
 
 	return (
@@ -126,7 +117,7 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 			<div className={styles.panel}>
 				{/* Background */}
 				<img className={styles.background} src={config.image || "/assets/images/placeholder-hero-poster.webp"} alt="" width="1860" height="850" fetchPriority="high" />
-				<video ref={video} className={`${styles.background} ${styles.video}`} src={heroVideo} poster={config.image || "/assets/images/placeholder-hero-poster.webp"} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} hidden={videoFailed} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setVideoFailed(true)} />
+				<video ref={video} className={`${styles.background} ${styles.video}`} src={heroVideo} poster={config.image || "/assets/images/placeholder-hero-poster.webp"} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} hidden={videoFailed} onError={() => setVideoFailed(true)} />
 
 				{/* Content */}
 				<div className={styles.content}>
@@ -170,24 +161,24 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 
 					{/* Trust badge */}
 					<div className={styles.trustRow}>
-					<div className={styles.trust}>
-						<span className={styles.trustIcon} aria-hidden="true">
-							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-								<path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7L12 2Z" />
-								<path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
-							</svg>
-						</span>
-						<div className={styles.trustDivider} aria-hidden="true" />
-						<div>
-							<strong className={styles.trustTitle}>Trusted since 2011</strong>
-							<span className={styles.trustSub}>Practical technology delivery</span>
+						<div className={styles.trust}>
+							<span className={styles.trustIcon} aria-hidden="true">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+									<path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7L12 2Z" />
+									<path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+								</svg>
+							</span>
+							<div className={styles.trustDivider} aria-hidden="true" />
+							<div>
+								<strong className={styles.trustTitle}>Trusted since 2011</strong>
+								<span className={styles.trustSub}>Practical technology delivery</span>
+							</div>
 						</div>
+						<figure className={styles.clientTrust}>
+							<img src="/assets/images/happy%20client.png" alt="Client portraits" />
+							<figcaption>Trusted by our clients</figcaption>
+						</figure>
 					</div>
-                        <figure className={styles.clientTrust}>
-                            <img src="/assets/images/happy%20client.png" alt="Client portraits" />
-                            <figcaption>Trusted by our clients</figcaption>
-                        </figure>
-                    </div>
 				</div>
 			</div>
 		</section>

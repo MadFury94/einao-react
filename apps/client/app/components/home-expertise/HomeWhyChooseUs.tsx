@@ -11,7 +11,7 @@ export function HomeWhyChooseUs() {
  return <section ref={root} className={`${styles.section} ${styles.why}`} data-home-section="why-choose-us" aria-labelledby="home-why-title">
   <div className={styles.container}><div className={styles.whyGrid}>
    <div className={styles.left}>
-    <div className={styles.mainImage} data-reveal=".3"><img data-parallax src="/assets/images/home-expertise/consultants.png" alt="Technology consultants reviewing a laptop together" width="651" height="488" loading="lazy" /></div>
+    <div className={styles.mainImage} data-reveal=".3"><img data-parallax src="/assets/images/process/our-process.jpg" alt="Team collaborating around a laptop" width="651" height="488" loading="lazy" /></div>
     <div className={styles.proofPanel} data-reveal=".5">
      <div className={styles.counter}><span className={styles.pill}>Established</span><div className={styles.number}><AnimatedCounter value={2011} duration={4000} /></div><p>Practical technology delivery</p></div>
      <div className={styles.divider} />

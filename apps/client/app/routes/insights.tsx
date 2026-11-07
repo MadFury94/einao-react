@@ -1,6 +1,5 @@
-import { Link } from 'react-router';
-import { InsightCard } from '~/components/page-blocks';
-import { AnimatedTitle } from '~/components/primitives';
+import { Form, Link } from 'react-router';
+import { InsightCard, PageHero } from '~/components/page-blocks';
 import { getContentStore } from '~/lib/content.server';
 import { getInsights, insightsApiBase, insightsApiFetch } from '~/lib/insights.server';
 import { pageMeta } from '~/lib/metadata';
@@ -31,26 +30,38 @@ export const meta: Route.MetaFunction = ({ data }) => {
 };
 export default function Insights({ loaderData: { page, posts, search } }: Route.ComponentProps) {
   const hero = page?.blocks.find(block => block.block_type === 'hero')?.config;
-  const grid = page?.blocks.find(block => block.block_type === 'insights')?.config;
   const totalPages = Math.ceil(posts.total / posts.pageSize);
   return (
     <div className="insights-page">
-      {/* ── Hero — shared Work-breadcrumb style ── */}
-      <section className="page-hero-shared">
-        <div className="container page-hero-shared-inner">
-          <p className="eyebrow page-hero-shared-eyebrow">Insights</p>
-          <div className="page-hero-shared-title">
-            <AnimatedTitle text={hero?.title || 'Better systems begin with better questions.'} />
-          </div>
-          <div className="page-hero-shared-bottom">
-            <div className="page-hero-shared-meta">
-              <span>Technology, operations, and change</span>
-              <span>Einao Solutions</span>
-            </div>
-            <span className="page-hero-shared-label" aria-hidden="true">Insights</span>
-          </div>
-        </div>
-      </section>
+      {/* ── Hero — PageHero with search bar replacing CTAs ── */}
+      <PageHero
+        eyebrow="01 / Insights"
+        title={hero?.title || 'Latest insights and practical perspectives'}
+        pageLabel="Insights"
+        metaLines={['Technology, operations, and change', 'Einao Solutions']}
+        bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
+        typewriterWords={['Technology.', 'Operations.', 'Automation.', 'Delivery.']}
+        hideCtas
+      >
+        {/* Search bar — replaces the default CTA buttons */}
+        <Form method="get" action="/insights/" className="insights-search-form" role="search">
+          <label htmlFor="insights-search" className="sr-only">Search insights</label>
+          <input
+            id="insights-search"
+            name="search"
+            type="search"
+            defaultValue={search}
+            placeholder="Search insights…"
+            className="insights-search-input"
+            autoComplete="off"
+          />
+          <button type="submit" className="insights-search-btn" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            </svg>
+          </button>
+        </Form>
+      </PageHero>
 
       <section className="section insights-news-section">
         <div className="container">

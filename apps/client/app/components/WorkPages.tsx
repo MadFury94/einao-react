@@ -4,9 +4,20 @@ import type { BlockConfig, Page } from '@einao/content';
 import { workNeighbours, type WorkEntry } from '../lib/work';
 import { ArrowIcon } from './ArrowIcon';
 import { ConnectedSystems } from './ConnectedSystems';
+import { Reveal } from './primitives';
+import { PageHero } from './page-blocks';
 import './work-pages.css';
 
+const fallbackImages = [
+  '/assets/images/Collaborative technology team in Abuja office.png',
+  '/assets/images/Einao staff working on automation with client.jpg',
+  '/assets/images/Nigerian IT Consultants Reviewing a Laptop.png',
+  '/assets/images/Team Navigates Pending Approvals.png',
+  '/assets/images/Graphite monitor with enterprise dashboard.png',
+];
+
 const fallbackImage = '/assets/images/placeholder-card-1.webp';
+
 function ProjectImage({ src, alt = '', className = '', priority = false }: { src: string; alt?: string; className?: string; priority?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -29,46 +40,296 @@ function ProjectImage({ src, alt = '', className = '', priority = false }: { src
   }, [src]);
   return <div ref={ref} className={`work-parallax ${className}`}><img src={src} alt={alt} width="1600" height="1000" loading={priority ? 'eager' : 'lazy'} /></div>;
 }
-function WorkHeading({ title, detail = false }: { title: string; detail?: boolean }) {
+
+// WorkHeading is kept for the detail page only
+function WorkHeading({ title }: { title: string }) {
   const words = title.split(' ');
   const split = Math.ceil(words.length / 2);
-  return <header className="work-breadcrumb"><div className="work-container"><h1><em>{words.slice(0, split).join(' ')}</em>{' '}{words.slice(split).join(' ')}</h1><div className="work-breadcrumb-bottom"><div><span>Einao Solutions</span><span>{detail ? 'Selected case study' : 'Consult. Automate. Build.'}</span></div><h2>{detail ? 'Overview' : 'Our work'}</h2></div></div></header>;
+  return (
+    <header className="work-breadcrumb">
+      <div className="work-container">
+        <h1><em>{words.slice(0, split).join(' ')}</em>{' '}{words.slice(split).join(' ')}</h1>
+        <div className="work-breadcrumb-bottom">
+          <div><span>Einao Solutions</span><span>Selected case study</span></div>
+          <h2>Overview</h2>
+        </div>
+      </div>
+    </header>
+  );
 }
+
 export function WorkListing({ page, entries }: { page: Page; entries: WorkEntry[] }) {
-  const title = page.blocks.find(block => block.block_type === 'hero')?.config.title || page.title;
-  return <div className="work-reference"><WorkHeading title={title} /><section className="work-listing work-container-wide" aria-label="Case studies"><div className="work-grid">{entries.map((entry, index) => <article className="work-card" key={entry.link!.href}>
-    <Link className="work-card-image" to={entry.link!.href} aria-label={`Read ${entry.title} case study`}><img src={entry.image || fallbackImage} alt="" width="750" height="750" loading={index < 2 ? 'eager' : 'lazy'} /><img src={entry.image || fallbackImage} alt="" width="750" height="750" loading={index < 2 ? 'eager' : 'lazy'} /><span className="work-card-arrow" aria-hidden="true"><ArrowIcon /></span></Link>
-    <div className="work-card-content"><div><h2><Link to={entry.link!.href}>{entry.title}</Link></h2><div className="work-tags">{entry.label && <span>{entry.label}</span>}</div></div>{entry.year && <span className="work-year">[ {entry.year} ]</span>}</div>
-  </article>)}</div>{!entries.length && <p>No case studies have been published yet.</p>}</section><ConnectedSystems /></div>;
+  const heroConfig = page.blocks.find(block => block.block_type === 'hero')?.config;
+  const title = heroConfig?.title || page.title;
+  const year = new Date().getFullYear();
+
+  // Split into two staggered columns — Orixo solutions-card style
+  const left = entries.filter((_, i) => i % 2 === 0);
+  const right = entries.filter((_, i) => i % 2 === 1);
+
+  return (
+    <div className="work-reference work-listing-page">
+      {/* ── Hero ── */}
+      <PageHero
+        eyebrow="01 / Our work"
+        title={title}
+        accent={heroConfig?.accent}
+        pageLabel="Our Work"
+        metaLines={['Case studies and selected engagements', heroConfig?.body?.[0] ?? ''].filter(Boolean)}
+        bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
+        typewriterWords={['Consulting.', 'Automating.', 'Building.', 'Delivering.']}
+        secondaryLink={{ label: 'Start a conversation', href: '/contact/' }}
+      />
+
+      {/* ── Showcase grid — same Orixo card style as solutions page ── */}
+      {entries.length > 0 && (
+        <section className="section solutions-grid-section">
+          <div className="container solutions-grid-container">
+            <div className="solutions-grid">
+              <div className="solutions-col">
+                {left.map((entry, i) => (
+                  <Reveal key={entry.link!.href} direction="left" className="solutions-card">
+                    <div className="solutions-card-thumb">
+                      <img src={entry.image || fallbackImages[i * 2 % fallbackImages.length]} alt="" width="900" height="620" loading={i === 0 ? 'eager' : 'lazy'} />
+                      <img src={entry.image || fallbackImages[i * 2 % fallbackImages.length]} alt="" width="900" height="620" loading={i === 0 ? 'eager' : 'lazy'} aria-hidden="true" />
+                      {entry.link && (
+                        <Link to={entry.link.href} className="solutions-card-arrow" aria-label={`Read ${entry.title}`}>
+                          <ArrowIcon />
+                        </Link>
+                      )}
+                      <div className="solutions-card-content">
+                        <div className="solutions-card-info">
+                          <h2 className="solutions-card-title">
+                            {entry.link ? <Link to={entry.link.href}>{entry.title}</Link> : entry.title}
+                          </h2>
+                          {entry.label && (
+                            <div className="solutions-card-tags"><span>{entry.label}</span></div>
+                          )}
+                        </div>
+                        <span className="solutions-card-year">[ {entry.year ?? year} ]</span>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+              <div className="solutions-col solutions-col-offset">
+                {right.map((entry, i) => (
+                  <Reveal key={entry.link!.href} direction="right" delay={150} className="solutions-card">
+                    <div className="solutions-card-thumb">
+                      <img src={entry.image || fallbackImages[(i * 2 + 1) % fallbackImages.length]} alt="" width="900" height="620" loading="lazy" />
+                      <img src={entry.image || fallbackImages[(i * 2 + 1) % fallbackImages.length]} alt="" width="900" height="620" loading="lazy" aria-hidden="true" />
+                      {entry.link && (
+                        <Link to={entry.link.href} className="solutions-card-arrow" aria-label={`Read ${entry.title}`}>
+                          <ArrowIcon />
+                        </Link>
+                      )}
+                      <div className="solutions-card-content">
+                        <div className="solutions-card-info">
+                          <h2 className="solutions-card-title">
+                            {entry.link ? <Link to={entry.link.href}>{entry.title}</Link> : entry.title}
+                          </h2>
+                          {entry.label && (
+                            <div className="solutions-card-tags"><span>{entry.label}</span></div>
+                          )}
+                        </div>
+                        <span className="solutions-card-year">[ {entry.year ?? year} ]</span>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {!entries.length && (
+        <section className="section">
+          <div className="container">
+            <p>No case studies have been published yet.</p>
+          </div>
+        </section>
+      )}
+
+      <ConnectedSystems />
+    </div>
+  );
 }
-function Copy({ config }: { config: BlockConfig }) { return <>{config.body?.map((text, i) => <p key={i}>{text}</p>)}{config.items?.filter(item => item.title || item.body).length ? <ul className="work-detail-list">{config.items.filter(item => item.title || item.body).map((item, i) => <li key={i}>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}{item.body && <p>{item.body}</p>}</li>)}</ul> : null}{config.cta && <Link className="text-link" to={config.cta.href}>{config.cta.label} <ArrowIcon /></Link>}</>; }
+
+function Copy({ config }: { config: BlockConfig }) {
+  return (
+    <>
+      {config.body?.map((text, i) => <p key={i}>{text}</p>)}
+      {config.items?.filter(item => item.title || item.body).length
+        ? <ul className="work-detail-list">{config.items.filter(item => item.title || item.body).map((item, i) => <li key={i}>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}{item.body && <p>{item.body}</p>}</li>)}</ul>
+        : null}
+      {config.cta && <Link className="text-link" to={config.cta.href}>{config.cta.label} <ArrowIcon /></Link>}
+    </>
+  );
+}
+
 export function WorkDetail({ page, entries }: { page: Page; entries: WorkEntry[] }) {
   const hero = page.blocks.find(block => block.block_type === 'hero')?.config || { title: page.title };
   const entry = entries.find(item => item.slug === page.slug);
   const { previous, next } = workNeighbours(entries, page.slug);
-  const facts = [['Client', hero.client], ['Services', hero.services], ['Platform', hero.platform], ['Date', hero.projectDate]].filter(([, value]) => value);
   const sections = page.blocks.filter(block => block.block_type !== 'hero');
-  return <article className="work-reference work-detail"><WorkHeading title={hero.title} detail />
-    <div className="work-container work-detail-cover"><ProjectImage src={hero.image || entry?.image || fallbackImage} alt={hero.imageAlt || ''} priority /></div>
-    <div className="work-container-wide work-detail-body"><div className="work-detail-intro"><h2>{entry?.title || page.title}</h2><div>{hero.body?.map((text, i) => <p key={i}>{text}</p>)}</div></div>
-      {facts.length > 0 && <dl className="work-facts">{facts.map(([label, value]) => <div key={label}><dt>{label}:</dt><dd>{value}</dd></div>)}</dl>}
-      {hero.overviewImage && <ProjectImage className="work-overview-image" src={hero.overviewImage} alt={hero.overviewImageAlt} />}
-      {sections.map((block, index) => {
-        const config = block.config;
-        const steps = config.items?.filter(item => item.title || item.body) || [];
-        const isProcess = /approach|process|research/i.test(config.title) && steps.length > 0;
-        return <section key={block.id} className="work-detail-section">
-          {isProcess ? <><h2>{config.title}</h2><div className="work-steps">{steps.map((step, i) => <div className="work-step" key={i}><span>{String(i + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.body}</p></div>)}</div>{config.body?.map((text,i) => <p key={i}>{text}</p>)}</> : <div className="work-detail-split"><h2>{config.title}</h2><div className="work-detail-copy"><Copy config={config} /></div></div>}
-          {config.image && <ProjectImage className="work-section-image" src={config.image} alt={config.imageAlt} />}
-          {index === 0 && (hero.galleryLeft || hero.galleryRight) && <div className="work-gallery">{hero.galleryLeft && <ProjectImage src={hero.galleryLeft} alt={hero.galleryLeftAlt} />}{hero.galleryRight && <ProjectImage src={hero.galleryRight} alt={hero.galleryRightAlt} />}</div>}
-        </section>;
-      })}
-      {!sections.length && (hero.galleryLeft || hero.galleryRight) && <div className="work-gallery">{hero.galleryLeft && <ProjectImage src={hero.galleryLeft} alt={hero.galleryLeftAlt} />}{hero.galleryRight && <ProjectImage src={hero.galleryRight} alt={hero.galleryRightAlt} />}</div>}
-      <nav className="work-pagination" aria-label="Case study navigation">
-        {previous ? <Link to={previous.link!.href} aria-label={`Previous case study: ${previous.title}`}><span className="work-nav-arrow" aria-hidden="true">&lsaquo;</span><span>Previous</span></Link> : <span className="work-nav-disabled"><span className="work-nav-arrow" aria-hidden="true">&lsaquo;</span><span>Previous</span></span>}
-        <Link className="work-grid-link" to="/work/" aria-label="All case studies"><svg viewBox="0 0 24 24" aria-hidden="true">{[0,1,2].flatMap(y => [0,1,2].map(x => <rect key={`${x}-${y}`} x={x*8} y={y*8} width="5" height="5" />))}</svg></Link>
-        {next ? <Link to={next.link!.href} aria-label={`Next case study: ${next.title}`}><span>Next</span><span className="work-nav-arrow" aria-hidden="true">&rsaquo;</span></Link> : <span className="work-nav-disabled"><span>Next</span><span className="work-nav-arrow" aria-hidden="true">&rsaquo;</span></span>}
+
+  // Meta facts from hero config
+  const metaItems = [
+    { label: 'Client', value: hero.client },
+    { label: 'Services', value: hero.services },
+    { label: 'Platform', value: hero.platform },
+    { label: 'Year', value: hero.projectDate ?? entry?.year },
+  ].filter(m => m.value);
+
+  // Feature image — entry image, hero image, or fallback
+  const featureImg = entry?.image || hero.image || fallbackImages[0];
+
+  // Pair of images for the dual-image section
+  const pairImg1 = hero.galleryLeft || fallbackImages[1];
+  const pairImg2 = hero.galleryRight || fallbackImages[2];
+
+  // Intro section = first editorial block
+  const introSection = sections[0];
+  // Remaining sections
+  const bodySections = sections.slice(1);
+
+  return (
+    <article className="work-reference work-detail work-detail-page">
+      {/* ── 01 Hero ── */}
+      <PageHero
+        eyebrow={hero.eyebrow ?? 'Case study / Selected work'}
+        title={hero.title ?? page.title}
+        accent={hero.accent}
+        pageLabel="Case Study"
+        metaLines={hero.body?.slice(0, 1) ?? []}
+        bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
+        secondaryLink={{ label: 'All case studies', href: '/work/' }}
+      />
+
+      {/* ── 02 Full-width feature image ── */}
+      <section className="sdp-feature-image">
+        <div className="container">
+          <Reveal>
+            <div className="sdp-feature-thumb">
+              <img src={featureImg} alt="" width="1400" height="700" loading="eager" />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── 03 Info strip: title + meta grid ── */}
+      <section className="section sdp-info-strip">
+        <div className="container sdp-info-container">
+          <Reveal direction="left" className="sdp-info-text">
+            <h2>{introSection?.config.title ?? hero.title ?? page.title}</h2>
+            <p>{introSection?.config.body?.[0] ?? hero.body?.[0] ?? ''}</p>
+          </Reveal>
+          <Reveal direction="right" delay={100} className="sdp-meta-grid">
+            {metaItems.length > 0
+              ? metaItems.map(m => (
+                <div key={m.label} className="sdp-meta-item">
+                  <span>{m.label}</span>
+                  <p>{m.value}</p>
+                </div>
+              ))
+              : <>
+                <div className="sdp-meta-item"><span>Client</span><p>Federal Ministry of Industry, Trade &amp; Investment</p></div>
+                <div className="sdp-meta-item"><span>Services</span><p>Enterprise portal development &amp; support</p></div>
+                <div className="sdp-meta-item"><span>Platform</span><p>Institutional digital service</p></div>
+                <div className="sdp-meta-item sdp-meta-item-last"><span>Since</span><p>2013</p></div>
+              </>
+            }
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── 04 Detail image ── */}
+      <section className="sdp-detail-image">
+        <div className="container">
+          <Reveal>
+            <div className="sdp-detail-thumb">
+              <img src={pairImg1} alt="" width="1400" height="800" loading="lazy" />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── 05 Body sections: heading left + copy right ── */}
+      {bodySections.map((block, i) => (
+        <section key={block.id} className="section sdp-body-section">
+          <div className="container">
+            <div className="sdp-body-grid">
+              <Reveal direction="left" className="sdp-body-left">
+                <h2>{block.config.title}</h2>
+              </Reveal>
+              <Reveal direction="right" delay={100} className="sdp-body-right">
+                {block.config.body?.map((text: string, j: number) => <p key={j}>{text}</p>)}
+                {block.config.items && block.config.items.length > 0 && (
+                  <ul className="sdp-checklist">
+                    {block.config.items.filter((item: { title?: string }) => item.title).map((item: { title?: string }) => (
+                      <li key={item.title}>
+                        <span className="sdp-check" aria-hidden="true">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 8.5 6.5 12.5 13.5 4" /></svg>
+                        </span>
+                        {item.title}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {block.config.cta && (
+                  <Link className="action-link" to={block.config.cta.href}>
+                    {block.config.cta.label} <ArrowIcon />
+                  </Link>
+                )}
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* ── 06 Dual images ── */}
+      <section className="sdp-dual-images">
+        <div className="container">
+          <div className="sdp-dual-grid">
+            <Reveal direction="left">
+              <div className="sdp-dual-thumb">
+                <img src={pairImg1} alt="" width="700" height="520" loading="lazy" />
+              </div>
+            </Reveal>
+            <Reveal direction="right" delay={120}>
+              <div className="sdp-dual-thumb">
+                <img src={pairImg2} alt="" width="700" height="520" loading="lazy" />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 07 Prev / Next nav ── */}
+      <nav className="sdp-nav" aria-label="Case study navigation">
+        <div className="container sdp-nav-inner">
+          {previous ? (
+            <Link to={previous.link!.href} className="sdp-nav-item sdp-nav-prev">
+              <span className="sdp-nav-arrow" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m14 5-7 7 7 7" /></svg>
+              </span>
+              <span className="sdp-nav-meta"><span className="sdp-nav-label">Previous</span><span className="sdp-nav-name">{previous.title}</span></span>
+            </Link>
+          ) : <span />}
+          <Link to="/work/" className="sdp-nav-grid" aria-label="All case studies">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
+          </Link>
+          {next ? (
+            <Link to={next.link!.href} className="sdp-nav-item sdp-nav-next">
+              <span className="sdp-nav-meta"><span className="sdp-nav-label">Next</span><span className="sdp-nav-name">{next.title}</span></span>
+              <span className="sdp-nav-arrow" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m10 5 7 7-7 7" /></svg>
+              </span>
+            </Link>
+          ) : <span />}
+        </div>
       </nav>
-    </div>
-  </article>;
+    </article>
+  );
 }

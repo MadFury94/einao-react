@@ -241,3 +241,9 @@
         transition: none;
     }
 }
+.avatar.userIcon {
+    display: grid;
+    place-items: center;
+    color: #101010;
+    background: var(--lime);
+}
