@@ -148,8 +148,11 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 					{/* CTAs */}
 					<div className={styles.actions}>
 						<Link className={styles.primaryBtn} to="/contact/">
+							<span className={`${styles.btnArrow} ${styles.btnArrowLeft}`} aria-hidden="true">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="m4 8 8 0M8 4l4 4-4 4" /></svg>
+							</span>
 							<span className={styles.btnLabel}>Start a conversation</span>
-							<span className={styles.btnArrow} aria-hidden="true">
+							<span className={`${styles.btnArrow} ${styles.btnArrowRight}`} aria-hidden="true">
 								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="m4 8 8 0M8 4l4 4-4 4" /></svg>
 							</span>
 						</Link>

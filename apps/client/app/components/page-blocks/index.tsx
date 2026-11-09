@@ -636,6 +636,7 @@ function CapabilitiesPage({ blocks }: { blocks: PageBlock[] }) {
 				metaLines={["Technology, operations, and delivery", hero?.body?.[0] ?? ""].filter(Boolean)}
 				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
 				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
+				secondaryLink={{ label: "Start a conversation", href: "/contact/" }}
 			/>
 			{services && <CapabilitiesList config={services} />}
 		</div>

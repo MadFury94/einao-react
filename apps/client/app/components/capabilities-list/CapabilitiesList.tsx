@@ -59,7 +59,7 @@ export function CapabilitiesList({ config }: { config: BlockConfig }) {
                 destination = Math.max(0, Math.min(ScrollTrigger.maxScroll(window), destination + delta));
                 position.y = window.scrollY;
                 motion?.kill();
-                motion = gsap.to(position, { y: destination, duration: 2, ease: "expo", onUpdate: () => window.scrollTo({ top: position.y, behavior: "instant" }) });
+                motion = gsap.to(position, { y: destination, duration: 0.9, ease: "expo", onUpdate: () => window.scrollTo({ top: position.y, behavior: "instant" }) });
             };
             window.addEventListener("wheel", wheel, { passive: false });
             window.addEventListener("pointerdown", stop);
@@ -76,26 +76,26 @@ export function CapabilitiesList({ config }: { config: BlockConfig }) {
     if (!items.length) return null;
     return <section ref={root} className={styles.section} aria-label={config.title}>
         <div className={styles.container}><div ref={stack} className={styles.stack}>
-        {items.map((item, index) => {
-            const image = item.image || images[index % images.length];
-            const topics = item.label?.split(/[,|\n]/).map(value => value.trim()).filter(Boolean);
-            return <article key={`${item.link?.href}-${index}`} className={styles.panel} data-capability-panel>
-                <div className={styles.row}><div className={styles.column}><div className={styles.content}>
-                    <p className={styles.number}>{String(index + 1).padStart(3, "0")}. / capability</p>
-                    <h2 className={styles.title}>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}</h2>
-                    <div className={styles.topics}>{[0, 1].map(column => <ul key={column}>{(topics?.length ? topics : ["Understand", "Design", "Improve", "Deliver"]).filter((_, i) => i % 2 === column).map(topic => <li key={topic}>+ {topic}</li>)}</ul>)}</div>
-                    <p className={styles.description}>{item.body}</p>
-                    <ul className={styles.links}>
-                        {item.link && <li><Link to={item.link.href}>{item.link.label || "Explore"}</Link></li>}
-                        <li><Link to="/contact/">Discuss a requirement</Link></li>
-                    </ul>
-                </div></div>
-                <div className={styles.column}><div className={styles.image}>
-                    <img src={image} alt="" width="648" height="626" loading="lazy" />
-                    <img src={image} alt="" width="648" height="626" loading="lazy" aria-hidden="true" />
-                </div></div></div>
-            </article>;
-        })}
+            {items.map((item, index) => {
+                const image = item.image || images[index % images.length];
+                const topics = item.label?.split(/[,|\n]/).map(value => value.trim()).filter(Boolean);
+                return <article key={`${item.link?.href}-${index}`} className={styles.panel} data-capability-panel>
+                    <div className={styles.row}><div className={styles.column}><div className={styles.content}>
+                        <p className={styles.number}>{String(index + 1).padStart(3, "0")}. / capability</p>
+                        <h2 className={styles.title}>{item.link ? <Link to={item.link.href}>{item.title}</Link> : item.title}</h2>
+                        <div className={styles.topics}>{[0, 1].map(column => <ul key={column}>{(topics?.length ? topics : ["Understand", "Design", "Improve", "Deliver"]).filter((_, i) => i % 2 === column).map(topic => <li key={topic}>+ {topic}</li>)}</ul>)}</div>
+                        <p className={styles.description}>{item.body}</p>
+                        <ul className={styles.links}>
+                            {item.link && <li><Link to={item.link.href}>{item.link.label || "Explore"}</Link></li>}
+                            <li><Link to="/contact/">Discuss a requirement</Link></li>
+                        </ul>
+                    </div></div>
+                        <div className={styles.column}><div className={styles.image}>
+                            <img src={image} alt="" width="648" height="626" loading="lazy" />
+                            <img src={image} alt="" width="648" height="626" loading="lazy" aria-hidden="true" />
+                        </div></div></div>
+                </article>;
+            })}
         </div></div>
     </section>;
 }

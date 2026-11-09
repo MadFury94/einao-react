@@ -2,6 +2,7 @@ import { ClosingCta } from '~/components/site-footer/ClosingCta';
 import { SiteFooter } from '~/components/site-footer/SiteFooter';
 import { getWorkCollection, workNavigation } from '~/lib/work';
 import { Outlet, useLoaderData, useLocation, useNavigation } from "react-router";
+import { useEffect } from "react";
 import { getContentStore } from "~/lib/content.server";
 import { Header } from "~/components/Shell";
 import { closingCta, footerContent } from "@einao/content";
@@ -21,6 +22,11 @@ export default function MainLayout() {
 	const { site, year, closingCta: cta, footerContent: footer } = useLoaderData<typeof loader>();
 	const navigation = useNavigation();
 	const location = useLocation();
+
+	// Force scroll to top on every route change
+	useEffect(() => {
+		window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+	}, [location.pathname]);
 
 	return (
 		<>

@@ -32,7 +32,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				{children}
-				<ScrollRestoration />
+				<ScrollRestoration getKey={(location, matches) => {
+					// Only restore position on back/forward, always top for new navigations
+					return location.key === "default" ? location.pathname : location.key;
+				}} />
 				<Scripts />
 			</body>
 		</html>
