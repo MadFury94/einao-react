@@ -592,3 +592,123 @@
         animation: none;
     }
 }
+
+/* ── Mobile improvements ── */
+@media (max-width: 767px) {
+    /* Full-width main image with better aspect ratio */
+    .mainImage {
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    /* Values become stacked cards */
+    .values {
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid #0001;
+        border-bottom: 1px solid #0001;
+        padding: 0;
+        margin: 20px 0 24px;
+    }
+
+    .value {
+        max-width: none;
+        padding: 20px 0;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        border-bottom: 1px solid #0001;
+    }
+
+    .value:last-child {
+        border-bottom: none;
+    }
+
+    .value img {
+        flex-shrink: 0;
+        margin-top: 4px;
+    }
+
+    .value h3 {
+        font-size: 18px;
+        margin: 0 0 6px;
+        line-height: 1.3;
+    }
+
+    .value p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Bottom grid: award on left, image on right */
+    .bottomGrid {
+        grid-template-columns: auto 1fr;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .experience {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .experience img {
+        width: 60px;
+        height: auto;
+    }
+
+    .experience p {
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 10px 0 0;
+    }
+
+    .smallImage {
+        height: 140px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 575px) {
+    .section {
+        padding-block: 60px;
+    }
+
+    /* Proof panel: compact card */
+    .proofPanel {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .counter {
+        flex: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .pill {
+        margin-bottom: 0;
+    }
+
+    .number {
+        font-size: 36px;
+        line-height: 1;
+    }
+
+    .counter p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .proofCopy p {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+}
