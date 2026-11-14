@@ -3224,12 +3224,190 @@ main:focus {
 	margin: 0;
 }
 
-.contact-section .two-col {
+/* ── Contact info cards (mirrors Orixo contact-section) ─────────────────── */
+.contact-info-section {
+	background: var(--paper);
+}
+
+.contact-info-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+}
+
+.contact-info-card {
+	border: 1px solid var(--border);
+	border-radius: 0.75rem;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.contact-info-card-image {
+	aspect-ratio: 3/2;
+	overflow: hidden;
+}
+
+.contact-info-card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.5s ease;
+}
+
+.contact-info-card:hover .contact-info-card-image img {
+	transform: scale(1.04);
+}
+
+.contact-info-card-body {
+	padding: 1.75rem;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.contact-info-card-body h3 {
+	font-size: 1.35rem;
+	font-weight: 700;
+	margin: 0 0 0.75rem;
+}
+
+.contact-info-card-body p {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	color: var(--muted);
+}
+
+.contact-info-card-body a {
+	color: var(--ink);
+}
+
+.contact-info-card-body a:hover {
+	color: var(--lime);
+}
+
+.contact-info-label {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--forest);
+	margin-top: 0.5rem;
+}
+
+.contact-services-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.contact-services-list li {
+	font-size: 0.95rem;
+	padding-left: 1.1rem;
+	position: relative;
+	color: var(--muted);
+}
+
+.contact-services-list li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: var(--lime);
+}
+
+.contact-info-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: var(--ink);
+	margin-top: auto;
+	padding-top: 1rem;
+	text-decoration: none;
+}
+
+.contact-info-cta svg {
+	width: 14px;
+	height: 14px;
+}
+
+.contact-info-cta:hover {
+	color: var(--forest);
+}
+
+/* ── Map + Form (mirrors Orixo contact-map-section) ─────────────────────── */
+.contact-map-section {
+	background: var(--surface);
+}
+
+.contact-map-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2.5rem;
 	align-items: start;
 }
 
-.contact-section h2 {
-	font-size: clamp(2.5rem, 4vw, 4rem);
+.contact-map {
+	border-radius: 0.75rem;
+	overflow: hidden;
+	line-height: 0;
+	position: sticky;
+	top: 100px;
+}
+
+.contact-map iframe {
+	width: 100%;
+	height: 520px;
+	display: block;
+}
+
+.contact-form-box h2 {
+	font-size: clamp(1.75rem, 3vw, 2.5rem);
+	margin: 0 0 1.75rem;
+}
+
+.form-error {
+	margin-top: 1rem;
+	padding: 0.85rem 1rem;
+	background: #fef2f2;
+	border: 1px solid #fecaca;
+	border-radius: 0.4rem;
+	color: #b91c1c;
+	font-size: 0.9rem;
+}
+
+@media (max-width: 1199px) {
+	.contact-info-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.contact-map-wrapper {
+		grid-template-columns: 1fr;
+	}
+
+	.contact-map {
+		position: static;
+	}
+
+	.contact-map iframe {
+		height: 320px;
+	}
+}
+
+@media (max-width: 767px) {
+	.contact-info-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 .enquiry-form fieldset {
@@ -8233,15 +8411,15 @@ p {
 }
 
 /* The capabilities hero sits over a dark photograph. */
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared h1,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .eyebrow,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-label,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-subtitle,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-body,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-cta-secondary,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-meta,
-:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page)>.page-hero-shared .page-hero-shared-label {
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared h1,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .eyebrow,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-label,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-subtitle,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-body,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-cta-secondary,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-meta,
+:is(.capabilities-index-page, .it-consulting-page, .automation-page, .enterprise-page, .solutions-page, .solution-detail-page, .industries-index-page, .gov-page, .industry-detail-page, .work-page, .work-listing-page, .work-detail-page, .about-page, .insights-page, .contact-page)>.page-hero-shared .page-hero-shared-label {
 	color: #fff;
 }
 
