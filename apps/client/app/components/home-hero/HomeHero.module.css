@@ -1,7 +1,7 @@
 /* ── Hero ─────────────────────────────────────────────────────── */
 .section {
     padding: 0;
-    background: #101010;
+    background: var(--ink);
 }
 
 .panel {
@@ -9,7 +9,7 @@
     isolation: isolate;
     min-height: 100svh;
     overflow: hidden;
-    background: #101010;
+    background: var(--ink);
     color: #fff;
     display: flex;
     align-items: stretch;
@@ -30,15 +30,15 @@
     z-index: -2;
 }
 
-/* Overlay: left+bottom dark, right transparent */
+/* Overlay: left+bottom forest-green tint, right transparent */
 .panel::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(to top, #101010f0 0%, #10101080 35%, transparent 60%),
-        linear-gradient(to right, #101010f5 0%, #101010cc 40%, #10101088 65%, transparent 100%);
+        linear-gradient(to top, #0c1710e8 0%, #0c171060 35%, transparent 62%),
+        linear-gradient(to right, #0c1710f0 0%, #0c1710b0 38%, #0c171055 65%, transparent 100%);
     pointer-events: none;
 }
 
