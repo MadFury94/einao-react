@@ -1,5 +1,5 @@
 .section {
-    padding: 100px 0 120px;
+    padding: 125px 0 150px;
     background: #fff;
     overflow: hidden;
     color: #000;
@@ -19,7 +19,7 @@
     margin: 0 0 14px;
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 20px;
-    font-style: italic;
+    font-style: normal;
     line-height: 28px;
 }
 
@@ -33,7 +33,7 @@
 
 .serif {
     font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -97,7 +97,7 @@
     line-height: 1.75;
     color: #444;
     margin: 0;
-    font-style: italic;
+    font-style: normal;
     flex: 1;
 }
 
@@ -193,7 +193,7 @@
         gap: 16px;
     }
 
-    .cardSide > .arrowBtn {
+    .cardSide>.arrowBtn {
         display: none;
     }
 
@@ -241,6 +241,7 @@
         transition: none;
     }
 }
+
 .avatar.userIcon {
     display: grid;
     place-items: center;

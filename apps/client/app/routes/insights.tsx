@@ -40,7 +40,6 @@ export default function Insights({ loaderData: { page, posts, search } }: Route.
         pageLabel="Insights"
         metaLines={['Technology, operations, and change', 'Einao Solutions']}
         bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
-        typewriterWords={['Technology.', 'Operations.', 'Automation.', 'Delivery.']}
         hideCtas
       >
         {/* Search bar — replaces the default CTA buttons */}

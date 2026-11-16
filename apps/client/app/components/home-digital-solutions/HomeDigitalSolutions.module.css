@@ -1,5 +1,5 @@
 .section {
-    padding: 120px 0;
+    padding: 150px 0;
     background: #fff;
     color: #000;
     overflow: hidden;
@@ -26,7 +26,7 @@
     margin: 0 0 16px;
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 20px;
-    font-style: italic;
+    font-style: normal;
     line-height: 28px;
 }
 
@@ -42,7 +42,7 @@
 
 .serif {
     font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -110,8 +110,8 @@
     align-items: center;
     padding: 7px 7px 7px 25px;
     border-radius: 70px;
-    color: #fff;
-    background: #101010;
+    color: var(--ink);
+    background: var(--lime);
     text-decoration: none;
     transition: padding 0.4s ease;
 }
@@ -133,8 +133,8 @@
     height: 43px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: var(--lime);
-    color: #fff;
+    background: #fff;
+    color: var(--ink);
     transition: scale 0.4s;
 }
 

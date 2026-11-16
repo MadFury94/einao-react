@@ -77,7 +77,6 @@ export function WorkListing({ page, entries }: { page: Page; entries: WorkEntry[
         pageLabel="Our Work"
         metaLines={['Case studies and selected engagements', heroConfig?.body?.[0] ?? ''].filter(Boolean)}
         bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
-        typewriterWords={['Consulting.', 'Automating.', 'Building.', 'Delivering.']}
         secondaryLink={{ label: 'Start a conversation', href: '/contact/' }}
       />
 

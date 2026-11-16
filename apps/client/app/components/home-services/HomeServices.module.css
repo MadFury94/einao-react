@@ -2,7 +2,7 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: 120px 0;
+    padding: 150px 0;
     color: #fff;
 }
 
@@ -40,7 +40,7 @@
     margin: 0 0 12px;
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 20px;
-    font-style: italic;
+    font-style: normal;
     line-height: 28px;
     color: white;
 }
@@ -71,7 +71,7 @@
 
 .serif {
     font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -303,18 +303,18 @@
 
 @media (max-width: 1599px) {
     .pause {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #ffffff18;
-    color: white;
-    font-size: 12px;
-}
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #ffffff18;
+        color: white;
+        font-size: 12px;
+    }
 
-.viewport {
+    .viewport {
         margin-right: -35%;
     }
 }
@@ -325,18 +325,18 @@
     }
 
     .pause {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #ffffff18;
-    color: white;
-    font-size: 12px;
-}
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #ffffff18;
+        color: white;
+        font-size: 12px;
+    }
 
-.viewport {
+    .viewport {
         margin-right: -55%;
     }
 
@@ -349,7 +349,7 @@
 
 @media (max-width: 1199px) {
     .section {
-        padding-block: 100px;
+        padding-block: 120px;
     }
 
     .heading .title {
@@ -364,7 +364,7 @@
 
 @media (max-width: 991px) {
     .section {
-        padding-block: 80px;
+        padding-block: 100px;
     }
 
     .header {
@@ -388,18 +388,18 @@
 
 @media (max-width: 575px) {
     .pause {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #ffffff18;
-    color: white;
-    font-size: 12px;
-}
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #ffffff18;
+        color: white;
+        font-size: 12px;
+    }
 
-.viewport {
+    .viewport {
         margin-right: 0;
     }
 

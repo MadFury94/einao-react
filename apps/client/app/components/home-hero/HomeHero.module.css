@@ -105,30 +105,10 @@
     text-wrap: initial;
 }
 
-/* Rotating word: lime colour, italic serif */
-.rotatingWord {
+/* Accent word: lime colour, same weight as heading */
+.accentWord {
     color: var(--lime);
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
     display: inline-block;
-    min-width: 3ch;
-    /* prevent layout shift */
-}
-
-/* Cursor */
-.cursor {
-    display: inline-block;
-    color: var(--lime);
-    font-style: normal;
-    margin-left: 2px;
-    opacity: 0;
-    transition: opacity .15s;
-    font-weight: 300;
-}
-
-.cursorVisible {
-    opacity: 1;
 }
 
 /* Subtitle */
@@ -149,7 +129,7 @@
     margin-bottom: clamp(2rem, 4vh, 3.5rem);
 }
 
-/* Primary button: matches sitewide arrow-button — lime bg, sliding arrow */
+/* Primary button — lime bg, white arrow circle */
 .primaryBtn {
     display: inline-flex;
     position: relative;
@@ -184,14 +164,14 @@
     transform: translateX(48px);
 }
 
-/* The arrow circle */
+/* The arrow circle — white with lime icon */
 .btnArrow {
     display: grid;
     place-items: center;
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: var(--ink);
+    background: #fff;
     color: var(--lime);
     flex-shrink: 0;
     transition: transform .4s var(--ease, cubic-bezier(.22, 1, .36, 1));

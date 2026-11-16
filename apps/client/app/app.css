@@ -29,7 +29,7 @@
 	--dark-border: rgba(255, 255, 255, 0.14);
 	--wide: 1320px;
 	--gutter: clamp(1.5rem, 5vw, 4rem);
-	--section: clamp(4rem, 8vw, 7rem);
+	--section: clamp(5rem, 10vw, 9rem);
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	color: var(--ink);
 	background: var(--paper);
@@ -99,20 +99,20 @@ h3 {
 }
 
 h1 {
-	font-size: clamp(2.4rem, 5vw, 4.8rem);
+	font-size: clamp(2.04rem, 5vw, 4.08rem);
 	letter-spacing: -0.01em;
 	margin-bottom: 0;
 }
 
 h2 {
-	font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+	font-size: clamp(1.53rem, 3.5vw, 2.72rem);
 	letter-spacing: -0.01em;
 	max-width: 57rem;
 	margin-bottom: 1.5rem;
 }
 
 h3 {
-	font-size: clamp(1.2rem, 2vw, 1.6rem);
+	font-size: clamp(1.02rem, 2vw, 1.36rem);
 	letter-spacing: -0.01em;
 }
 
@@ -365,12 +365,12 @@ main:focus {
 }
 
 /* ── Header CTA button — scoped to .header-contact only ─────────
-   Transparent state over hero: ink bg · white text · lime arrow
-   Scrolled state (white header): same — always high contrast
+   Transparent state over hero: lime bg · ink text · white arrow
+   Scrolled state (white header): same — always lime
 ──────────────────────────────────────────────────────────────── */
 .header-contact .arrow-button {
-	background: var(--ink);
-	color: #fff;
+	background: var(--lime);
+	color: var(--ink);
 	min-height: 46px;
 	padding: 8px 8px 8px 20px;
 	font-size: .85rem;
@@ -379,7 +379,7 @@ main:focus {
 }
 
 .header-contact .arrow-button .ab-arrow {
-	background: var(--lime);
+	background: #fff;
 	color: var(--ink);
 	width: 32px;
 	height: 32px;
@@ -390,25 +390,25 @@ main:focus {
 	padding: 0 .9rem;
 }
 
-/* On transparent hero: lime bg to stand out against dark video */
+/* On transparent hero: same lime */
 .header-transparent .header-contact .arrow-button {
 	background: var(--lime);
 	color: var(--ink);
 }
 
 .header-transparent .header-contact .arrow-button .ab-arrow {
-	background: var(--ink);
-	color: var(--lime);
+	background: #fff;
+	color: var(--ink);
 }
 
-/* On scrolled white header: ink stays, looks crisp on white */
+/* On scrolled white header: keep lime */
 .is-scrolled .header-contact .arrow-button {
-	background: var(--ink);
-	color: #fff;
+	background: var(--lime);
+	color: var(--ink);
 }
 
 .is-scrolled .header-contact .arrow-button .ab-arrow {
-	background: var(--lime);
+	background: #fff;
 	color: var(--ink);
 }
 
@@ -684,10 +684,10 @@ main:focus {
 	display: inline-block;
 }
 
-/* Serif-italic accent word in the hero title */
+/* Serif accent word in the hero title */
 .title-accent {
 	font-family: "Instrument Serif", Georgia, serif;
-	font-style: italic;
+	font-style: normal;
 	font-weight: 400;
 	line-height: 110%;
 }
@@ -946,8 +946,8 @@ main:focus {
 	width: 43px;
 	height: 43px;
 	border-radius: 50%;
-	background: var(--ink);
-	color: var(--lime);
+	background: #fff;
+	color: var(--ink);
 	flex-shrink: 0;
 	transition: scale .4s;
 }
@@ -1000,13 +1000,13 @@ main:focus {
 	gap: 12px;
 }
 
-/* Typewriter line below title */
+/* Typewriter line below title — now static subtitle style */
 .page-hero-shared-typewriter {
 	margin-top: 1rem;
 	margin-bottom: .5rem;
 	font-family: "Instrument Serif", Georgia, serif;
 	font-size: clamp(1.4rem, 3vw, 2.5rem);
-	font-style: italic;
+	font-style: normal;
 	color: var(--lime);
 }
 
@@ -1052,10 +1052,10 @@ main:focus {
 	flex-wrap: wrap;
 }
 
-/* Large italic serif page label right — mirrors .work-breadcrumb-bottom h2 */
+/* Large serif page label right */
 .page-hero-shared-label {
 	flex-shrink: 0;
-	font: italic 400 clamp(2.5rem, 7vw, 6rem)/1.1 "Instrument Serif", Georgia, serif;
+	font: normal 400 clamp(2.5rem, 7vw, 6rem)/1.1 "Instrument Serif", Georgia, serif;
 	margin: 0;
 	color: var(--paper);
 	letter-spacing: -0.01em;
@@ -2089,7 +2089,7 @@ main:focus {
 
 /* Italic serif accent words inside the heading */
 .about-page-proof-heading h2 em {
-	font-style: italic;
+	font-style: normal;
 	font-family: var(--font-serif, Georgia, serif);
 	font-weight: 400;
 }
@@ -7776,7 +7776,7 @@ main:focus {
 	--dark-border: rgba(255, 255, 255, 0.16);
 	--wide: 1280px;
 	--gutter: clamp(1.25rem, 4vw, 2.5rem);
-	--section: clamp(4.5rem, 9vw, 8rem);
+	--section: clamp(5.5rem, 10vw, 9.5rem);
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	background: var(--paper);
 	font-family: Urbanist, "Segoe UI", sans-serif;
@@ -11241,18 +11241,18 @@ p {
 }
 
 [data-header="transparent"] .header-contact .arrow-button .ab-arrow-right {
-	background: var(--ink) !important;
-	color: var(--lime) !important;
+	background: #fff !important;
+	color: var(--ink) !important;
 }
 
-/* On solid header: ink bg with lime arrow for contrast against white header */
+/* On solid header: keep lime — consistent across all header states */
 [data-header="solid"] .header-contact .arrow-button {
-	background: var(--ink) !important;
-	color: #fff !important;
+	background: var(--lime) !important;
+	color: var(--ink) !important;
 }
 
 [data-header="solid"] .header-contact .arrow-button .ab-arrow-right {
-	background: var(--lime) !important;
+	background: #fff !important;
 	color: var(--ink) !important;
 }
 
@@ -11396,19 +11396,19 @@ p {
 	left: 6px !important;
 }
 
-/* On solid header, switch to ink bg for contrast against white */
+/* On solid header: keep lime */
 [data-header="solid"] .header-contact .arrow-button {
-	background: var(--ink) !important;
-	color: #fff !important;
-}
-
-[data-header="solid"] .header-contact .arrow-button .ab-arrow {
 	background: var(--lime) !important;
 	color: var(--ink) !important;
 }
 
+[data-header="solid"] .header-contact .arrow-button .ab-arrow {
+	background: #fff !important;
+	color: var(--ink) !important;
+}
+
 [data-header="solid"] .header-contact .arrow-button:is(:hover, :focus-visible) {
-	background: var(--ink) !important;
+	background: var(--lime) !important;
 }
 
 /* On transparent header, stay lime */
@@ -11418,8 +11418,8 @@ p {
 }
 
 [data-header="transparent"] .header-contact .arrow-button .ab-arrow {
-	background: var(--ink) !important;
-	color: var(--lime) !important;
+	background: #fff !important;
+	color: var(--ink) !important;
 }
 
 /* ── Mobile contact in nav drawer ── */
@@ -11475,21 +11475,21 @@ p {
 }
 
 [data-header="transparent"] .header-contact .arrow-button .ab-arrow-right {
-	background: var(--ink) !important;
-	color: var(--lime) !important;
+	background: #fff !important;
+	color: var(--ink) !important;
 }
 
 /* Solid header state */
 [data-header="solid"] .header-contact .arrow-button {
-	background: var(--ink) !important;
-	color: #fff !important;
-}
-
-[data-header="solid"] .header-contact .arrow-button .ab-arrow-right {
 	background: var(--lime) !important;
 	color: var(--ink) !important;
 }
 
+[data-header="solid"] .header-contact .arrow-button .ab-arrow-right {
+	background: #fff !important;
+	color: var(--ink) !important;
+}
+
 [data-header="solid"] .header-contact .arrow-button:is(:hover, :focus-visible) {
-	background: #1a2e1e !important;
+	background: var(--lime) !important;
 }

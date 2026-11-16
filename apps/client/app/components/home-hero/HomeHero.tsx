@@ -13,84 +13,12 @@ const pills = [
 	{ label: "Custom development", href: "/solutions/custom-enterprise-systems/" },
 ];
 
-// Rotating final words
-const WORDS = ["moving.", "growing.", "working."];
-const CHAR_DELAY = 80;    // ms per character typed
-const DELETE_DELAY = 40;  // ms per character deleted
-const HOLD_PAUSE = 2200;  // ms to hold the full word before deleting
-
-function useTypewriter(words: string[]) {
-	const [displayed, setDisplayed] = useState(words[0]);
-	const [cursor, setCursor] = useState(true);
-	const state = useRef({ wordIdx: 0, charIdx: words[0].length, deleting: false, holding: false });
-
-	useEffect(() => {
-		if (words.length < 2) return;
-
-		let timer: ReturnType<typeof setTimeout>;
-
-		const tick = () => {
-			const s = state.current;
-			const word = words[s.wordIdx];
-
-			if (s.holding) {
-				// Hold expired — start deleting
-				s.holding = false;
-				s.deleting = true;
-				timer = setTimeout(tick, DELETE_DELAY);
-				return;
-			}
-
-			if (!s.deleting) {
-				// Typing forward
-				s.charIdx++;
-				setDisplayed(word.slice(0, s.charIdx));
-				if (s.charIdx >= word.length) {
-					// Fully typed — hold
-					s.holding = true;
-					timer = setTimeout(tick, HOLD_PAUSE);
-				} else {
-					timer = setTimeout(tick, CHAR_DELAY);
-				}
-			} else {
-				// Deleting backward
-				s.charIdx--;
-				setDisplayed(word.slice(0, s.charIdx));
-				if (s.charIdx <= 0) {
-					// Fully deleted — advance to next word
-					s.deleting = false;
-					s.wordIdx = (s.wordIdx + 1) % words.length;
-					s.charIdx = 0;
-					timer = setTimeout(tick, 320);
-				} else {
-					timer = setTimeout(tick, DELETE_DELAY);
-				}
-			}
-		};
-
-		// Start after initial hold
-		timer = setTimeout(tick, HOLD_PAUSE);
-
-		// Cursor blink
-		const blink = setInterval(() => setCursor(c => !c), 530);
-
-		return () => {
-			clearTimeout(timer);
-			clearInterval(blink);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []); // intentionally empty — uses ref for state, runs once
-
-	return { displayed, cursor };
-}
-
 export function HomeHero({ config }: { config: BlockConfig }) {
 	const root = useRef<HTMLElement>(null);
 	useHeroEntrance(root);
 	const video = useRef<HTMLVideoElement>(null);
 	const userPaused = useRef(false);
 	const [videoFailed, setVideoFailed] = useState(false);
-	const { displayed, cursor } = useTypewriter(WORDS);
 
 	useEffect(() => {
 		const media = video.current;
@@ -130,16 +58,9 @@ export function HomeHero({ config }: { config: BlockConfig }) {
 
 					{/* Headline */}
 					<h1 id="home-hero-title" className={styles.title}>
-						{/* Static part — screen reader reads the full sentence */}
-						<span className="sr-only">We build the systems that keep organisations {displayed}</span>
-						<span aria-hidden="true">
-							We build the systems<br />
-							that keep organisations<br />
-							<span className={styles.rotatingWord}>
-								{displayed}
-								<span className={`${styles.cursor} ${cursor ? styles.cursorVisible : ""}`} aria-hidden="true">|</span>
-							</span>
-						</span>
+						We build the systems<br />
+						that keep organisations<br />
+						<span className={styles.accentWord}>moving forward.</span>
 					</h1>
 
 					{/* Subtitle */}

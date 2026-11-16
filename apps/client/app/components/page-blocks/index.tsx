@@ -5,7 +5,7 @@ import { Marquee } from "../Marquee";
 import { ArrowIcon } from "../ArrowIcon";
 import type { BlockConfig, PageBlock } from "@einao/content";
 import { Link } from "react-router";
-import { ActionLink, AnimatedTitle, Reveal, Typewriter } from "../primitives";
+import { ActionLink, AnimatedTitle, Reveal } from "../primitives";
 import { HeroVideo } from "../HeroVideo";
 import { ProcessCard } from "../ProcessCard";
 import { EditorialImage } from "../EditorialImage";
@@ -47,7 +47,6 @@ export function PageHero({
 	pageLabel,
 	metaLines,
 	bgImage,
-	typewriterWords,
 	secondaryLink,
 	hideCtas,
 	children,
@@ -58,7 +57,6 @@ export function PageHero({
 	pageLabel?: string;
 	metaLines?: string[];
 	bgImage?: string;
-	typewriterWords?: string[];
 	secondaryLink?: { label: string; href: string };
 	/** Pass true to suppress the default Start a conversation / Explore buttons */
 	hideCtas?: boolean;
@@ -82,13 +80,6 @@ export function PageHero({
 				<div className="page-hero-shared-title">
 					<AnimatedTitle text={title} accent={accent} />
 				</div>
-
-				{/* Typewriter */}
-				{typewriterWords && typewriterWords.length > 0 && (
-					<div className="page-hero-shared-typewriter">
-						<Typewriter phrases={typewriterWords} className="page-hero-typewriter-text" />
-					</div>
-				)}
 
 				{/* Subtitle */}
 				{subtitle && <p className="page-hero-shared-subtitle">{subtitle}</p>}
@@ -179,7 +170,6 @@ function InsightsPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="Insights"
 				metaLines={["Technology, operations, and change", "Einao Solutions"]}
 				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
-				typewriterWords={["Technology.", "Operations.", "Automation.", "Delivery."]}
 			/>
 			<section className="section insights-news-section">
 				<div className="container">
@@ -223,7 +213,6 @@ function AboutPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="About"
 				metaLines={["Established 2011", "Technology, operations, and delivery"]}
 				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
-				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
 			/>
 
 			<Reveal className="about-page-image-wrap">
@@ -635,7 +624,6 @@ function CapabilitiesPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="Capabilities"
 				metaLines={["Technology, operations, and delivery", hero?.body?.[0] ?? ""].filter(Boolean)}
 				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
-				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
 				secondaryLink={{ label: "Start a conversation", href: "/contact/" }}
 			/>
 			{services && <CapabilitiesList config={services} />}
@@ -655,7 +643,6 @@ function IndustriesPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="Industries"
 				metaLines={["Government, business, and service organisations", hero?.body?.[0] ?? ""].filter(Boolean)}
 				bgImage="/assets/images/about hero/Einao Profiles in emerald light.png"
-				typewriterWords={["Government.", "Business.", "Regulatory.", "Institutions."]}
 			/>
 			{industriesBlock && <IndustriesList config={industriesBlock} />}
 		</div>
@@ -1072,7 +1059,6 @@ function SolutionsPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="Solutions"
 				metaLines={["Digital solutions for real operations", hero?.body?.[0] ?? ""].filter(Boolean)}
 				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
-				typewriterWords={["Connecting.", "Simplifying.", "Automating.", "Delivering."]}
 			/>
 
 			{/* Project-style two-column grid */}
@@ -1145,7 +1131,6 @@ function WorkPage({ blocks }: { blocks: PageBlock[] }) {
 				pageLabel="Our Work"
 				metaLines={["Case studies and selected engagements", hero?.body?.[0] ?? ""].filter(Boolean)}
 				bgImage="/assets/images/about hero/DEinao ata Center Team Troubleshooting Together (1).png"
-				typewriterWords={["Consulting.", "Automating.", "Building.", "Delivering."]}
 			/>
 
 			{caseStudies.length > 0 && (

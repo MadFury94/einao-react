@@ -155,42 +155,5 @@ export function AnimatedTitle({
 	);
 }
 
-export function Typewriter({ phrases, className = "" }: { phrases: string[]; className?: string }) {
-	const [phraseIndex, setPhraseIndex] = useState(0);
-	const [text, setText] = useState(phrases[0] ?? "");
-	const deleting = useRef(false);
-	// Separate pause state so the effect re-runs after the hold delay
-	const [paused, setPaused] = useState(false);
 
-	useEffect(() => {
-		if (phrases.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-		const phrase = phrases[phraseIndex] ?? "";
-
-		// Fully typed — hold for 1800ms then start deleting
-		if (!deleting.current && text === phrase) {
-			const timer = window.setTimeout(() => {
-				deleting.current = true;
-				setPaused(false);
-			}, 1800);
-			setPaused(true);
-			return () => window.clearTimeout(timer);
-		}
-
-		// Fully deleted — advance to next phrase
-		if (deleting.current && text.length === 0) {
-			deleting.current = false;
-			setPhraseIndex((current) => (current + 1) % phrases.length);
-			return;
-		}
-
-		// Type or delete one character
-		const delay = deleting.current ? 34 : 58;
-		const timer = window.setTimeout(() => {
-			setText(deleting.current ? text.slice(0, -1) : phrase.slice(0, text.length + 1));
-		}, delay);
-		return () => window.clearTimeout(timer);
-	}, [phraseIndex, phrases, text, paused]);
-
-	return <span className={`typewriter ${className}`}>{text}<span className="typewriter-cursor" aria-hidden="true">|</span></span>;
-}
 

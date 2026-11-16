@@ -1,7 +1,7 @@
 .footer {
     padding: 0 60px 170px;
     background: #fff;
-    color: #101010;
+    color: var(--ink);
 }
 
 .panel {
@@ -61,7 +61,7 @@
     padding: 6px 6px 6px 30px;
     min-height: 64px;
     border-radius: 100px;
-    background: #110000;
+    background: var(--ink);
     color: #fff;
     font-size: 16px;
     line-height: 24px;
@@ -93,7 +93,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    color: #101010;
+    color: var(--ink);
     font-size: 18px;
     font-weight: 600;
     line-height: 28px;
@@ -172,7 +172,7 @@
 .brandRow p {
     max-width: 270px;
     margin: 0;
-    color: #101010;
+    color: var(--ink);
     font-size: 16px;
     line-height: 26px;
 }
@@ -188,7 +188,7 @@
     font-size: 20px;
     font-weight: 700;
     line-height: 30px;
-    color: #101010;
+    color: var(--ink);
 }
 
 .navigation ul,
@@ -204,7 +204,7 @@
 
 .navigation a {
     display: inline-block;
-    color: #101010;
+    color: var(--ink);
     font-size: 16px;
     line-height: 26px;
     font-weight: 500;
@@ -270,13 +270,13 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #101010;
+    background: var(--ink);
     margin-right: 12px;
     vertical-align: middle;
 }
 
 .bottom a {
-    color: #101010;
+    color: var(--ink);
     font-size: 16px;
     line-height: 26px;
     text-decoration: none;

@@ -1,5 +1,5 @@
 .section {
-    padding: 120px 0 0;
+    padding: 150px 0 0;
     overflow: hidden;
     background: #fff;
     color: #000;
@@ -103,7 +103,7 @@
     margin: 0 0 12px;
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 20px;
-    font-style: italic;
+    font-style: normal;
     line-height: 28px;
 }
 
@@ -138,7 +138,7 @@
 
 .serif {
     font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
 }
 
@@ -189,8 +189,8 @@
     align-items: center;
     padding: 7px 7px 7px 25px;
     border-radius: 70px;
-    color: white;
-    background: #000;
+    color: var(--ink);
+    background: var(--lime);
     text-decoration: none;
     transition: .4s ease;
 }
@@ -212,8 +212,8 @@
     height: 43px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: var(--lime);
-    color: white;
+    background: #fff;
+    color: var(--ink);
     transition: scale .4s;
 }
 
@@ -309,7 +309,7 @@
 
 @media (max-width: 1199px) {
     .section {
-        padding-top: 100px;
+        padding-top: 120px;
     }
 
     .content {
@@ -330,7 +330,7 @@
 
 @media (max-width: 991px) {
     .section {
-        padding-top: 80px;
+        padding-top: 100px;
     }
 
     .grid {
