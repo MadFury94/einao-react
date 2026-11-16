@@ -4486,8 +4486,8 @@ main:focus {
 }
 
 .einao-offcanvas {
-	background: #101010;
-	color: var(--white);
+	background: #fff;
+	color: var(--ink);
 }
 
 .einao-offcanvas .brand img {
@@ -4511,12 +4511,12 @@ main:focus {
 .einao-offcanvas-kicker,
 .einao-offcanvas-contact>span,
 .einao-offcanvas-social>span {
-	color: rgba(255, 255, 255, .58);
+	color: rgba(12, 23, 16, .55);
 }
 
 .einao-offcanvas-action {
-	border-color: rgba(255, 255, 255, .22);
-	color: var(--white);
+	border-color: rgba(12, 23, 16, .18);
+	color: var(--ink);
 }
 
 .einao-offcanvas-gallery {
@@ -4532,7 +4532,7 @@ main:focus {
 	left: 0;
 	width: 54%;
 	aspect-ratio: 1;
-	border: 1px solid rgba(255, 255, 255, .12);
+	border: 1px solid rgba(12, 23, 16, .1);
 	border-radius: .45rem;
 }
 
@@ -4565,17 +4565,17 @@ main:focus {
 }
 
 .einao-offcanvas-contact {
-	border-color: rgba(255, 255, 255, .22);
+	border-color: rgba(12, 23, 16, .12);
 }
 
 .einao-offcanvas-contact a,
 .einao-offcanvas-contact p,
 .einao-offcanvas-social a {
-	color: var(--white);
+	color: var(--ink);
 }
 
 .einao-offcanvas-social {
-	border-color: rgba(255, 255, 255, .22);
+	border-color: rgba(12, 23, 16, .12);
 }
 
 .einao-social-links {
@@ -7098,8 +7098,8 @@ main:focus {
 .einao-offcanvas {
 	width: min(680px, 34vw) !important;
 	min-width: 430px;
-	background: #101010 !important;
-	color: var(--white) !important;
+	background: #fff !important;
+	color: var(--ink) !important;
 }
 
 .einao-offcanvas .brand img {
@@ -7117,12 +7117,12 @@ main:focus {
 .einao-offcanvas-kicker,
 .einao-offcanvas-contact>span,
 .einao-offcanvas-social>span {
-	color: rgba(255, 255, 255, .58);
+	color: rgba(12, 23, 16, .55);
 }
 
 .einao-offcanvas-action {
-	border-color: rgba(255, 255, 255, .22);
-	color: var(--white);
+	border-color: rgba(12, 23, 16, .18);
+	color: var(--ink);
 }
 
 .einao-offcanvas-gallery {
@@ -7138,7 +7138,7 @@ main:focus {
 	left: 0;
 	width: 38%;
 	aspect-ratio: 1;
-	border: 1px solid rgba(255, 255, 255, .12);
+	border: 1px solid rgba(12, 23, 16, .1);
 	border-radius: .45rem;
 	background: #bdbdbd;
 	filter: none;
@@ -7181,17 +7181,17 @@ main:focus {
 }
 
 .einao-offcanvas-contact {
-	border-color: rgba(255, 255, 255, .22);
+	border-color: rgba(12, 23, 16, .12);
 }
 
 .einao-offcanvas-contact a,
 .einao-offcanvas-contact p,
 .einao-offcanvas-social a {
-	color: var(--white);
+	color: var(--ink);
 }
 
 .einao-offcanvas-social {
-	border-color: rgba(255, 255, 255, .22);
+	border-color: rgba(12, 23, 16, .12);
 }
 
 @media (max-width: 900px) {
