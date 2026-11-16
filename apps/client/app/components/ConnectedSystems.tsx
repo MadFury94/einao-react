@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const statement = "Einao connects operational understanding with technology delivery. We help organisations improve workflows, connect systems, and implement digital solutions designed around the work that needs to get done.";
+const statement = "We connect the tools, platforms, and workflows your organisation already relies on.";
 const logos = [
 	{ label: "Google Analytics", file: "google-analytics.svg" },
 	{ label: "Trello", file: "trello.svg" },

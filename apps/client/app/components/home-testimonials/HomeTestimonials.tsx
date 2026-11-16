@@ -127,13 +127,6 @@ export function HomeTestimonials() {
         >
             <div className={styles.container}>
                 <div data-head>
-                    <p className={styles.eyebrow}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                            <circle cx="8" cy="8" r="8" fill="var(--lime)" />
-                            <path d="M8 1.5 10 6l4.5 2-4.5 2L8 14.5 6 10 1.5 8 6 6Z" fill="white" />
-                        </svg>
-                        Customer reviews
-                    </p>
                     <h2 id="t-title" className={styles.title}>
                         <em className={styles.serif}>Testimonials</em>{" "}From Clients
                     </h2>
