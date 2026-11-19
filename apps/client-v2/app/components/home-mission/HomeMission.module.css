@@ -1,0 +1,70 @@
+/* ── Section ────────────────────────────────────────────────── */
+.section {
+    background: var(--white);
+    padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.inner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* ── Text block ─────────────────────────────────────────────── */
+.text {
+    text-align: center;
+    width: 100%;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--secondary);
+    margin-bottom: 1.1rem;
+    text-wrap: pretty;
+}
+
+.body {
+    font-family: var(--font);
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    line-height: var(--line-height);
+    color: var(--muted);
+    max-width: 1540px;
+    margin-inline: auto;
+}
+
+/* ── Image ──────────────────────────────────────────────────── */
+.imageWrap {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 48px rgba(12, 23, 16, 0.1);
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .body br {
+        display: none;
+    }
+
+    .heading br {
+        display: none;
+    }
+}

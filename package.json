@@ -4,14 +4,17 @@
   "packageManager": "pnpm@9.0.4",
   "scripts": {
     "dev": "pnpm --filter @einao/client dev",
+    "dev:v2": "pnpm --filter @einao/client-v2 dev",
     "dev:admin": "pnpm --filter @einao/admin dev",
     "dev:backend": "pnpm --filter backend dev",
     "build": "pnpm --filter @einao/client build",
+    "build:v2": "pnpm --filter @einao/client-v2 build",
     "build:admin": "pnpm --filter @einao/admin build",
     "build:backend": "pnpm --filter backend build",
     "typecheck": "pnpm --filter @einao/client typecheck",
     "test": "pnpm --filter @einao/content test",
     "deploy:client": "pnpm --filter @einao/client run deploy",
+    "deploy:v2": "pnpm --filter @einao/client-v2 run deploy",
     "deploy:admin": "pnpm --filter @einao/admin run deploy",
     "deploy:backend": "pnpm --filter backend run deploy",
     "check:client": "node scripts/check-client.cjs"

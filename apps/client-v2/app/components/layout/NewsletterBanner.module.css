@@ -1,0 +1,140 @@
+/* ── Outer wrap ─────────────────────────────────────────────── */
+.wrap {
+    background: var(--white);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    display: flex;
+    justify-content: center;
+}
+
+/* ── Card — fixed width matching reference ~800px ───────────── */
+.card {
+    position: relative;
+    overflow: hidden;
+    background: var(--secondary);
+
+    border-radius: 24px;
+    width: min(1300px, calc(100% - clamp(2rem, 8vw, 8rem) * 2));
+    padding: 5rem 4rem;
+    text-align: center;
+}
+
+/* ── Blobs — large organic shapes matching reference ────────── */
+.blobLeft {
+    position: absolute;
+    width: 280px;
+    height: 300px;
+    bottom: -80px;
+    left: -60px;
+    pointer-events: none;
+    background: none;
+    border-radius: 0;
+}
+
+.blobRight {
+    position: absolute;
+    width: 300px;
+    height: 320px;
+    bottom: -80px;
+    right: -60px;
+    pointer-events: none;
+    background: none;
+    border-radius: 0;
+}
+
+/* ── Content ────────────────────────────────────────────────── */
+.content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin-inline: auto;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+}
+
+.subtitle {
+    font-family: var(--font);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 2.25rem;
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.form {
+    display: flex;
+    gap: 10px;
+    max-width: 520px;
+    margin-inline: auto;
+}
+
+.input {
+    flex: 1;
+    padding: 16px 20px;
+    font-family: var(--font);
+    font-size: 1rem;
+    color: var(--secondary);
+    background: var(--white);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    outline: none;
+    min-width: 0;
+    transition: border-color var(--duration) ease;
+}
+
+.input:focus {
+    border-color: var(--primary);
+}
+
+.input::placeholder {
+    color: #aaa;
+}
+
+/* Pill button — separate element, sits next to input */
+.btn {
+    padding: 16px 28px;
+    background: var(--white);
+    color: var(--secondary);
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background var(--duration) ease, color var(--duration) ease;
+}
+
+.btn:hover {
+    background: var(--primary);
+    color: var(--secondary);
+}
+
+/* ── Thanks ─────────────────────────────────────────────────── */
+.thanks {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 540px) {
+    .form {
+        flex-direction: column;
+    }
+
+    .btn {
+        border-radius: 6px;
+        width: 100%;
+    }
+}

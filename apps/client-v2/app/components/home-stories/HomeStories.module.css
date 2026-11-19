@@ -1,0 +1,154 @@
+/* ── Section ────────────────────────────────────────────────── */
+.section {
+    background: #0d2244;
+    padding-block: clamp(4rem, 8vw, 6rem);
+}
+
+.inner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header {
+    margin-bottom: 2.5rem;
+}
+
+.pill {
+    composes: pill from "../SectionPill.module.css";
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 1.25rem;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    max-width: 1640px;
+}
+
+/* ── Grid ───────────────────────────────────────────────────── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+    position: relative;
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 3 / 4;
+    background: #1a3a60;
+}
+
+.cardImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s var(--ease);
+}
+
+.card:hover .cardImage {
+    transform: scale(1.05);
+}
+
+/* Dark overlay */
+.cardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(10, 20, 40, 0.75) 0%,
+            rgba(10, 20, 40, 0.3) 50%,
+            rgba(10, 20, 40, 0.15) 100%);
+}
+
+/* Text — bottom left */
+.cardContent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem;
+}
+
+.cardLabel {
+    display: block;
+    font-family: var(--font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 0.4rem;
+}
+
+.cardTitle {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--white);
+    margin: 0;
+}
+
+/* Arrow circle — center of card */
+.cardArrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+    transition: background var(--duration) ease, border-color var(--duration) ease, transform 0.5s var(--ease);
+}
+
+.card:hover .cardArrow {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .heading br {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cardImage,
+    .cardArrow {
+        transition: none;
+    }
+}

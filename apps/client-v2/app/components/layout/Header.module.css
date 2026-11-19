@@ -1,0 +1,267 @@
+/* ── Header shell ───────────────────────────────────────────── */
+.header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 100;
+    transition: background var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.transparent {
+    background: transparent;
+}
+
+.scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 1px 0 var(--border);
+    backdrop-filter: blur(12px);
+}
+
+/* ── Inner layout ───────────────────────────────────────────── */
+.inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    height: 72px;
+}
+
+/* ── Logo ───────────────────────────────────────────────────── */
+.logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
+}
+
+/* ── Nav groups ─────────────────────────────────────────────── */
+.navLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+/* ── Dropdown trigger ───────────────────────────────────────── */
+.navItem {
+    position: relative;
+}
+
+.navTrigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    transition: background var(--duration) ease, color var(--duration) ease;
+    white-space: nowrap;
+}
+
+.scrolled .navTrigger {
+    color: var(--secondary);
+}
+
+.navTrigger:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.scrolled .navTrigger:hover {
+    background: var(--surface);
+}
+
+.chevron {
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+/* ── Dropdown panel ─────────────────────────────────────────── */
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(12, 23, 16, 0.1);
+    padding: 6px;
+    z-index: 200;
+}
+
+.dropdownItem {
+    display: block;
+    padding: 9px 14px;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 450;
+    color: var(--secondary);
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdownItem:hover {
+    background: var(--surface);
+    color: var(--secondary);
+}
+
+/* ── CTA button ─────────────────────────────────────────────── */
+.cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 20px;
+    background: var(--primary);
+    color: var(--secondary);
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 100px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background var(--duration) ease, transform var(--duration) ease;
+    margin-left: 0.5rem;
+}
+
+.cta:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* ── Mobile toggle ──────────────────────────────────────────── */
+.mobileToggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+}
+
+.bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.scrolled .bar {
+    background: var(--secondary);
+}
+
+.barOpen1 {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.barOpen2 {
+    opacity: 0;
+}
+
+.barOpen3 {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile drawer ──────────────────────────────────────────── */
+.mobileDrawer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem var(--gutter) 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: calc(100svh - 72px);
+    overflow-y: auto;
+}
+
+.mobileGroup {}
+
+.mobileGroupLabel {
+    font-family: var(--font);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.mobileLink {
+    display: block;
+    padding: 9px 0;
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.15s ease;
+}
+
+.mobileLink:last-child {
+    border-bottom: none;
+}
+
+.mobileLink:hover {
+    color: var(--primary-dark);
+}
+
+.mobileCta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    background: var(--primary);
+    color: var(--secondary);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 100px;
+    text-decoration: none;
+    text-align: center;
+    transition: background var(--duration) ease;
+}
+
+.mobileCta:hover {
+    background: var(--primary-dark);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+
+    .navLeft,
+    .navRight {
+        display: none;
+    }
+
+    .mobileToggle {
+        display: flex;
+    }
+}

@@ -1,0 +1,121 @@
+/* ── Hero shell ─────────────────────────────────────────────── */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    /* vertical center — matches reference */
+    overflow: hidden;
+    background: var(--secondary);
+}
+
+/* ── Background media ───────────────────────────────────────── */
+.media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.poster,
+.video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.video {
+    z-index: 1;
+}
+
+/* Overlay — dark blue-tinted desaturated, matches reference */
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: rgba(15, 25, 40, 0.62);
+}
+
+/* ── Content ────────────────────────────────────────────────── */
+.content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+}
+
+.inner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-top: 80px;
+    /* clear the fixed header */
+}
+
+/* ── Heading ────────────────────────────────────────────────── */
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--white);
+    max-width: 1620px;
+    margin-bottom: 1.1rem;
+}
+
+/* ── Subtitle ───────────────────────────────────────────────── */
+.subtitle {
+    font-family: var(--font);
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    line-height: var(--line-height);
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 420px;
+    margin-bottom: 2.25rem;
+}
+
+/* ── Button — outlined white pill, matches reference ─────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 28px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    border-radius: 100px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background var(--duration) ease, border-color var(--duration) ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--white);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .inner {
+        padding-top: 72px;
+    }
+
+    .subtitle {
+        max-width: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .video {
+        display: none;
+    }
+
+    .btn {
+        transition: none;
+    }
+}

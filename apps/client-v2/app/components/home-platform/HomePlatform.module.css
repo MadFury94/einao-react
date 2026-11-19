@@ -1,0 +1,146 @@
+/* ── Section ────────────────────────────────────────────────── */
+.section {
+    background: #eaf1fb;
+    padding-block: clamp(4rem, 8vw, 6rem);
+}
+
+.inner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header {
+    margin-bottom: 2.5rem;
+}
+
+.pill {
+    composes: pill from "../SectionPill.module.css";
+    background: #fce8e8;
+    color: #c0392b;
+    margin-bottom: 1rem;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--secondary);
+    max-width: 1480px;
+}
+
+/* ── Two-card grid ──────────────────────────────────────────── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: #0d2244;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    min-height: 480px;
+    padding: 32px;
+    transition: background var(--duration) ease;
+}
+
+.card:hover {
+    background: #0f2d5a;
+}
+
+/* ── Illustration (top-right, decorative) ───────────────────── */
+.illustrationWrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 65%;
+    height: 60%;
+    pointer-events: none;
+}
+
+.illustration {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Card content (bottom) ──────────────────────────────────── */
+.cardContent {
+    position: relative;
+    z-index: 1;
+}
+
+.cardEyebrow {
+    display: block;
+    font-family: var(--font);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.04em;
+}
+
+.cardTitle {
+    font-family: var(--font);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.cardBottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cardBody {
+    font-family: var(--font);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    max-width: 300px;
+}
+
+/* Circle arrow */
+.arrow {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: var(--white);
+    flex-shrink: 0;
+    transition: background var(--duration) ease, border-color var(--duration) ease;
+}
+
+.card:hover .arrow {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .heading br {
+        display: none;
+    }
+}

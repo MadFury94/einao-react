@@ -1,0 +1,193 @@
+/* ── Section ────────────────────────────────────────────────── */
+.section {
+    background: #eaf1fb;
+    padding-block: clamp(4rem, 8vw, 6rem);
+    overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    margin-bottom: 1.5rem;
+}
+
+.pill {
+    composes: pill from "../SectionPill.module.css";
+    background: var(--primary);
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: var(--heading-section);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--secondary);
+    max-width: 1540px;
+}
+
+/* ── Scrollable track ───────────────────────────────────────── */
+.track {
+    display: flex;
+    gap: 20px;
+    padding-inline: var(--gutter);
+    max-width: var(--wide);
+    margin-inline: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+    padding-bottom: 4px;
+    /* prevent shadow clip */
+}
+
+.track::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+    position: relative;
+    flex: 0 0 clamp(240px, 28vw, 400px);
+    height: clamp(340px, 40vw, 560px);
+    border-radius: 10px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s var(--ease);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+/* image fills card */
+.cardImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s var(--ease);
+}
+
+.card:hover .cardImage {
+    transform: scale(1.04);
+}
+
+/* gradient overlay — dark at bottom for text legibility */
+.cardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(10, 18, 14, 0.85) 0%,
+            rgba(10, 18, 14, 0.3) 45%,
+            transparent 70%);
+}
+
+/* text anchored bottom-left */
+.cardContent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+}
+
+.cardCategory {
+    display: block;
+    font-family: var(--font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--white);
+    margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .card {
+        flex: 0 0 72vw;
+        height: 100vw;
+    }
+
+    .heading br {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .card,
+    .cardImage {
+        transition: none;
+    }
+}
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.navButton {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: 1px solid var(--secondary);
+    border-radius: 50%;
+    background: var(--secondary);
+    color: var(--white);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.navButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.navButton:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 4px;
+}
+
+.navButton:disabled {
+    background: transparent;
+    border-color: #bdc8d6;
+    color: #8b99aa;
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navButton {
+        transition: none;
+    }
+}

@@ -1,0 +1,257 @@
+/* ── Section ────────────────────────────────────────────────── */
+.section {
+    background: var(--white);
+    padding-block: clamp(3rem, 5vw, 4rem);
+    overflow-x: hidden;
+}
+
+.inner {
+    display: grid;
+    grid-template-columns: calc(51vw - max(0px, (100vw - var(--wide)) / 2) - var(--gutter) - 38px) minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+
+/* ── Left column ────────────────────────────────────────────── */
+.left {
+    width: 440px;
+    max-width: 100%;
+    min-width: 0;
+    padding-top: 68px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.pill {
+    composes: pill from "../SectionPill.module.css";
+    background: var(--surface);
+    color: var(--secondary-mid);
+    border-color: var(--border);
+    align-self: flex-start;
+}
+
+.heading {
+    font-family: var(--font);
+    font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow-wrap: anywhere;
+    color: var(--secondary);
+    margin: 20px 0 16px;
+}
+
+.subtitle {
+    font-family: var(--font);
+    font-size: clamp(1rem, 1.18vw, 1.0625rem);
+    line-height: 1.6;
+    max-width: 340px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.allLink {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-decoration: none;
+    transition: gap var(--duration) ease;
+}
+
+.allLink:hover {
+    gap: 10px;
+}
+
+/* ── Scrollable track ───────────────────────────────────────── */
+.track {
+    display: flex;
+    gap: 28px;
+    width: calc(100% + max(0px, (100vw - var(--wide)) / 2) + var(--gutter));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+}
+
+.track::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+    flex: 0 0 auto;
+    width: clamp(260px, 21vw, 340px);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+
+}
+
+.cardImageLink {
+    border-radius: 22px;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--surface);
+}
+
+.cardImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+}
+
+.card:hover .cardImage {
+    transform: scale(1.04);
+}
+
+.cardBody {
+    padding-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.cardTitle {
+    font-family: var(--font);
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.4;
+    min-height: 4.2em;
+    color: var(--secondary-mid);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cardTitle a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--duration) ease;
+}
+
+.cardTitle a:hover {
+    color: var(--primary-dark);
+}
+
+.readMore {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-decoration: none;
+    transition: gap var(--duration) ease;
+}
+
+.readMore:hover {
+    gap: 9px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+    .inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .left {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .heading {
+        white-space: normal;
+    }
+
+    .subtitle br {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cardImage {
+        transition: none;
+    }
+
+    .allLink,
+    .readMore {
+        transition: none;
+    }
+}
+
+.carousel {
+    min-width: 0;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.navButton {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--secondary);
+    border-radius: 50%;
+    background: var(--secondary);
+    color: var(--white);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.navButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.navButton:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 4px;
+}
+
+.navButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navButton {
+        transition: none;
+    }
+}
+@media (max-width: 600px) {
+    .card {
+        width: 80vw;
+    }
+}
