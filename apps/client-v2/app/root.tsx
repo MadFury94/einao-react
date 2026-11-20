@@ -1,4 +1,4 @@
-import {
+﻿import {
     Links,
     Meta,
     Outlet,
@@ -14,6 +14,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
@@ -38,3 +39,4 @@ export default function App() {
 export function HydrateFallback() {
     return <div style={{ minHeight: "100svh" }} />;
 }
+

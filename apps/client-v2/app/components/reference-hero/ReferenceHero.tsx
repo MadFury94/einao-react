@@ -1,0 +1,4 @@
+﻿import { Link } from "react-router";
+import styles from "./ReferenceHero.module.css";
+export type ReferenceHeroProps = { label: string; title: string; intro: string; cta?: string; image?: string; imageAlt?: string };
+export function ReferenceHero({ label, title, intro, cta, image, imageAlt }: ReferenceHeroProps) { return <section className={styles.hero}><div className={styles.heroContainer}><div className={styles.heroInner}><span className={styles.eyebrow}>{label}</span><h1>{title}</h1><p>{intro}</p>{cta && <div className={styles.heroButtons}><Link className={styles.heroCta} to="/contact/">{cta}<span aria-hidden="true"> -&gt;</span></Link></div>}</div><div className={styles.heroArt}><img className={styles.heroImage} src={image ?? "/assets/images/nigerian-tech-workflow.png"} alt={imageAlt ?? "Einao technology team"} /></div></div></section> }

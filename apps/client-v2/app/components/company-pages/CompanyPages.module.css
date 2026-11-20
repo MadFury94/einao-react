@@ -1,0 +1,371 @@
+﻿.page {
+    background: var(--white);
+    color: var(--secondary)
+}
+
+.feature,
+.cardsSection,
+.insights {
+    padding-block: clamp(4rem, 9vw, 8rem)
+}
+
+.feature {
+    background: var(--surface)
+}
+
+.featureInner,
+.sectionInner {
+    width: 100%;
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.featureInner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 7vw, 8rem);
+    align-items: center
+}
+
+.featureCopy {
+    max-width: 37rem
+}
+
+.tag {
+    display: inline-flex;
+    padding: .5rem .9rem;
+    border-radius: .5rem;
+    background: color-mix(in srgb, var(--primary) 16%, transparent);
+    color: var(--primary-dark);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase
+}
+
+.feature h2,
+.cardsSection>div>h2,
+.insightsHeader h2 {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    line-height: 1.06;
+    letter-spacing: -.045em
+}
+
+.feature p {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.65
+}
+
+.featureImage {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    aspect-ratio: 4/3
+}
+
+.featureImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration) var(--ease)
+}
+
+.featureImage:hover img {
+    transform: scale(1.04)
+}
+
+.link {
+    display: inline-flex;
+    gap: .7rem;
+    margin-top: 1.5rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    transition: gap var(--duration) var(--ease)
+}
+
+.link:hover,
+.link:focus-visible {
+    gap: 1.1rem
+}
+
+.cardsSection {
+    background: var(--white)
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background: var(--surface);
+    transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease)
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 1rem 2rem color-mix(in srgb, var(--secondary) 12%, transparent)
+}
+
+.card>img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover
+}
+
+.card>div {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.5rem
+}
+
+.card h3,
+.insightCard h3 {
+    margin-top: .7rem;
+    font-size: 1.5rem;
+    line-height: 1.2
+}
+
+.card p {
+    margin-top: .7rem;
+    line-height: 1.55
+}
+
+.card .link {
+    margin-top: auto;
+    padding-top: 1.5rem
+}
+
+.cardLabel {
+    color: var(--primary-dark);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase
+}
+
+.insights {
+    background: var(--surface)
+}
+
+.insightsHeader {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem
+}
+
+.insightsHeader h2 {
+    max-width: 42rem
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .5rem;
+    max-width: 34rem
+}
+
+.filter,
+.filterActive {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .6rem .9rem;
+    background: var(--white);
+    color: var(--secondary-mid);
+    font: inherit;
+    font-size: .8rem;
+    cursor: pointer;
+    transition: background var(--duration) var(--ease), color var(--duration) var(--ease)
+}
+
+.filterActive,
+.filter:hover,
+.filter:focus-visible {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary)
+}
+
+.insightGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem
+}
+
+.insightCard {
+    overflow: hidden;
+    background: var(--white);
+    border-radius: 1.25rem;
+    transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease)
+}
+
+.insightCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 1rem 2rem color-mix(in srgb, var(--secondary) 12%, transparent)
+}
+
+.insightCard>img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover
+}
+
+.insightBody {
+    padding: 1.5rem
+}
+
+.insightBody p {
+    margin-top: .75rem;
+    line-height: 1.55
+}
+
+.insightBody .link {
+    margin-top: 1.25rem
+}
+
+@media(max-width:900px) {
+    .featureInner {
+        grid-template-columns: 1fr
+    }
+
+    .featureImage {
+        order: -1
+    }
+
+    .cards,
+    .insightGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    .insightsHeader {
+        display: block
+    }
+
+    .filters {
+        justify-content: flex-start;
+        margin-top: 1.5rem
+    }
+}
+
+@media(max-width:560px) {
+
+    .cards,
+    .insightGrid {
+        grid-template-columns: 1fr
+    }
+
+    .feature h2,
+    .cardsSection>div>h2,
+    .insightsHeader h2 {
+        font-size: 2.3rem
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .card,
+    .insightCard,
+    .featureImage img,
+    .link,
+    .filter,
+    .filterActive {
+        transition: none
+    }
+}
+
+.insightImageLink {
+    display: block;
+    overflow: hidden
+}
+
+.insightImageLink img {
+    display: block;
+    transition: transform var(--duration) var(--ease)
+}
+
+.insightCard:hover .insightImageLink img {
+    transform: scale(1.04)
+}
+
+.insightCard h3 a {
+    color: inherit
+}
+
+.search {
+    display: block;
+    max-width: 32rem;
+    margin-top: 2rem
+}
+
+.search input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .85rem 1.1rem;
+    background: var(--white);
+    color: var(--secondary);
+    font: inherit;
+    outline: none
+}
+
+.search input:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent)
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0
+}
+
+.empty {
+    margin-top: 2rem
+}
+
+.article {
+    padding-block: clamp(4rem, 9vw, 8rem);
+    background: var(--white)
+}
+
+.articleInner {
+    max-width: 48rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.articleIntro {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--secondary-mid)
+}
+
+.article h2 {
+    margin-top: 3rem;
+    font-size: clamp(1.6rem, 3vw, 2.5rem)
+}
+
+.article h2+p {
+    margin-top: 1rem;
+    line-height: 1.7;
+    font-size: 1.08rem
+}

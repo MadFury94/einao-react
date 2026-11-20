@@ -1,16 +1,16 @@
-/* ── Hero shell ─────────────────────────────────────────────── */
+﻿/* â”€â”€ Hero shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero {
     position: relative;
     width: 100%;
     min-height: 100svh;
     display: flex;
     align-items: center;
-    /* vertical center — matches reference */
+    /* vertical center â€” matches reference */
     overflow: hidden;
     background: var(--secondary);
 }
 
-/* ── Background media ───────────────────────────────────────── */
+/* â”€â”€ Background media â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .media {
     position: absolute;
     inset: 0;
@@ -31,7 +31,7 @@
     z-index: 1;
 }
 
-/* Overlay — dark blue-tinted desaturated, matches reference */
+/* Overlay â€” dark blue-tinted desaturated, matches reference */
 .overlay {
     position: absolute;
     inset: 0;
@@ -39,7 +39,7 @@
     background: rgba(15, 25, 40, 0.62);
 }
 
-/* ── Content ────────────────────────────────────────────────── */
+/* â”€â”€ Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .content {
     position: relative;
     z-index: 3;
@@ -54,7 +54,7 @@
     /* clear the fixed header */
 }
 
-/* ── Heading ────────────────────────────────────────────────── */
+/* â”€â”€ Heading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .heading {
     font-family: var(--font);
     font-size: var(--heading-section);
@@ -62,11 +62,11 @@
     line-height: 1.2;
     letter-spacing: -0.025em;
     color: var(--white);
-    max-width: 1620px;
+    max-width: var(--wide);
     margin-bottom: 1.1rem;
 }
 
-/* ── Subtitle ───────────────────────────────────────────────── */
+/* â”€â”€ Subtitle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .subtitle {
     font-family: var(--font);
     font-size: var(--font-size-base);
@@ -77,7 +77,7 @@
     margin-bottom: 2.25rem;
 }
 
-/* ── Button — outlined white pill, matches reference ─────────── */
+/* â”€â”€ Button â€” outlined white pill, matches reference â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -99,7 +99,7 @@
     border-color: var(--white);
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
+/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 768px) {
     .inner {
         padding-top: 72px;

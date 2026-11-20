@@ -1,0 +1,154 @@
+﻿.hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 78vh;
+    display: grid;
+    align-items: center;
+    padding: clamp(5rem, 8vw, 7rem) 0 clamp(5rem, 9vw, 7rem);
+    overflow: hidden;
+    background: var(--secondary);
+    color: var(--white)
+}
+
+.hero:before,
+.hero:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: .22;
+    pointer-events: none
+}
+
+.hero:before {
+    width: clamp(18rem, 42vw, 42rem);
+    height: clamp(18rem, 42vw, 42rem);
+    right: -12%;
+    top: -28%;
+    background: var(--primary)
+}
+
+.hero:after {
+    width: clamp(12rem, 25vw, 25rem);
+    height: clamp(12rem, 25vw, 25rem);
+    left: -8%;
+    bottom: -35%;
+    background: var(--primary-dark)
+}
+
+.heroContainer {
+    width: 100%;
+    max-width: var(--wide);
+    padding-inline: var(--gutter);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 30.625rem);
+    gap: 3rem;
+    align-items: center
+}
+
+.heroInner {
+    width: 100%;
+    max-width: 52rem
+}
+
+.heroArt {
+    display: grid;
+    place-items: center;
+    min-height: 25rem
+}
+
+.heroOrb {
+    display: none
+}
+
+.heroImage {
+    position: relative;
+    z-index: 1;
+    width: min(30rem, 90%);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    opacity: 1
+}
+
+.heroButtons {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem
+}
+
+.eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    padding: .5rem .9rem;
+    border-radius: .5rem;
+    background: color-mix(in srgb, var(--primary) 18%, transparent);
+    color: var(--primary);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase
+}
+
+.hero h1 {
+    max-width: 62rem;
+    margin-top: 1.5rem;
+    color: var(--white);
+    font-size: clamp(2.8rem, 7vw, 6.4rem);
+    letter-spacing: -.06em;
+    line-height: .98
+}
+
+.hero p {
+    max-width: 48rem;
+    margin-top: 1.75rem;
+    color: color-mix(in srgb, var(--white) 78%, transparent);
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    line-height: 1.6
+}
+
+.heroCta {
+    display: inline-flex;
+    margin-top: 2rem;
+    padding: .9rem 1.3rem;
+    border-radius: 999px;
+    background: var(--primary);
+    color: var(--secondary);
+    font-weight: 700;
+    transition: background var(--duration) var(--ease), transform var(--duration) var(--ease)
+}
+
+.heroCta:hover,
+.heroCta:focus-visible {
+    background: var(--white);
+    transform: translateY(-2px)
+}
+
+@media(max-width:867px) {
+    .heroContainer {
+        grid-template-columns: 1fr
+    }
+
+    .heroArt {
+        min-height: 16rem;
+        order: -1
+    }
+}
+
+@media(max-width:600px) {
+    .hero {
+        min-height: 70vh
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .heroCta {
+        transition: none
+    }
+}
+
+
+
+

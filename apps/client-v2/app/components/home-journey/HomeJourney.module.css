@@ -25,8 +25,8 @@
 
 .pill {
     composes: pill from "../SectionPill.module.css";
-    background: #fce8e8;
-    color: #c0392b;
+    background: var(--surface);
+    color: var(--secondary-mid);
     margin-bottom: 1rem;
 }
 
@@ -79,7 +79,7 @@
 /* ── Scrollable track ───────────────────────────────────────── */
 .track {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     padding-inline: var(--gutter);
     max-width: var(--wide);
     margin-inline: auto;
@@ -96,32 +96,56 @@
 }
 
 /* ── Card shell ─────────────────────────────────────────────── */
+/* Match the reference's fixed portrait faces and separate caption. */
 .card {
+    container-type: inline-size;
+    flex: 0 0 min(290px, calc(100vw - var(--gutter) * 2));
+    min-width: 0;
+    scroll-snap-align: center;
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+}
+
+.flip {
     position: relative;
-    flex: 0 0 clamp(198px, 22vw, 330px);
-    scroll-snap-align: start;
-    cursor: default;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template: "stack" 1fr / 1fr;
+    width: 100%;
+    aspect-ratio: 290 / 324;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font-family: var(--font);
+    text-align: left;
+    cursor: pointer;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* ── Default face — image fills card, no label overlay ──────── */
+.flip:focus-visible {
+    outline: 3px solid var(--primary-dark);
+    outline-offset: 4px;
+}
+
+.cardFront,
+.cardBack {
+    grid-area: stack;
+    min-width: 0;
+    min-height: 0;
+    border-radius: 8px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 1s;
+}
+
 .cardFront {
-    display: flex;
-    flex-direction: column;
-    transition: opacity 0.3s ease;
-    flex: 1;
-}
-
-.card:hover .cardFront {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.cardImageWrap {
-    border-radius: 10px;
+    transform: rotateY(0deg);
     overflow: hidden;
-    aspect-ratio: 11 / 9;
 }
 
 .cardImage {
@@ -132,119 +156,128 @@
     display: block;
 }
 
-.cardLabel {
-    padding: 10px 2px 0;
-    font-family: var(--font);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--secondary);
-    background: none;
+@property --journey-border-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 87deg;
 }
 
-/* ── Hover face (year + title + body) ───────────────────────── */
 .cardBack {
+    --journey-gradient: conic-gradient(from var(--journey-border-angle),
+        var(--primary-dark) 10%, var(--primary) 35%, var(--secondary-mid) 50%,
+        var(--primary-dark) 65%, var(--primary) 72% 75%, var(--primary-dark) 95%);
+    position: relative;
+    isolation: isolate;
+    padding: 1px;
+    background: var(--journey-gradient);
+    transform: rotateY(180deg);
+    animation: journeyBorder 12s linear infinite;
+}
+
+.cardBack::after {
+    content: "";
     position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.25rem;
-    background: #f0f6ff;
-    border: 1.5px solid #c8ddf5;
-    border-radius: 10px;
-    overflow: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    inset: -2px;
+    border-radius: inherit;
+    background: var(--journey-gradient);
+    filter: blur(8px);
+    opacity: 0.2;
+    z-index: -2;
 }
 
-.card:hover .cardBack {
-    opacity: 1;
+@keyframes journeyBorder {
+    to { --journey-border-angle: 447deg; }
 }
 
-/* Large faded year above content */
+.backLayout {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--surface);
+}
+
+.backTop {
+    display: grid;
+    place-items: end center;
+    min-width: 0;
+}
+
 .cardYear {
-    position: absolute;
-    top: 0.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: rgba(12, 23, 16, 0.07);
+    font-size: min(3.375rem, 18cqw);
+    font-weight: 900;
+    line-height: 1.5;
     white-space: nowrap;
-    pointer-events: none;
-    user-select: none;
+    background: linear-gradient(358deg, transparent 0%,
+        color-mix(in srgb, var(--primary-dark) 30%, transparent) 143%, var(--secondary) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.backContent {
+    padding-inline: 0.75rem;
+    padding-bottom: 1.25rem;
 }
 
 .cardTitle {
-    font-family: var(--font);
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--secondary);
-    margin-bottom: 0.6rem;
     display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--secondary-mid);
 }
 
 .cardBody {
-    font-family: var(--font);
-    font-size: 0.8rem;
-    line-height: 1.55;
-    color: var(--muted);
-    margin: 0;
-    /* 3-line clamp */
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-top: 0.75rem;
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
+.cardLabel {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+    transition: opacity 0.8s;
+}
+
+.flip:is([data-flipped="true"], :focus-visible) .cardFront {
+    transform: rotateY(180deg);
+}
+
+.flip:is([data-flipped="true"], :focus-visible) .cardBack {
+    transform: rotateY(360deg);
+}
+
+.card:has(.flip:is([data-flipped="true"], :focus-visible)) .cardLabel {
+    opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .flip:hover .cardFront { transform: rotateY(180deg); }
+    .flip:hover .cardBack { transform: rotateY(360deg); }
+    .card:has(.flip:hover) .cardLabel { opacity: 0; }
+}
+
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-    }
-
-    .card {
-        flex: 0 0 79.2vw;
-    }
-
-    .cardBack {
-        bottom: auto;
-        aspect-ratio: 11 / 9;
-        justify-content: flex-start;
-    }
-
-    .cardYear {
-        position: static;
-        transform: none;
-        align-self: center;
-        flex-shrink: 0;
-        line-height: 1;
-        margin-bottom: 0.5rem;
-    }
-
-    .cardTitle {
-        flex-shrink: 0;
-    }
-
-    .cardBody {
-        min-height: 0;
-    }
-
+    .header { flex-direction: column; }
     .heading br,
-    .subtitle br {
-        display: none;
-    }
+    .subtitle br { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .cardFront,
-    .cardBack {
-        transition: none;
-    }
+    .cardBack,
+    .cardLabel { transition: none; }
+    .cardBack { animation: none; }
 }
 
 .navigation {
@@ -290,8 +323,8 @@
 
 .navButton:disabled {
     background: transparent;
-    border-color: #bdc8d6;
-    color: #8b99aa;
+    border-color: var(--border);
+    color: var(--muted);
     cursor: default;
 }
 

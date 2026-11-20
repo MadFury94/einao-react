@@ -1,9 +1,9 @@
-/* ═══════════════════════════════════════════════════════════════
-   EINAO V2 — Design tokens & global base
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   EINAO V2 â€” Design tokens & global base
    Primary:   #a8d62a  (lime green)
    Secondary: #0c1710  (forest green / ink)
    Font:      Inter
-═══════════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 *,
 *::before,
@@ -14,17 +14,18 @@
 }
 
 :root {
-	/* ── Brand colors ── */
+	/* â”€â”€ Brand colors â”€â”€ */
 	--primary: #a8d62a;
-	/* lime green — CTAs, highlights, accents */
+	/* lime green â€” CTAs, highlights, accents */
 	--primary-dark: #8bb822;
 	/* hover state for primary */
 	--secondary: #0c1710;
-	/* forest green / ink — text, dark surfaces */
+	/* forest green / ink â€” text, dark surfaces */
 	--secondary-mid: #1a3320;
-	/* mid-tone — dark section backgrounds */
+	--heading-color: var(--secondary-mid);
+	/* mid-tone â€” dark section backgrounds */
 
-	/* ── Neutral scale ── */
+	/* â”€â”€ Neutral scale â”€â”€ */
 	--white: #ffffff;
 	--paper: #f8faf8;
 	/* off-white with green warmth */
@@ -37,27 +38,27 @@
 	--placeholder: #c8d4c8;
 	/* skeleton / empty states */
 
-	/* ── Typography ── */
+	/* â”€â”€ Typography â”€â”€ */
 	--font: "Inter", "Segoe UI", system-ui, sans-serif;
 	--font-size-base: 1rem;
 	/* 16px */
 	--line-height: 1.65;
 
-	/* ── Spacing ── */
+	/* â”€â”€ Spacing â”€â”€ */
 	--wide: 1560px;
 	--gutter: clamp(1.25rem, 4vw, 3rem);
 	--section: clamp(5rem, 10vw, 9rem);
 
-	/* ── Section heading — consistent size across all sections ── */
+	/* â”€â”€ Section heading â€” consistent size across all sections â”€â”€ */
 	--heading-section: clamp(1.125rem, 5.8vw, 3.5rem);
 
-	/* ── Motion ── */
+	/* â”€â”€ Motion â”€â”€ */
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	--ease-in: cubic-bezier(0.4, 0, 1, 1);
 	--duration: 0.3s;
 }
 
-/* ── Base ───────────────────────────────────────────────────── */
+/* â”€â”€ Base â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 html {
 	font-size: 16px;
 	-webkit-text-size-adjust: 100%;
@@ -74,7 +75,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Typography ─────────────────────────────────────────────── */
+/* â”€â”€ Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 h1,
 h2,
 h3,
@@ -85,7 +86,7 @@ h6 {
 	font-weight: 700;
 	line-height: 1.15;
 	letter-spacing: -0.02em;
-	color: var(--secondary);
+	color: var(--heading-color);
 	text-wrap: balance;
 }
 
@@ -124,7 +125,7 @@ strong {
 	color: var(--secondary);
 }
 
-/* ── Layout helpers ─────────────────────────────────────────── */
+/* â”€â”€ Layout helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .container {
 	width: calc(100% - var(--gutter) * 2);
 	max-width: var(--wide);
@@ -135,7 +136,7 @@ strong {
 	padding-block: var(--section);
 }
 
-/* ── Images / media ─────────────────────────────────────────── */
+/* â”€â”€ Images / media â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 img,
 video,
 svg {
@@ -143,14 +144,14 @@ svg {
 	max-width: 100%;
 }
 
-/* ── Focus ──────────────────────────────────────────────────── */
+/* â”€â”€ Focus â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :focus-visible {
 	outline: 2px solid var(--primary);
 	outline-offset: 3px;
 	border-radius: 3px;
 }
 
-/* ── Utility ────────────────────────────────────────────────── */
+/* â”€â”€ Utility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -163,7 +164,7 @@ svg {
 	border: 0;
 }
 
-/* ── Scrollbar (optional, keeps brand feel) ─────────────────── */
+/* â”€â”€ Scrollbar (optional, keeps brand feel) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (pointer: fine) {
 	::-webkit-scrollbar {
 		width: 6px;
@@ -182,3 +183,8 @@ svg {
 		background: var(--muted);
 	}
 }
+
+
+
+
+

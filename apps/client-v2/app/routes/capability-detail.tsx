@@ -1,0 +1,6 @@
+﻿import type { Route } from "./+types/capability-detail";
+import { CapabilityDetail, details } from "~/components/capabilities/Capabilities";
+import { seoMeta } from "~/lib/seo";
+const seo:Record<string,{title:string;description:string}>={"it-consulting":{title:"IT Consulting & Technology Strategy | Einao Solutions",description:"Define technology requirements, assess options, and plan practical digital solutions with Einao IT consulting."},"business-process-automation":{title:"Business Process Automation & Workflow Solutions | Einao Solutions",description:"Improve workflows, structure approvals, and reduce repetitive manual effort through business process automation from Einao."},"enterprise-solutions":{title:"Enterprise Solutions & Custom Software Development | Einao Solutions",description:"Build digital platforms, applications, portals, integrations, and custom software around defined operating needs."}};
+export function meta({params}:Route.MetaArgs){const key=params.slug??"it-consulting";const item=seo[key]??seo["it-consulting"];return seoMeta({title:item.title,description:item.description,path:`/capabilities/${key}/`});}
+export default function CapabilityDetailRoute({params}:Route.ComponentProps){return <CapabilityDetail slug={params.slug??"it-consulting"}/>;}

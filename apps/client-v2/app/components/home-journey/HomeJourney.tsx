@@ -42,6 +42,7 @@ const MILESTONES = [
 
 export function HomeJourney() {
     const trackRef = useRef<HTMLDivElement>(null);
+    const [flippedYear, setFlippedYear] = useState<string | null>(null);
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
 
@@ -110,29 +111,45 @@ export function HomeJourney() {
             {/* Scrollable cards */}
             <div id="journey-cards" ref={trackRef} className={styles.track}>
                 {MILESTONES.map(item => (
-                    <div key={item.years} className={styles.card}>
-                        {/* Default face — image with rounded corners, label below */}
-                        <div className={styles.cardFront}>
-                            <div className={styles.cardImageWrap}>
+                    <article key={item.years} className={styles.card}>
+                        <button
+                            type="button"
+                            className={styles.flip}
+                            data-flipped={flippedYear === item.years}
+                            aria-pressed={flippedYear === item.years}
+                            aria-label={`Details for ${item.label}: ${item.years}. ${item.title}. ${item.body}`}
+                            onClick={() => setFlippedYear(current => current === item.years ? null : item.years)}
+                            onKeyDown={event => {
+                                if (event.key === "Escape") {
+                                    setFlippedYear(null);
+                                    event.currentTarget.blur();
+                                }
+                            }}
+                        >
+                            <span className={styles.cardFront} aria-hidden="true">
                                 <img
                                     className={styles.cardImage}
                                     src={item.image}
                                     alt=""
-                                    width="400"
-                                    height="300"
+                                    width="290"
+                                    height="324"
                                     loading="lazy"
                                 />
-                            </div>
-                            <span className={styles.cardLabel}>{item.label}</span>
-                        </div>
-
-                        {/* Hover face — year, title, body */}
-                        <div className={styles.cardBack} aria-hidden="true">
-                            <span className={styles.cardYear}>{item.years}</span>
-                            <strong className={styles.cardTitle}>{item.title}</strong>
-                            <p className={styles.cardBody}>{item.body}</p>
-                        </div>
-                    </div>
+                            </span>
+                            <span className={styles.cardBack} aria-hidden="true">
+                                <span className={styles.backLayout}>
+                                    <span className={styles.backTop}>
+                                        <span className={styles.cardYear}>{item.years}</span>
+                                    </span>
+                                    <span className={styles.backContent}>
+                                        <span className={styles.cardTitle}>{item.title}</span>
+                                        <span className={styles.cardBody}>{item.body}</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </button>
+                        <h3 className={styles.cardLabel}>{item.label}</h3>
+                    </article>
                 ))}
             </div>
         </section>

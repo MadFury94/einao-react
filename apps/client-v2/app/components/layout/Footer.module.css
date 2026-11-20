@@ -1,172 +1,193 @@
-/* ── Footer shell ───────────────────────────────────────────── */
-.footer {
+﻿.footer {
     background: var(--white);
-    border-top: 1px solid var(--border);
     font-family: var(--font);
+    padding-top: 4.5rem;
 }
 
-/* ── Main body ──────────────────────────────────────────────── */
 .body {
-    padding: 72px 0 60px;
+    padding-inline: 0;
 }
 
 .inner {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 80px;
     max-width: var(--wide);
-    margin-inline: auto;
     padding-inline: var(--gutter);
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    gap: 1.5rem;
 }
 
-/* ── Brand column ───────────────────────────────────────────── */
 .brand {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 3rem;
+    padding-bottom: 2.5rem;
 }
 
 .brandLogo {
     display: inline-flex;
+    width: 180px;
+    max-width: 100%;
 }
 
 .brandLogo img {
-    height: 36px;
-    width: auto;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .socials {
     display: flex;
-    gap: 8px;
+    justify-content: space-between;
+    width: 156px;
+    margin-top: 1.25rem;
 }
 
 .socialLink {
     display: grid;
     place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 7px;
-    border: 1px solid var(--border);
+    width: 24px;
+    height: 24px;
     color: var(--muted);
-    transition: background var(--duration) ease, color var(--duration) ease, border-color var(--duration) ease;
     text-decoration: none;
+    transition: color var(--duration) ease;
 }
 
-.socialLink:hover {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: var(--secondary);
+.socialLink:is(:hover, :focus-visible) {
+    color: var(--primary-dark);
 }
 
 .regulatory {
-    font-size: 0.8rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.5;
     color: var(--muted);
+    margin: 0;
 }
 
-/* ── Nav columns ────────────────────────────────────────────── */
 .columns {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+    max-width: 60rem;
+    padding-bottom: 2.5rem;
+}
+
+.column {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 40px 24px;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    max-width: 180px;
+    min-width: 0;
 }
 
 .columnHeading {
-    font-family: var(--font);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0;
-    color: var(--secondary);
-    margin-bottom: 16px;
+    line-height: 1.2;
+    color: var(--secondary-mid);
+    margin: 0;
 }
 
 .columnList {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
 }
 
 .columnLink {
-    font-family: var(--font);
+    display: grid;
+    width: fit-content;
     font-size: 0.875rem;
-    font-weight: 400;
+    line-height: 1.2;
     color: var(--muted);
     text-decoration: none;
-    transition: color 0.15s ease;
 }
 
-.columnLink:hover {
-    color: var(--secondary);
+.columnLink::after {
+    content: "";
+    height: 1.5px;
+    background: var(--primary-dark);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s;
 }
 
-/* ── Bottom bar ─────────────────────────────────────────────── */
+.columnLink:is(:hover, :focus-visible) {
+    color: var(--primary-dark);
+}
+
+.columnLink:is(:hover, :focus-visible)::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
 .bottom {
-    background: var(--primary);
-    padding: 18px 0;
+    padding: 3rem 0;
+    background: var(--secondary-mid);
 }
 
 .bottomInner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
     max-width: var(--wide);
-    margin-inline: auto;
     padding-inline: var(--gutter);
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.copyright {
-    font-family: var(--font);
-    font-size: 0.8rem;
-    color: var(--secondary);
+.copyright,
+.legalLink {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--white);
+    margin: 0;
 }
 
 .legal {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.5rem;
 }
 
 .legalLink {
-    font-family: var(--font);
-    font-size: 0.8rem;
-    color: var(--secondary);
     text-decoration: none;
-    transition: color 0.15s ease;
 }
 
 .legalLink:hover {
-    color: var(--secondary);
     text-decoration: underline;
 }
 
 .legalDivider {
-    color: rgba(12, 23, 16, 0.4);
-    font-size: 0.75rem;
+    color: var(--white);
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-    .inner {
-        grid-template-columns: 1fr;
-        gap: 48px;
-    }
-
+@media (max-width: 700px) {
     .columns {
+        display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 2rem 1.5rem;
+    }
+
+    .column {
+        max-width: none;
     }
 }
 
-@media (max-width: 600px) {
-    .columns {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 32px 16px;
-    }
+@media (prefers-reduced-motion: reduce) {
 
-    .bottomInner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    .columnLink::after,
+    .socialLink {
+        transition: none;
     }
 }
+
+
+

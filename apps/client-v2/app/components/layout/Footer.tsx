@@ -78,15 +78,17 @@ export function Footer() {
                 <div className={styles.inner}>
                     {/* Left: brand column */}
                     <div className={styles.brand}>
-                        <Link to="/" aria-label="Einao Solutions — home" className={styles.brandLogo}>
-                            <img src="/assets/logos/Einao-Solutions-Logo-05.png" alt="Einao Solutions" width="140" height="44" />
-                        </Link>
-                        <div className={styles.socials}>
-                            {SOCIALS.map(s => (
-                                <a key={s.label} href={s.href} className={styles.socialLink} aria-label={s.label} target="_blank" rel="noopener noreferrer">
-                                    {s.icon}
-                                </a>
-                            ))}
+                        <div>
+                            <Link to="/" aria-label="Einao Solutions — home" className={styles.brandLogo}>
+                                <img src="/assets/logos/Einao-Solutions-Logo-05.png" alt="Einao Solutions" width="140" height="44" />
+                            </Link>
+                            <div className={styles.socials}>
+                                {SOCIALS.map(s => (
+                                    <a key={s.label} href={s.href} className={styles.socialLink} aria-label={s.label} target="_blank" rel="noopener noreferrer">
+                                        {s.icon}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
                         <p className={styles.regulatory}>
                             Einao Solutions Ltd<br />

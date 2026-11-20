@@ -1,0 +1,325 @@
+﻿.page {
+    background: var(--white);
+    color: var(--secondary)
+}
+
+.hero {
+    position: relative;
+    min-height: clamp(38rem, 92vh, 58rem);
+    display: flex;
+    align-items: end;
+    overflow: hidden;
+    background: var(--secondary);
+    color: var(--white)
+}
+
+.heroMedia,
+.heroMedia img,
+.heroMedia video,
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%
+}
+
+.heroMedia img,
+.heroMedia video {
+    object-fit: cover
+}
+
+.heroMedia video {
+    z-index: 1
+}
+
+.heroOverlay {
+    z-index: 2;
+    background: color-mix(in srgb, var(--secondary) 68%, transparent)
+}
+
+/* heroContent is the inner wrapper — it carries both vertical and horizontal padding */
+.heroContent {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding: clamp(8rem, 15vw, 13rem) var(--gutter) clamp(4rem, 8vw, 7rem)
+}
+
+.eyebrow,
+.eyebrowDark {
+    display: inline-flex;
+    width: fit-content;
+    padding: .5rem .9rem;
+    border-radius: .5rem;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase
+}
+
+.eyebrow {
+    background: color-mix(in srgb, var(--primary) 20%, transparent);
+    color: var(--primary)
+}
+
+.eyebrowDark {
+    background: color-mix(in srgb, var(--primary) 16%, transparent);
+    color: var(--primary-dark)
+}
+
+.hero h1 {
+    max-width: 68rem;
+    margin-top: 1.5rem;
+    color: var(--white);
+    font-size: clamp(2.8rem, 7vw, 7rem);
+    line-height: .98;
+    letter-spacing: -.06em
+}
+
+.hero p {
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    color: color-mix(in srgb, var(--white) 80%, transparent);
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    line-height: 1.6
+}
+
+.heroCta {
+    display: inline-flex;
+    gap: .75rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding: .9rem 1.3rem;
+    border-radius: 999px;
+    background: var(--primary);
+    color: var(--secondary);
+    font-weight: 700;
+    transition: transform var(--duration) var(--ease), background var(--duration) var(--ease)
+}
+
+.heroCta:hover,
+.heroCta:focus-visible {
+    transform: translateY(-2px);
+    background: var(--white)
+}
+
+.stats {
+    padding-block: 2rem;
+    background: var(--secondary)
+}
+
+.statsInner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.statsInner>div {
+    display: grid;
+    gap: .15rem;
+    padding: 1rem 1.5rem;
+    border-left: 1px solid color-mix(in srgb, var(--white) 20%, transparent)
+}
+
+.statsInner>div:first-child {
+    border-left: 0
+}
+
+.stats strong {
+    color: var(--primary);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1
+}
+
+.stats span {
+    color: color-mix(in srgb, var(--white) 72%, transparent);
+    font-size: .9rem
+}
+
+.purpose {
+    padding-block: clamp(5rem, 10vw, 10rem);
+    background: var(--surface)
+}
+
+.purposeInner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.purpose h2 {
+    max-width: 58rem;
+    margin-top: 1.5rem;
+    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: -.055em
+}
+
+.purpose p {
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    line-height: 1.65
+}
+
+.story {
+    padding-block: clamp(5rem, 10vw, 10rem);
+    background: var(--white)
+}
+
+.storyInner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 8vw, 9rem);
+    align-items: center
+}
+
+.storyCopy {
+    max-width: 38rem
+}
+
+.story h2,
+.values h2,
+.finalCta h2 {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    line-height: 1.06;
+    letter-spacing: -.045em
+}
+
+.story p {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.65
+}
+
+.storyImage {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    aspect-ratio: 1/1
+}
+
+.storyImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration) var(--ease)
+}
+
+.storyImage:hover img {
+    transform: scale(1.04)
+}
+
+.textCta {
+    display: inline-flex;
+    gap: .75rem;
+    margin-top: 1.5rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    transition: gap var(--duration) var(--ease)
+}
+
+.textCta:hover,
+.textCta:focus-visible {
+    gap: 1.1rem
+}
+
+.values {
+    padding-block: clamp(5rem, 10vw, 10rem);
+    background: var(--surface)
+}
+
+.valuesInner {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.valueGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 4rem
+}
+
+.valueGrid article {
+    padding: 1.5rem 0;
+    border-top: 2px solid var(--primary)
+}
+
+.valueGrid span {
+    color: var(--primary-dark);
+    font-weight: 700
+}
+
+.valueGrid h3 {
+    margin-top: 1rem;
+    font-size: 1.35rem
+}
+
+.valueGrid p {
+    margin-top: .65rem;
+    line-height: 1.6
+}
+
+.finalCta {
+    padding-block: clamp(5rem, 10vw, 9rem);
+    background: var(--secondary);
+    color: var(--white)
+}
+
+.finalCta>div {
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.finalCta h2 {
+    max-width: 50rem;
+    color: var(--white)
+}
+
+@media(max-width:760px) {
+    .statsInner {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .statsInner>div:nth-child(3) {
+        border-left: 0
+    }
+
+    .storyInner {
+        grid-template-columns: 1fr
+    }
+
+    .storyImage {
+        order: -1
+    }
+
+    .valueGrid {
+        grid-template-columns: 1fr
+    }
+
+    .hero h1 {
+        font-size: clamp(2.6rem, 12vw, 4.5rem)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .heroMedia video {
+        display: none
+    }
+
+    .heroCta,
+    .textCta,
+    .storyImage img {
+        transition: none
+    }
+}

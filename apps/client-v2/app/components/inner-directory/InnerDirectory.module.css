@@ -1,0 +1,133 @@
+﻿.page {
+    min-height: 72vh;
+    padding-block: clamp(9rem, 15vw, 13rem) clamp(5rem, 10vw, 9rem);
+    background: var(--paper)
+}
+
+.shell {
+    width: 100%;
+    max-width: var(--wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter)
+}
+
+.intro {
+    max-width: 50rem;
+    margin-bottom: clamp(3rem, 7vw, 5.5rem)
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: .5rem .875rem;
+    border-radius: .5rem;
+    background: var(--surface);
+    color: var(--secondary-mid);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    line-height: 1;
+    text-transform: uppercase
+}
+
+.title {
+    max-width: 47rem;
+    margin-top: 1.5rem;
+    font-size: clamp(2.5rem, 7vw, 6.5rem);
+    letter-spacing: -.055em;
+    line-height: .98
+}
+
+.message {
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+    line-height: 1.55
+}
+
+.prompt {
+    margin-top: 1rem;
+    color: var(--secondary);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-weight: 600
+}
+
+.linkGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem
+}
+
+.linkCard {
+    display: flex;
+    min-height: 10.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.25rem, 2.4vw, 2rem);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--white);
+    color: var(--secondary);
+    transition: border-color var(--duration) var(--ease), background var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease)
+}
+
+.linkCard:hover,
+.linkCard:focus-visible {
+    border-color: var(--primary);
+    background: var(--secondary);
+    color: var(--white);
+    box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--secondary) 12%, transparent);
+    transform: translateY(-.35rem)
+}
+
+.linkLabel {
+    max-width: 17rem;
+    font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.15
+}
+
+.arrow {
+    align-self: flex-end;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: color var(--duration) var(--ease), transform var(--duration) var(--ease)
+}
+
+.linkCard:hover .arrow,
+.linkCard:focus-visible .arrow {
+    color: var(--primary);
+    transform: translate(.25rem, -.25rem)
+}
+
+@media(max-width:800px) {
+    .linkGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+}
+
+@media(max-width:500px) {
+    .page {
+        padding-top: 8rem
+    }
+
+    .linkGrid {
+        grid-template-columns: 1fr
+    }
+
+    .linkCard {
+        min-height: 8.5rem
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .linkCard,
+    .arrow {
+        transition: none
+    }
+}

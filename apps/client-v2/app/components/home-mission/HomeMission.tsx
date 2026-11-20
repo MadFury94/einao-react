@@ -22,7 +22,7 @@ export function HomeMission() {
                         src="/assets/images/about hero/Einao Profiles in emerald light.png"
                         alt="Einao team collaborating"
                         width="1200"
-                        height="675"
+                        height="580"
                         loading="lazy"
                     />
                 </div>
