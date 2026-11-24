@@ -1,6 +1,10 @@
-﻿import type { Route } from "./+types/capability-detail";
-import { CapabilityDetail, details } from "~/components/capabilities/Capabilities";
-import { seoMeta } from "~/lib/seo";
-const seo:Record<string,{title:string;description:string}>={"it-consulting":{title:"IT Consulting & Technology Strategy | Einao Solutions",description:"Define technology requirements, assess options, and plan practical digital solutions with Einao IT consulting."},"business-process-automation":{title:"Business Process Automation & Workflow Solutions | Einao Solutions",description:"Improve workflows, structure approvals, and reduce repetitive manual effort through business process automation from Einao."},"enterprise-solutions":{title:"Enterprise Solutions & Custom Software Development | Einao Solutions",description:"Build digital platforms, applications, portals, integrations, and custom software around defined operating needs."}};
-export function meta({params}:Route.MetaArgs){const key=params.slug??"it-consulting";const item=seo[key]??seo["it-consulting"];return seoMeta({title:item.title,description:item.description,path:`/capabilities/${key}/`});}
-export default function CapabilityDetailRoute({params}:Route.ComponentProps){return <CapabilityDetail slug={params.slug??"it-consulting"}/>;}
+import type { Route } from './+types/capability-detail';
+import { createCatalogApi } from '~/lib/catalog.server';
+import { catalogMeta } from '~/lib/catalog-meta';
+import { DetailPage, CatalogError } from '~/components/catalog/CatalogPages';
+export async function loader({ request, context, params }: Route.LoaderArgs) {
+  return { page: await createCatalogApi(request, context.cloudflare.env).getDetail('capabilities', params.slug), origin: new URL(request.url).origin };
+}
+export function meta({ data }: Route.MetaArgs) { return catalogMeta(data); }
+export default function Page({ loaderData }: Route.ComponentProps) { return <DetailPage page={loaderData.page} collectionKey="capabilities" />; }
+export const ErrorBoundary = CatalogError;

@@ -54,8 +54,8 @@
 /* ── Card ───────────────────────────────────────────────────── */
 .card {
     position: relative;
-    flex: 0 0 clamp(240px, 28vw, 400px);
-    height: clamp(340px, 40vw, 560px);
+    flex: 0 0 min(290px, calc(100vw - var(--gutter) * 2));
+    height: 324px;
     border-radius: 10px;
     overflow: hidden;
     scroll-snap-align: start;
@@ -126,7 +126,7 @@
 @media (max-width: 768px) {
     .card {
         flex: 0 0 72vw;
-        height: 100vw;
+        height: calc(72vw * 324 / 290);
     }
 
     .heading br {
@@ -141,6 +141,7 @@
         transition: none;
     }
 }
+
 .navigation {
     display: flex;
     align-items: center;

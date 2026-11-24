@@ -1,5 +1,10 @@
-﻿import type { Route } from "./+types/work";
-import { WorkPage } from "~/components/company-pages/CompanyPages";
-import { seoMeta } from "~/lib/seo";
-export function meta(_:Route.MetaArgs){return seoMeta({title:"Digital Transformation Projects & Case Studies | Einao Solutions",description:"Explore selected work involving institutional digital platforms, technology consulting, process improvement, and enterprise solutions delivered or supported by Einao.",path:"/work/"});}
-export default function Work(){return <WorkPage/>;}
+import type { Route } from './+types/work';
+import { createCatalogApi } from '~/lib/catalog.server';
+import { catalogMeta } from '~/lib/catalog-meta';
+import { CollectionPage, CatalogError } from '~/components/catalog/CatalogPages';
+export async function loader({ request, context }: Route.LoaderArgs) {
+  return { collection: await createCatalogApi(request, context.cloudflare.env).getCollection('work'), origin: new URL(request.url).origin };
+}
+export function meta({ data }: Route.MetaArgs) { return catalogMeta(data); }
+export default function Page({ loaderData }: Route.ComponentProps) { return <CollectionPage collection={loaderData.collection} />; }
+export const ErrorBoundary = CatalogError;

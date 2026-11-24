@@ -79,6 +79,10 @@
     margin-top: 3rem
 }
 
+.heroExtra {
+    margin-top: 2rem;
+}
+
 .eyebrow {
     display: inline-flex;
     width: fit-content;
@@ -96,9 +100,9 @@
     max-width: 62rem;
     margin-top: 1.5rem;
     color: var(--white);
-    font-size: clamp(2.8rem, 7vw, 6.4rem);
-    letter-spacing: -.06em;
-    line-height: .98
+    font-size: var(--heading-section);
+    letter-spacing: -.03em;
+    line-height: 1.05
 }
 
 .hero p {
@@ -148,7 +152,3 @@
         transition: none
     }
 }
-
-
-
-

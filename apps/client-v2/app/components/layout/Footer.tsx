@@ -1,24 +1,8 @@
+import type { Catalog } from "~/lib/catalog";
 import { Link } from "react-router";
 import styles from "./Footer.module.css";
 
 const NAV_COLUMNS = [
-    {
-        heading: "Capabilities",
-        links: [
-            { label: "IT Consulting", href: "/capabilities/it-consulting/" },
-            { label: "Business Process Automation", href: "/capabilities/business-process-automation/" },
-            { label: "Enterprise Solutions", href: "/capabilities/enterprise-solutions/" },
-        ],
-    },
-    {
-        heading: "Solutions",
-        links: [
-            { label: "Custom Enterprise Systems", href: "/solutions/custom-enterprise-systems/" },
-            { label: "IP Pro", href: "/solutions/ip-pro/" },
-            { label: "Fylonn", href: "/solutions/fylonn/" },
-            { label: "PayX", href: "/solutions/payx/" },
-        ],
-    },
     {
         heading: "Industries",
         links: [
@@ -68,7 +52,11 @@ const SOCIALS = [
     },
 ];
 
-export function Footer() {
+export function Footer({ catalog }: { catalog: Catalog }) {
+    const columns = [
+        ...(['capabilities', 'solutions'] as const).map(key => ({ heading: key === 'capabilities' ? 'Capabilities' : 'Solutions', links: (catalog[key]?.entries ?? []).filter(item => item.link).map(item => ({ label: item.title, href: item.link!.href })) })),
+        ...NAV_COLUMNS,
+    ];
     const year = new Date().getFullYear();
 
     return (
@@ -98,7 +86,7 @@ export function Footer() {
 
                     {/* Right: nav columns */}
                     <nav className={styles.columns} aria-label="Footer navigation">
-                        {NAV_COLUMNS.map(col => (
+                        {columns.map(col => (
                             <div key={col.heading} className={styles.column}>
                                 <h3 className={styles.columnHeading}>{col.heading}</h3>
                                 <ul className={styles.columnList}>

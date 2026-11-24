@@ -1,0 +1,25 @@
+﻿.page { background: var(--white); color: var(--secondary); }
+.contactSection { padding: clamp(5rem, 9vw, 9rem) 0; background: var(--surface); }
+.contactInner { width: 100%; max-width: var(--wide); margin-inline: auto; padding-inline: var(--gutter); display: grid; grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); gap: clamp(3rem, 8vw, 9rem); align-items: start; }
+.tag { display: inline-flex; width: fit-content; padding: .45rem .8rem; border-radius: .5rem; background: color-mix(in srgb, var(--primary) 18%, transparent); color: var(--primary-dark); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.details h2, .form h2, .next h2 { margin-top: 1.25rem; font-size: clamp(2rem, 3.8vw, 3.5rem); color: var(--secondary-mid); }
+.details > p { max-width: 37rem; margin-top: 1.25rem; font-size: 1.1rem; }
+.detailList { display: grid; gap: 1.5rem; margin-top: 3rem; }
+.detailList > div { padding-top: 1rem; border-top: 1px solid var(--border); }
+.detailLabel { display: block; margin-bottom: .35rem; color: var(--secondary-mid); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.detailList a { color: var(--primary-dark); font-weight: 600; }
+.detailList p { margin: 0; }
+.form { display: grid; gap: 1rem; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 1.5rem; background: var(--white); box-shadow: 0 1rem 3rem color-mix(in srgb, var(--secondary) 8%, transparent); }
+.formHeader { margin-bottom: .75rem; }
+.form h2 { margin-bottom: .5rem; font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.form label { display: grid; gap: .45rem; color: var(--secondary-mid); font-size: .85rem; font-weight: 600; }
+.form input, .form textarea { width: 100%; border: 1px solid var(--border); border-radius: .5rem; padding: .85rem 1rem; background: var(--paper); color: var(--secondary); font: inherit; resize: vertical; transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease); }
+.form input:focus, .form textarea:focus { border-color: var(--primary-dark); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
+.form button { display: inline-flex; justify-content: center; gap: .65rem; width: fit-content; margin-top: .5rem; border: 0; border-radius: 999px; padding: .9rem 1.35rem; background: var(--primary); color: var(--secondary); font: inherit; font-weight: 700; cursor: pointer; transition: transform var(--duration) var(--ease), background var(--duration) var(--ease); }
+.form button:hover, .form button:focus-visible { background: var(--primary-dark); transform: translateY(-2px); }
+.success { margin: 0; color: var(--primary-dark); font-weight: 600; }
+.next { padding: clamp(5rem, 9vw, 8rem) var(--gutter); background: var(--secondary); color: var(--white); }
+.next > div { max-width: var(--wide); margin-inline: auto; }
+.next h2 { max-width: 35rem; color: var(--white); }
+.link { display: inline-flex; gap: .6rem; margin-top: 1.5rem; color: var(--primary); font-weight: 700; }
+@media (max-width: 800px) { .contactInner { grid-template-columns: 1fr; gap: 3rem; } }

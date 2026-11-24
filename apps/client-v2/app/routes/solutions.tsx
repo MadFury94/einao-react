@@ -1,5 +1,10 @@
-﻿import type { Route } from "./+types/solutions";
-import { SolutionsOverview } from "~/components/solutions/Solutions";
-import { seoMeta } from "~/lib/seo";
-export function meta(_:Route.MetaArgs){return seoMeta({title:"Enterprise Solutions & Digital Systems | Einao Solutions",description:"Explore Einao's digital solutions and enterprise systems for payment processes, organisational workflows, and specific operational requirements.",path:"/solutions/"});}
-export default function Solutions(){return <SolutionsOverview/>;}
+import type { Route } from './+types/solutions';
+import { createCatalogApi } from '~/lib/catalog.server';
+import { catalogMeta } from '~/lib/catalog-meta';
+import { CollectionPage, CatalogError } from '~/components/catalog/CatalogPages';
+export async function loader({ request, context }: Route.LoaderArgs) {
+  return { collection: await createCatalogApi(request, context.cloudflare.env).getCollection('solutions'), origin: new URL(request.url).origin };
+}
+export function meta({ data }: Route.MetaArgs) { return catalogMeta(data); }
+export default function Page({ loaderData }: Route.ComponentProps) { return <CollectionPage collection={loaderData.collection} />; }
+export const ErrorBoundary = CatalogError;

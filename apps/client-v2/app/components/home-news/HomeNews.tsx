@@ -2,35 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import styles from "./HomeNews.module.css";
 
-const POSTS = [
-    {
-        title: "When should an organisation integrate existing systems instead of replacing them?",
-        image: "/assets/images/Collaborative technology team in Abuja office.png",
-        href: "/insights/",
-    },
-    {
-        title: "Where manual work creates hidden operational costs for institutions.",
-        image: "/assets/images/Einao staff working on automation with client.jpg",
-        href: "/insights/",
-    },
-    {
-        title: "What organisations should plan for after a digital platform goes live.",
-        image: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
-        href: "/insights/",
-    },
-    {
-        title: "Before you buy software: five questions every organisation should answer",
-        image: "/assets/images/Graphite monitor with enterprise dashboard.png",
-        href: "/insights/",
-    },
-    {
-        title: "Digitising a broken process does not fix it",
-        image: "/assets/images/Hands sketching a business workflow.png",
-        href: "/insights/",
-    },
-];
-
-export function HomeNews() {
+import type { Insight } from "~/lib/insights.server";
+export function HomeNews({ posts, unavailable = false }: { posts: Insight[]; unavailable?: boolean }) {
     const trackRef = useRef<HTMLDivElement>(null);
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
@@ -51,7 +24,7 @@ export function HomeNews() {
             track.removeEventListener("scroll", updateNavigation);
             observer.disconnect();
         };
-    }, []);
+    }, [posts]);
 
     const scrollCards = (direction: number) => {
         const track = trackRef.current;
@@ -101,12 +74,13 @@ export function HomeNews() {
                     </button>
                 </div>
                 <div id="news-cards" ref={trackRef} className={styles.track}>
-                    {POSTS.map(post => (
-                        <article key={post.title} className={styles.card}>
-                            <Link to={post.href} className={styles.cardImageLink} tabIndex={-1} aria-hidden="true">
+                    {posts.length === 0 && <p role="status">{unavailable ? "Insights are temporarily unavailable. Please try again later." : "No insights have been published yet."}</p>}
+                    {posts.map(post => (
+                        <article key={post.id} className={styles.card}>
+                            <Link to={`/insights/${post.slug}/`} className={styles.cardImageLink} tabIndex={-1} aria-hidden="true">
                                 <img
                                     className={styles.cardImage}
-                                    src={post.image}
+                                    src={post.featured_image_url || "/assets/seo/einao-social-card.jpg"}
                                     alt=""
                                     width="600"
                                     height="450"
@@ -115,9 +89,9 @@ export function HomeNews() {
                             </Link>
                             <div className={styles.cardBody}>
                                 <h3 className={styles.cardTitle}>
-                                    <Link to={post.href}>{post.title}</Link>
+                                    <Link to={`/insights/${post.slug}/`}>{post.title}</Link>
                                 </h3>
-                                <Link to={post.href} className={styles.readMore}>
+                                <Link to={`/insights/${post.slug}/`} className={styles.readMore}>
                                     Read full post
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                         <path d="M5 12h14M12 5l7 7-7 7" />

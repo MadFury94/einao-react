@@ -287,11 +287,15 @@
 
 .insightImageLink {
     display: block;
-    overflow: hidden
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
 }
 
 .insightImageLink img {
     display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform var(--duration) var(--ease)
 }
 
@@ -368,4 +372,89 @@
     margin-top: 1rem;
     line-height: 1.7;
     font-size: 1.08rem
+}
+
+.richText {
+    overflow-wrap: anywhere;
+}
+
+.richText img {
+    max-width: 100%;
+    height: auto;
+}
+
+.richText table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+
+.richText th,
+.richText td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.richText pre {
+    overflow-x: auto;
+    padding: 20px;
+    background: #f3f5f3;
+}
+
+.richText blockquote {
+    margin: 24px 0;
+    padding-left: 24px;
+    border-left: 3px solid #326346;
+}
+
+form.search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 40rem;
+}
+
+form.search label {
+    flex: 1;
+    min-width: 0;
+}
+
+form.search input[type="search"] {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: .85rem 1.25rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font: inherit;
+    outline: none;
+    backdrop-filter: blur(4px);
+}
+
+form.search input[type="search"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+form.search input[type="search"]:focus {
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+form.search button {
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 999px;
+    padding: .85rem 1.5rem;
+    background: var(--primary);
+    color: var(--secondary);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+a.filter,
+a.filterActive {
+    text-decoration: none;
 }

@@ -2,34 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import styles from "./HomeCards.module.css";
 
-const CARDS = [
-    {
-        category: "IT Consulting",
-        title: "Technology decisions grounded in operational reality.",
-        image: "/assets/images/Nigerian IT Consultants Reviewing a Laptop.png",
-        href: "/capabilities/it-consulting/",
-    },
-    {
-        category: "Process Automation",
-        title: "Reduce manual effort and improve how work moves.",
-        image: "/assets/images/Einao staff working on automation with client.jpg",
-        href: "/capabilities/business-process-automation/",
-    },
-    {
-        category: "Enterprise Solutions",
-        title: "Build digital systems around defined requirements.",
-        image: "/assets/images/Collaborative technology team in Abuja office.png",
-        href: "/capabilities/enterprise-solutions/",
-    },
-    {
-        category: "Custom Development",
-        title: "Tailored digital systems for complex operational needs.",
-        image: "/assets/images/Graphite monitor with enterprise dashboard.png",
-        href: "/solutions/custom-enterprise-systems/",
-    },
-];
-
-export function HomeCards() {
+import type { Collection } from '~/lib/catalog';
+export function HomeCards({ collection }: { collection: Collection | null }) {
+    const cards = (collection?.entries ?? []).filter(item => item.link).map(item => ({ category: item.title, title: item.body, image: item.image || '/assets/seo/einao-social-card.jpg', href: item.link!.href }));
     const trackRef = useRef<HTMLDivElement>(null);
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
@@ -50,7 +25,7 @@ export function HomeCards() {
             track.removeEventListener("scroll", updateNavigation);
             observer.disconnect();
         };
-    }, []);
+    }, [collection]);
 
     const scrollCards = (direction: number) => {
         const track = trackRef.current;
@@ -86,7 +61,8 @@ export function HomeCards() {
 
             {/* Scrollable track */}
             <div id="discover-cards" ref={trackRef} className={styles.track} role="list">
-                {CARDS.map(card => (
+                {cards.length === 0 && <p role="status">{collection ? "No capabilities have been published yet." : "Capabilities are temporarily unavailable."}</p>}
+                {cards.map(card => (
                     <Link
                         key={card.href}
                         to={card.href}

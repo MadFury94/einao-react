@@ -1,8 +1,2 @@
 ﻿import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
-export default [layout("layouts/main.tsx",[index("routes/home.tsx"),route("robots.txt", "routes/robots.ts"),route("sitemap.xml", "routes/sitemap.ts"),route("capabilities", "routes/capabilities.tsx"),route("capabilities/:slug", "routes/capability-detail.tsx"),route("solutions", "routes/solutions.tsx"),route("solutions/:slug", "routes/solution-detail.tsx"),route("industries", "routes/industries.tsx"),route("about", "routes/about.tsx"),route("work", "routes/work.tsx"),route("insights", "routes/insights.tsx"),route("insights/:slug", "routes/insight-detail.tsx"),route("industries/:slug", "routes/industry-detail.tsx"),route(":section/*","routes/directory.tsx")])] satisfies RouteConfig;
-
-
-
-
-
-
+export default [layout("layouts/main.tsx",[index("routes/home.tsx"),route("robots.txt", "routes/robots.ts"),route("sitemap.xml", "routes/sitemap.ts"),route("capabilities", "routes/capabilities.tsx"),route("capabilities/:slug", "routes/capability-detail.tsx"),route("solutions", "routes/solutions.tsx"),route("solutions/:slug", "routes/solution-detail.tsx"),route("industries", "routes/industries.tsx"),route("about", "routes/about.tsx"),route("work", "routes/work.tsx"),route("work/:slug", "routes/work-detail.tsx"),route("contact", "routes/contact.tsx"),route("insights", "routes/insights.tsx"),route("insights/:slug", "routes/insight-detail.tsx"),route("industries/:slug", "routes/industry-detail.tsx"),route("*", "routes/not-found.tsx")])] satisfies RouteConfig;

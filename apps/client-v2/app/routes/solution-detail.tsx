@@ -1,6 +1,10 @@
-﻿import type { Route } from "./+types/solution-detail";
-import { SolutionDetail, solutionDetails } from "~/components/solutions/SolutionDetail";
-import { seoMeta } from "~/lib/seo";
-const seo:Record<string,{title:string;description:string}>={"payx":{title:"PayX Digital Payment Solution | Einao Solutions",description:"Discuss PayX with Einao to explore a more structured approach to digital payment collection, transaction visibility, and payment reporting."},"fylonn":{title:"Fylonn Digital Workflow Solution | Einao Solutions",description:"Contact Einao to learn about Fylonn and discuss whether its verified capabilities fit your organisation's workflow requirements."},"ip-pro":{title:"IP Pro Intellectual Property Management Software | Einao Solutions",description:"Explore IP Pro and Einao's experience supporting intellectual property application and registry processes."},"custom-enterprise-systems":{title:"Custom Enterprise Systems & Digital Development | Einao Solutions",description:"Discuss a tailored enterprise system, integration, or digital development scope shaped around your organisation's requirements."}};
-export function meta({params}:Route.MetaArgs){const key=params.slug??"custom-enterprise-systems";const item=seo[key]??seo["custom-enterprise-systems"];return seoMeta({title:item.title,description:item.description,path:`/solutions/${key}/`});}
-export default function SolutionDetailRoute({params}:Route.ComponentProps){return <SolutionDetail slug={params.slug??"custom-enterprise-systems"}/>;}
+import type { Route } from './+types/solution-detail';
+import { createCatalogApi } from '~/lib/catalog.server';
+import { catalogMeta } from '~/lib/catalog-meta';
+import { DetailPage, CatalogError } from '~/components/catalog/CatalogPages';
+export async function loader({ request, context, params }: Route.LoaderArgs) {
+  return { page: await createCatalogApi(request, context.cloudflare.env).getDetail('solutions', params.slug), origin: new URL(request.url).origin };
+}
+export function meta({ data }: Route.MetaArgs) { return catalogMeta(data); }
+export default function Page({ loaderData }: Route.ComponentProps) { return <DetailPage page={loaderData.page} collectionKey="solutions" />; }
+export const ErrorBoundary = CatalogError;

@@ -1,5 +1,10 @@
-﻿import type { Route } from "./+types/capabilities";
-import { CapabilitiesOverview } from "~/components/capabilities/Capabilities";
-import { seoMeta } from "~/lib/seo";
-export function meta(_:Route.MetaArgs){return seoMeta({title:"Technology Consulting, Process Automation & Digital Solutions | Einao",description:"Explore Einao's IT consulting, business process automation, enterprise solutions, system integration, and custom digital development capabilities.",path:"/capabilities/"});}
-export default function Capabilities(){return <CapabilitiesOverview/>;}
+import type { Route } from './+types/capabilities';
+import { createCatalogApi } from '~/lib/catalog.server';
+import { catalogMeta } from '~/lib/catalog-meta';
+import { CollectionPage, CatalogError } from '~/components/catalog/CatalogPages';
+export async function loader({ request, context }: Route.LoaderArgs) {
+  return { collection: await createCatalogApi(request, context.cloudflare.env).getCollection('capabilities'), origin: new URL(request.url).origin };
+}
+export function meta({ data }: Route.MetaArgs) { return catalogMeta(data); }
+export default function Page({ loaderData }: Route.ComponentProps) { return <CollectionPage collection={loaderData.collection} />; }
+export const ErrorBoundary = CatalogError;

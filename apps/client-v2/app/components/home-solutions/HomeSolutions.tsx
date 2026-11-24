@@ -1,3 +1,4 @@
+import type { Catalog } from "~/lib/catalog";
 import { Link } from "react-router";
 import styles from "./HomeSolutions.module.css";
 
@@ -28,7 +29,11 @@ const CARDS = [
     },
 ];
 
-export function HomeSolutions() {
+export function HomeSolutions({ catalog }: { catalog: Catalog }) {
+    const cards = CARDS.map(card => {
+        const key = card.category === 'Capabilities' ? 'capabilities' : card.category === 'Solutions' ? 'solutions' : null;
+        return key ? { ...card, title: catalog[key]?.entries.map(item => item.title).join(', ') || `Explore our ${key}.` } : card;
+    });
     return (
         <section className={styles.section} aria-labelledby="solutions-heading">
             <div className={styles.inner}>
@@ -42,7 +47,7 @@ export function HomeSolutions() {
 
                 {/* Cards grid */}
                 <div className={styles.grid}>
-                    {CARDS.map(card => (
+                    {cards.map(card => (
                         <Link key={card.href} to={card.href} className={styles.card}>
                             {/* Label row */}
                             <div className={styles.cardLabel}>

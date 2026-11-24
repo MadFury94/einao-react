@@ -1,28 +1,9 @@
 import { Link } from "react-router";
 import styles from "./HomeStories.module.css";
 
-const STORIES = [
-    {
-        title: "IPO Nigeria — Portal delivery and support",
-        label: "Government",
-        image: "/assets/images/home-portfolio/digital-platform.png",
-        href: "/work/ipo-nigeria-portal/",
-    },
-    {
-        title: "Enterprise consulting and process improvement",
-        label: "Enterprise",
-        image: "/assets/images/home-portfolio/consulting.png",
-        href: "/work/",
-    },
-    {
-        title: "Ongoing technical support and system optimisation",
-        label: "Support",
-        image: "/assets/images/home-portfolio/technical-support.jpg",
-        href: "/work/",
-    },
-];
-
-export function HomeStories() {
+import type { Collection } from '~/lib/catalog';
+export function HomeStories({ collection }: { collection: Collection | null }) {
+    const stories = (collection?.entries ?? []).filter(item => item.link).slice(0, 3).map(item => ({ ...item, href: item.link!.href, image: item.image || '/assets/seo/einao-social-card.jpg' }));
     return (
         <section className={styles.section} aria-labelledby="stories-heading">
             <div className={styles.inner}>
@@ -37,7 +18,8 @@ export function HomeStories() {
 
                 {/* Grid */}
                 <div className={styles.grid}>
-                    {STORIES.map(story => (
+                    {stories.length === 0 && <p role="status">{collection ? "No case studies have been published yet." : "Case studies are temporarily unavailable."}</p>}
+                    {stories.map(story => (
                         <Link key={story.href + story.title} to={story.href} className={styles.card}>
                             <img
                                 className={styles.cardImage}
