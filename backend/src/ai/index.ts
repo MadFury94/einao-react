@@ -5,9 +5,9 @@ type Bindings = {
   einao_db: D1Database
 }
 
-// Cloudflare's current supported Llama 3.1 model. The unquantized model was
-// retired, so keep this pinned to the catalog's FP8 identifier.
-const MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8' as const
+// Workers AI text model shared by generation, rewriting, titles and SEO.
+// https://developers.cloudflare.com/workers-ai/models/llama-3.3-70b-instruct-fp8-fast/
+const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as const
 
 const ai = new OpenAPIHono<{ Bindings: Bindings }>()
 

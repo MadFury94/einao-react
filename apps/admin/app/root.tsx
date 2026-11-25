@@ -21,6 +21,7 @@ import type { Route } from './+types/root'
 import { AdminSidebar } from './components/admin-sidebar'
 import { NavigationProgress } from './components/navigation-progress'
 import { API_BASE_URL } from './lib/api'
+import { apiConnection } from './lib/api-connection'
 import './app.css'
 
 export function meta() {
@@ -45,21 +46,19 @@ export const links: Route.LinksFunction = () => [
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const env = context.cloudflare.env as unknown as Record<string, unknown>
-  const hasBinding = Boolean(env.API)
-  const apiFetch = hasBinding
-    ? (env.API as { fetch: typeof fetch }).fetch.bind(env.API)
-    : globalThis.fetch
-  const baseUrl = hasBinding ? 'https://einao-api.einaodevv.workers.dev' : API_BASE_URL
+  const { apiFetch, baseUrl } = apiConnection(env, request, API_BASE_URL)
 
   const res = await apiFetch(`${baseUrl}/api/v1/admin/me`, {
     headers: {
       Cookie: request.headers.get('Cookie') ?? '',
     },
-  })
+  }).catch(() => { throw new Response('Backend unavailable', { status: 503, statusText: 'Admin backend unavailable. Check that the API is running.' }) })
 
-  if (!res.ok) {
+  if (res.status === 401 || res.status === 403) {
     return { status: 'unauthorized' as const, user: null }
   }
+
+  if (!res.ok) throw new Response('Backend unavailable', { status: 503, statusText: 'Admin backend unavailable. Please try again.' })
 
   const user = (await res.json()) as { id: number; name: string; email: string; role: string }
   return { status: 'authenticated' as const, user }

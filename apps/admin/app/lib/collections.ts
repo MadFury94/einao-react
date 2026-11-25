@@ -41,26 +41,26 @@ export async function loadCollection(key: Collection, request: Request) {
   return { settings, key, block, items, details, detail, selected, industries, tags }
 }
 export function validLink(href: string) { return !href || /^(\/(?!\/)|https?:\/\/|mailto:|tel:|#)/i.test(href) }
-export async function saveCollection(key: Collection, request: Request) {
+export async function saveCollection(key: Collection, request: Request, form?: FormData) {
   try {
-    const form = await request.formData()
+    const submittedForm = form ?? await request.formData()
     const data = await loadCollection(key, request)
-    const block = [data.block, ...(data.detail?.blocks ?? [])].find(b => b.id === Number(form.get('blockId')))
+    const block = [data.block, ...(data.detail?.blocks ?? [])].find(b => b.id === Number(submittedForm.get('blockId')))
     if (!block) return { ok: false as const, error: 'This section does not belong to the selected item.' }
-    if (String(form.get('snapshot')) !== JSON.stringify(block.config)) return { ok: false as const, error: 'This content changed since you opened it. Reload before saving.' }
+    if (String(submittedForm.get('snapshot')) !== JSON.stringify(block.config)) return { ok: false as const, error: 'This content changed since you opened it. Reload before saving.' }
     let config = block.config
-    if (form.get('intent') === 'item') {
-      const title = String(form.get('title') || '').trim()
+    if (submittedForm.get('intent') === 'item') {
+      const title = String(submittedForm.get('title') || '').trim()
       if (!title) return { ok: false as const, error: 'A title is required.' }
       const index = data.selected === 'new' ? -1 : Number(data.selected)
       if (data.selected === null || block.id !== data.block.id) return { ok: false as const, error: 'Select an item first.' }
       const items = [...data.items]
-      const item: Item = { ...(items[index] ?? {}), title, label: String(form.get('label') || ''), body: String(form.get('body') || ''), image: String(form.get('image') || ''), year: String(form.get('year') || '').trim() }
+      const item: Item = { ...(items[index] ?? {}), title, label: String(submittedForm.get('label') || ''), body: String(submittedForm.get('body') || ''), image: String(submittedForm.get('image') || ''), year: String(submittedForm.get('year') || '').trim() }
       if (key === 'industries') item.industry_id = index >= 0 ? industryKey(items[index]) : crypto.randomUUID()
       if (key === 'work') {
-        const category = String(form.get('industry_key') || '')
+        const category = String(submittedForm.get('industry_key') || '')
         if (!data.industries.some(industry => industryKey(industry) === category)) return { ok: false as const, error: 'Choose an industry category from the list.' }
-        const names = [...new Set(String(form.get('tags') || '').split(',').map(tag => tag.trim()).filter(Boolean))]
+        const names = [...new Set(String(submittedForm.get('tags') || '').split(',').map(tag => tag.trim()).filter(Boolean))]
         const matches = names.map(name => data.tags.find(tag => tag.name === name))
         if (matches.some(tag => !tag)) return { ok: false as const, error: 'A selected tag is no longer available. Reload the editor and select it again.' }
         item.industry_key = category
@@ -69,32 +69,69 @@ export async function saveCollection(key: Collection, request: Request) {
       if (key === 'work' && index === -1) {
         const response = await serverFetch(`${serverBaseUrl}/api/v1/admin/content/work`, {
           method: 'POST', headers: { ...serverHeaders, 'Content-Type': 'application/json' }, credentials: 'include',
-          body: JSON.stringify({ blockId: block.id, snapshot: String(form.get('snapshot')), ...item, slug: String(form.get('slug') || '').trim() }),
+          body: JSON.stringify({ blockId: block.id, snapshot: String(submittedForm.get('snapshot')), ...item, slug: String(submittedForm.get('slug') || '').trim() }),
         })
         const result = await response.json() as { index?: number; error?: string }
         if (!response.ok || result.index === undefined) return { ok: false as const, error: result.error || 'Could not create the case study. Please retry.' }
         return redirect(`/work?item=${result.index}`)
       }
-      const href = String(form.get('href') || '').trim()
-      const label = String(form.get('linkLabel') || '').trim()
+      const href = String(submittedForm.get('href') || '').trim()
+      const label = String(submittedForm.get('linkLabel') || '').trim()
       if (!validLink(href)) return { ok: false as const, error: 'Use a website path or an http, https, mailto or tel link.' }
       if (href) item.link = { ...(item.link ?? {}), label: label || title, href }
       else delete item.link
       if (index === -1) items.push(item)
       else items[index] = item
       config = { ...config, items }
-    } else if (form.get('intent') === 'section') {
-      config = JSON.parse(String(form.get('config')))
+    } else if (submittedForm.get('intent') === 'section') {
+      config = JSON.parse(String(submittedForm.get('config')))
       if (!config || Array.isArray(config) || typeof config !== 'object') return { ok: false as const, error: 'Invalid section content.' }
       const links = [config.cta, config.secondaryCta, ...(config.items ?? []).map(item => item.link)]
       if (links.some(link => link?.href && !validLink(link.href))) return { ok: false as const, error: 'One of the section links is invalid.' }
     } else return { ok: false as const, error: 'Unknown action.' }
-    const response = await serverFetch(`${serverBaseUrl}/api/v1/admin/content/blocks/${block.id}`, { method: 'PATCH', headers: { ...serverHeaders, 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ config, ...(key === 'work' && form.get('intent') === 'section' && block.block_type === 'editorial' ? { visible: Boolean(config.body?.some(text => text.trim()) || config.image || config.items?.some(item => item.title?.trim() || item.body?.trim() || item.image)) } : {}) }) })
+    const response = await serverFetch(`${serverBaseUrl}/api/v1/admin/content/blocks/${block.id}`, { method: 'PATCH', headers: { ...serverHeaders, 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ config, ...(key === 'work' && submittedForm.get('intent') === 'section' && block.block_type === 'editorial' ? { visible: Boolean(config.body?.some(text => text.trim()) || config.image || config.items?.some(item => item.title?.trim() || item.body?.trim() || item.image)) } : {}) }) })
     if (!response.ok) return { ok: false as const, error: 'Could not save. Your changes are still in the form; please retry.' }
     if (data.selected === 'new') return redirect(`/${key}?item=${data.items.length}`)
     return { ok: true as const }
-  } catch {
-    return { ok: false as const, error: 'Could not save content. Please check your connection and retry.' }
+  } catch (error) {
+    console.error('[Collections] Save failed', error)
+    if (error instanceof Response) {
+      if (error.status === 401 || error.status === 403) return { ok: false as const, error: 'Your admin session has expired. Sign in again and retry.' }
+      return { ok: false as const, error: 'The content API returned an error (' + error.status + '). Please reload and retry.' }
+    }
+    return { ok: false as const, error: 'Could not reach the content API. Start the backend at http://127.0.0.1:8787 and retry.' }
   }
 }
+
+
+export async function deleteCollectionItem(key: Collection, index: number, blockId: number, snapshot: string) {
+  try {
+    const response = await serverFetch(serverBaseUrl + '/api/v1/admin/content/collections/' + key + '/items/' + index, {
+      method: 'DELETE', headers: { ...serverHeaders, 'Content-Type': 'application/json' }, credentials: 'include',
+      body: JSON.stringify({ blockId, snapshot }),
+    })
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({})) as { error?: string }
+      return { ok: false as const, error: result.error || 'Could not delete this entry. Please retry.' }
+    }
+    return { ok: true as const }
+  } catch {
+    return { ok: false as const, error: 'Could not reach the content API. Start the backend at http://127.0.0.1:8787 and retry.' }
+  }
+}
+
+export async function deleteCollectionPage(slug: string) {
+  try {
+    const response = await serverFetch(serverBaseUrl + '/api/v1/admin/content/pages/' + encodeURIComponent(slug), { method: 'DELETE', headers: serverHeaders, credentials: 'include' })
+    if (!response.ok) { const result = await response.json().catch(() => ({})) as { error?: string }; return { ok: false as const, error: result.error || 'Could not delete this page. Please retry.' } }
+    return { ok: true as const }
+  } catch {
+    return { ok: false as const, error: 'Could not reach the content API. Start the backend at http://127.0.0.1:8787 and retry.' }
+  }
+}
+
+
+
+
+
 

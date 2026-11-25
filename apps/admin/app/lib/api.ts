@@ -1,9 +1,9 @@
+﻿import { apiConnection } from './api-connection'
 import { client } from '@einao/api-client'
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_URL ??
-  (import.meta.env.PROD ? window?.location?.origin ?? '' : 'http://localhost:8787')
-
+  (typeof window !== 'undefined' ? window.location.origin : (import.meta.env.PROD ? '' : 'http://127.0.0.1:8787'))
 client.setConfig({ baseUrl: API_BASE_URL, credentials: 'include' })
 
 // Shared server-side fetch state ... set once per request by configureApiForRequest,
@@ -16,11 +16,7 @@ export let serverBaseUrl = API_BASE_URL
 // Configures the shared API client to use the service binding (Worker-to-Worker)
 // and forwards the user's session cookie so admin endpoints authenticate.
 export function configureApiForRequest(env: Record<string, unknown>, request: Request) {
-  const hasBinding = Boolean(env.API)
-  const apiFetch = hasBinding
-    ? (env.API as { fetch: typeof fetch }).fetch.bind(env.API)
-    : globalThis.fetch
-  const baseUrl = hasBinding ? 'https://einao-api.einaodevv.workers.dev' : API_BASE_URL
+  const { apiFetch, baseUrl } = apiConnection(env, request, API_BASE_URL)
 
   const cookie = request.headers.get('Cookie') ?? ''
 
@@ -35,3 +31,5 @@ export function configureApiForRequest(env: Record<string, unknown>, request: Re
     headers: serverHeaders,
   })
 }
+
+

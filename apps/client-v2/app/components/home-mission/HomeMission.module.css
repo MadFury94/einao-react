@@ -1,4 +1,4 @@
-/* Reference hero-impact proportions, using Einao's typography and palette. */
+﻿/* Reference hero-impact proportions, using Einao's typography and palette. */
 .section {
     background: var(--white);
     padding: 5rem 1.25rem;
@@ -10,7 +10,7 @@
 }
 
 .text {
-    max-width: 50rem;
+    max-width: 70rem;
     margin-inline: auto;
     display: grid;
     gap: 1rem;
@@ -18,6 +18,7 @@
 }
 
 .heading {
+    white-space: nowrap;
     font-family: var(--font);
     font-size: clamp(1.5rem, 0.543478rem + 3.47826vw, 2.5rem);
     font-weight: 700;
@@ -84,3 +85,13 @@
     from { scale: 0.4; }
     to { scale: 1; }
 }
+
+/* Homepage section headings use one consistent size. */
+.heading {
+    white-space: nowrap; font-size: 45px; }
+
+@media (max-width: 700px) {
+    .heading {
+    white-space: nowrap; white-space: normal; }
+}
+

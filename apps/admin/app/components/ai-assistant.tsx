@@ -1,4 +1,4 @@
-import {
+﻿import {
   Button,
   Sheet,
   SheetContent,
@@ -29,7 +29,7 @@ export type AiAssistantProps = {
 
 const API_BASE =
   import.meta.env.VITE_API_URL ??
-  (import.meta.env.PROD ? 'https://einao-api.einaodevv.workers.dev' : 'http://localhost:8787')
+  (import.meta.env.PROD ? 'https://einao-api.einaodevv.workers.dev' : 'http://127.0.0.1:8787')
 
 async function aiRequest<T>(endpoint: string, body: Record<string, unknown>): Promise<T> {
   const res = await fetch(`${API_BASE}/api/v1/admin/ai/${endpoint}`, {
@@ -354,3 +354,4 @@ function ActionButton({
     </button>
   )
 }
+

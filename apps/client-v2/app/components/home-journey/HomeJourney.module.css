@@ -1,11 +1,11 @@
-/* ── Section ────────────────────────────────────────────────── */
+/* â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .section {
     background: var(--white);
     padding-block: clamp(4rem, 8vw, 6rem);
     overflow: hidden;
 }
 
-/* ── Header row ─────────────────────────────────────────────── */
+/* â”€â”€ Header row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .header {
     display: flex;
     align-items: flex-start;
@@ -56,7 +56,7 @@
     padding-top: 0.25rem;
 }
 
-/* Filled dark button — matches reference */
+/* Filled dark button â€” matches reference */
 .headerBtn {
     display: inline-flex;
     align-items: center;
@@ -76,7 +76,7 @@
     background: var(--secondary-mid);
 }
 
-/* ── Scrollable track ───────────────────────────────────────── */
+/* â”€â”€ Scrollable track â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .track {
     display: flex;
     gap: 20px;
@@ -95,7 +95,7 @@
     display: none;
 }
 
-/* ── Card shell ─────────────────────────────────────────────── */
+/* â”€â”€ Card shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /* Match the reference's fixed portrait faces and separate caption. */
 .card {
     container-type: inline-size;
@@ -333,3 +333,5 @@
         transition: none;
     }
 }
+/* Homepage section headings use one consistent size. */
+.heading { font-size: 45px; }
