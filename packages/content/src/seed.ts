@@ -233,6 +233,42 @@ export const pages: Page[] = [
 				},
 			],
 			[
+				"mission",
+				{
+					title: "Turning possibilities into everyday impact.",
+					body: ["We understand your operational requirement first then define and deliver the right technology response."],
+					image: "/assets/images/about hero/Einao Profiles in emerald light.png",
+					imageAlt: "Einao team collaborating",
+				},
+			],
+			[
+				"explore",
+				{
+					title: "Delivering technology outcomes across sectors.",
+					items: [
+						{ category: "Capabilities", title: "IT consulting, process automation, and enterprise solutions.", href: "/capabilities/", image: "/assets/images/Isometric workflow monitor with approval tiles.png", imageAlt: "Isometric workflow monitor with approval tiles" },
+						{ category: "Solutions", title: "IP Pro, Fylonn, PayX, and custom enterprise systems.", href: "/solutions/", image: "/assets/images/Isometric solutions windows and server cubes.png", imageAlt: "Solutions illustration" },
+						{ category: "Industries", title: "Government, business, and regulatory organisations.", href: "/industries/", image: "/assets/images/Civic, corporate, and secure solutions.png", imageAlt: "Industries illustration" },
+					],
+				},
+			],
+			[
+				"journey",
+				{
+					title: "Two decades of growth & innovation.",
+					body: [
+						"From our first institutional portal in 2013 to building platforms that serve organisations across Nigeria.",
+					],
+					items: [
+						{ years: "2011–2013", label: "Foundation Years", title: "Established & First Delivery", body: "Einao Solutions was founded in 2011. By 2013 we had delivered our first institutional portal — IPO Nigeria — and established ongoing technical support.", image: "/assets/images/Collaborative technology team in Abuja office.png" },
+						{ years: "2014–2017", label: "Building Infrastructure", title: "Enterprise Systems", body: "We expanded into enterprise system design and delivery, working with government agencies and regulatory bodies on complex operational requirements.", image: "/assets/images/Bridging paper records and digital systems.png" },
+						{ years: "2018–2021", label: "Process Automation", title: "Automating Operations", body: "Business process automation became a core service as organisations sought to reduce manual effort and connect disparate workflows through technology.", image: "/assets/images/Einao staff working on automation with client.jpg" },
+						{ years: "2022–2025", label: "Digital Expansion", title: "Products & Platforms", body: "We began developing proprietary platforms — IP Pro, Fylonn, and PayX — alongside continued delivery of bespoke enterprise systems.", image: "/assets/images/Graphite monitor with enterprise dashboard.png" },
+						{ years: "2025–", label: "What's Next", title: "Scale & Partnerships", body: "Expanding our institutional partnerships and product portfolio across Nigeria and the broader West African market.", image: "/assets/images/Calm Green Network in Negative Space (1).png" },
+					],
+				},
+			],
+			[
 				"feature",
 				{
 					eyebrow: "01 / The operational reality",

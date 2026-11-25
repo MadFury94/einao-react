@@ -1,38 +1,39 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
+import type { loader as mainLoader } from "~/layouts/main";
 import styles from "./HomeJourney.module.css";
 
-const MILESTONES = [
+const DEFAULT_MILESTONES = [
     {
-        years: "2011–2013",
+        years: "2011â€“2013",
         label: "Foundation Years",
         title: "Established & First Delivery",
-        body: "Einao Solutions was founded in 2011. By 2013 we had delivered our first institutional portal — IPO Nigeria — and established ongoing technical support.",
+        body: "Einao Solutions was founded in 2011. By 2013 we had delivered our first institutional portal â€” IPO Nigeria â€” and established ongoing technical support.",
         image: "/assets/images/Collaborative technology team in Abuja office.png",
     },
     {
-        years: "2014–2017",
+        years: "2014â€“2017",
         label: "Building Infrastructure",
         title: "Enterprise Systems",
         body: "We expanded into enterprise system design and delivery, working with government agencies and regulatory bodies on complex operational requirements.",
         image: "/assets/images/Bridging paper records and digital systems.png",
     },
     {
-        years: "2018–2021",
+        years: "2018â€“2021",
         label: "Process Automation",
         title: "Automating Operations",
         body: "Business process automation became a core service as organisations sought to reduce manual effort and connect disparate workflows through technology.",
         image: "/assets/images/Einao staff working on automation with client.jpg",
     },
     {
-        years: "2022–2025",
+        years: "2022â€“2025",
         label: "Digital Expansion",
         title: "Products & Platforms",
-        body: "We began developing proprietary platforms — IP Pro, Fylonn, and PayX — alongside continued delivery of bespoke enterprise systems.",
+        body: "We began developing proprietary platforms â€” IP Pro, Fylonn, and PayX â€” alongside continued delivery of bespoke enterprise systems.",
         image: "/assets/images/Graphite monitor with enterprise dashboard.png",
     },
     {
-        years: "2025–",
+        years: "2025â€“",
         label: "What's Next",
         title: "Scale & Partnerships",
         body: "Expanding our institutional partnerships and product portfolio across Nigeria and the broader West African market.",
@@ -40,7 +41,44 @@ const MILESTONES = [
     },
 ];
 
+
+type JourneyItem = {
+    years: string;
+    label: string;
+    title: string;
+    body: string;
+    image: string;
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null;
+}
+
+function getJourneyContent(home: { blocks?: Array<{ block_type: string; config: Record<string, unknown> }> } | undefined) {
+    const block = home?.blocks?.find(item => item.block_type === "journey");
+    const config = block?.config ?? {};
+    const configuredItems = Array.isArray(config.items)
+        ? config.items.filter(isRecord).map(item => ({
+            years: String(item.years ?? ""),
+            label: String(item.label ?? ""),
+            title: String(item.title ?? ""),
+            body: String(item.body ?? ""),
+            image: String(item.image ?? ""),
+        })).filter(item => item.years && item.label && item.title && item.body && item.image)
+        : [];
+    const body = Array.isArray(config.body)
+        ? config.body.filter(value => typeof value === "string").join(" ")
+        : typeof config.body === "string" ? config.body : "";
+    return {
+        title: typeof config.title === "string" && config.title.trim() ? config.title : "Two decades of growth & innovation.",
+        subtitle: body || "From our first institutional portal in 2013 to building platforms that serve organisations across Nigeria.",
+        milestones: (configuredItems.length ? configuredItems : DEFAULT_MILESTONES) as JourneyItem[],
+    };
+}
+
 export function HomeJourney() {
+    const mainData = useRouteLoaderData<typeof mainLoader>("layouts/main");
+    const journey = getJourneyContent(mainData?.home);
     const trackRef = useRef<HTMLDivElement>(null);
     const [flippedYear, setFlippedYear] = useState<string | null>(null);
     const [canGoBack, setCanGoBack] = useState(false);
@@ -81,11 +119,10 @@ export function HomeJourney() {
                 <div className={styles.headerLeft}>
                     <span className={styles.pill}>Our Journey</span>
                     <h2 id="journey-heading" className={styles.heading}>
-                        Two decades of growth &amp; innovation.
+                        {journey.title}
                     </h2>
                     <p className={styles.subtitle}>
-                        From our first institutional portal in 2013 to building
-                        platforms that serve organisations across Nigeria.
+{journey.subtitle}
                     </p>
                 </div>
                 <div className={styles.headerRight}>
@@ -110,7 +147,7 @@ export function HomeJourney() {
 
             {/* Scrollable cards */}
             <div id="journey-cards" ref={trackRef} className={styles.track}>
-                {MILESTONES.map(item => (
+                {journey.milestones.map(item => (
                     <article key={item.years} className={styles.card}>
                         <button
                             type="button"

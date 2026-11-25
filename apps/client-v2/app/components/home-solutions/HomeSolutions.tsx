@@ -1,5 +1,6 @@
 import type { Catalog } from "~/lib/catalog";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
+import type { loader as mainLoader } from "~/layouts/main";
 import styles from "./HomeSolutions.module.css";
 
 const CARDS = [
@@ -30,10 +31,26 @@ const CARDS = [
 ];
 
 export function HomeSolutions({ catalog }: { catalog: Catalog }) {
-    const cards = CARDS.map(card => {
+    const mainData = useRouteLoaderData<typeof mainLoader>("layouts/main");
+    const config = mainData?.home?.blocks?.find(block => block.block_type === "explore")?.config;
+    const configuredCards = Array.isArray(config?.items)
+        ? config.items.filter(item => typeof item === "object" && item !== null).map(item => {
+            const value = item as Record<string, unknown>;
+            return {
+                category: String(value.category ?? ""),
+                title: String(value.title ?? ""),
+                href: String(value.href ?? (typeof value.link === "object" && value.link !== null ? (value.link as Record<string, unknown>).href ?? "#" : "#")),
+                illustration: String(value.image ?? ""),
+                illustrationAlt: String(value.imageAlt ?? ""),
+            };
+        }).filter(card => card.category && card.title && card.href)
+        : [];
+    const fallbackCards = CARDS.map(card => {
         const key = card.category === 'Capabilities' ? 'capabilities' : card.category === 'Solutions' ? 'solutions' : null;
         return key ? { ...card, title: catalog[key]?.entries.map(item => item.title).join(', ') || `Explore our ${key}.` } : card;
     });
+    const cards = configuredCards.length ? configuredCards : fallbackCards;
+    const heading = typeof config?.title === "string" && config.title.trim() ? config.title : "Delivering technology outcomes across sectors.";
     return (
         <section className={styles.section} aria-labelledby="solutions-heading">
             <div className={styles.inner}>
@@ -41,7 +58,7 @@ export function HomeSolutions({ catalog }: { catalog: Catalog }) {
                 <div className={styles.header}>
                     <span className={styles.pill}>Explore Einao</span>
                     <h2 id="solutions-heading" className={styles.heading}>
-                        Delivering technology outcomes <br /> across sectors.
+                        {heading}
                     </h2>
                 </div>
 

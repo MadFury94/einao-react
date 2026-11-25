@@ -1,70 +1,99 @@
-/* â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Section ────────────────────────────────────────────────── */
 .section {
     background: var(--white);
     padding-block: clamp(4rem, 8vw, 6rem);
 }
 
-/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.header {
+.inner {
     max-width: var(--wide);
     margin-inline: auto;
     padding-inline: var(--gutter);
-    margin-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+/* ── Left column ────────────────────────────────────────────── */
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .pill {
     composes: pill from "../SectionPill.module.css";
-    background: color-mix(in srgb, var(--primary) 18%, transparent);
+    background: var(--primary);
     color: var(--secondary);
-    margin-bottom: 1rem;
 }
 
 .heading {
     font-family: var(--font);
-    font-size: var(--heading-section);
-    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     color: var(--secondary);
-    max-width: 640px;
+    margin: 0;
 }
 
-/* â”€â”€ Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.subtitle {
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--secondary);
+    text-decoration: none;
+    margin-top: 0.5rem;
+}
+
+.cta:hover {
+    color: var(--primary-dark);
+}
+
+/* ── Cards row ──────────────────────────────────────────────── */
 .track {
-    display: flex;
-    gap: 20px;
-    padding-inline: var(--gutter);
-    max-width: var(--wide);
-    margin-inline: auto;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
 }
 
-/* â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Card ───────────────────────────────────────────────────── */
 .card {
     position: relative;
-    flex: 0 0 min(290px, calc(100vw - var(--gutter) * 2));
-    height: 324px;
+    height: 340px;
     border-radius: 16px;
     overflow: hidden;
     text-decoration: none;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px color-mix(in srgb, var(--secondary) 18%, transparent);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px color-mix(in srgb, var(--secondary) 20%, transparent);
 }
 
-/* image fills card */
 .cardImage {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     transition: transform 0.5s var(--ease);
 }
 
@@ -72,106 +101,101 @@
     transform: scale(1.04);
 }
 
-/* gradient overlay */
 .cardOverlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top,
-            rgba(10, 18, 14, 0.92) 0%,
-            rgba(10, 18, 14, 0.5) 40%,
-            rgba(10, 18, 14, 0.1) 70%,
+            rgba(10, 23, 16, 0.96) 0%,
+            rgba(10, 23, 16, 0.65) 45%,
+            rgba(10, 23, 16, 0.1) 75%,
             transparent 100%);
 }
 
-/* text anchored bottom-left */
 .cardContent {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2rem 1.75rem;
+    position: relative;
+    z-index: 1;
+    padding: 1.25rem 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .cardCategory {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
     font-family: var(--font);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--primary);
-    margin-bottom: 0.75rem;
-}
-
-.cardCategory::before {
-    content: "";
-    display: block;
-    width: 20px;
-    height: 2px;
-    border-radius: 999px;
-    background: var(--primary);
-    flex-shrink: 0;
 }
 
 .cardTitle {
     font-family: var(--font);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.25;
     color: var(--white);
-    margin: 0 0 1.25rem;
+    margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.cardArrow {
-    display: inline-flex;
+.cardFooter {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cardExplore {
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.cardArrow {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--white);
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .card:hover .cardArrow {
     background: var(--primary);
     border-color: var(--primary);
     color: var(--secondary);
-    transform: translateX(4px);
 }
 
-/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-@media (max-width: 900px) {
-    .track {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
-    .card:last-child {
-        grid-column: span 2;
-        aspect-ratio: 16 / 7;
+    .left {
+        max-width: 480px;
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 680px) {
     .track {
         grid-template-columns: 1fr;
     }
 
-    .card:last-child {
-        grid-column: auto;
-        aspect-ratio: 3 / 4;
-    }
-
-    .heading br {
-        display: none;
+    .card {
+        height: 280px;
     }
 }
 
@@ -183,5 +207,3 @@
         transition: none;
     }
 }
-/* Homepage section headings use one consistent size. */
-.heading { font-size: 45px; }

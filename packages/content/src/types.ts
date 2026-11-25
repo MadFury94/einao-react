@@ -2,11 +2,15 @@
 export type Link = { label: string; href: string };
 export type ContentItem = {
 	year?: string;
+	years?: string;
 	title: string;
 	body: string;
 	link?: Link;
 	image?: string;
 	label?: string;
+	category?: string;
+	href?: string;
+	imageAlt?: string;
 	badge?: string;
 };
 export type BlockType =
@@ -24,6 +28,9 @@ export type BlockType =
 	| "editorial"
 	| "marquee"
 	| "process"
+	| "journey"
+	| "mission"
+	| "explore"
 	| "projects";
 export type BlockConfig = {
 	client?: string; services?: string; platform?: string; projectDate?: string;

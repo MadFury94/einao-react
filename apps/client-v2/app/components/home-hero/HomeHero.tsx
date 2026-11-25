@@ -1,11 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
+import type { loader as mainLoader } from "~/layouts/main";
 import styles from "./HomeHero.module.css";
 
 const VIDEO_SRC = "https://res.cloudinary.com/o9pk8cnf/video/upload/v1793927867/8275959-hd_1280_720_60fps.mp4";
 const POSTER = "/assets/images/placeholder-hero-poster.webp";
 
 export function HomeHero() {
+    const mainData = useRouteLoaderData<typeof mainLoader>("layouts/main");
+    const config = mainData?.home?.blocks?.find(block => block.block_type === "hero")?.config;
+    const title = typeof config?.title === "string" && config.title.trim() ? config.title : "We build systems that keep organisations moving.";
+    const subtitle = Array.isArray(config?.body) ? config.body.filter(value => typeof value === "string").join(" ") : "Technology consulting and digital delivery for organisations.";
+    const poster = typeof config?.image === "string" && config.image ? config.image : POSTER;
+    const videoSource = typeof config?.video === "string" && config.video ? config.video : VIDEO_SRC;
+    const ctaLabel = typeof config?.ctaLabel === "string" && config.ctaLabel ? config.ctaLabel : "Explore our story";
+    const ctaHref = typeof config?.ctaHref === "string" && config.ctaHref ? config.ctaHref : "/about/";
     const video = useRef<HTMLVideoElement>(null);
     const [videoFailed, setVideoFailed] = useState(false);
 
@@ -47,7 +56,7 @@ export function HomeHero() {
             <div className={styles.media}>
                 <img
                     className={styles.poster}
-                    src={POSTER}
+                    src={poster}
                     alt=""
                     width="1920"
                     height="1080"
@@ -57,8 +66,8 @@ export function HomeHero() {
                     <video
                         ref={video}
                         className={styles.video}
-                        src={VIDEO_SRC}
-                        poster={POSTER}
+                        src={videoSource}
+                        poster={poster}
                         muted
                         loop
                         playsInline
@@ -75,15 +84,14 @@ export function HomeHero() {
             <div className={styles.content}>
                 <div className={styles.inner}>
                     <h1 id="hero-heading" className={styles.heading}>
-                        We build systems that<br />
-                        keep organisations moving.
+                        {title}
                     </h1>
                     <p className={styles.subtitle}>
-                        Technology consulting and digital delivery for organisations.
+                        {subtitle}
                     </p>
                     <div className={styles.actions}>
-                        <Link to="/about/" className={styles.btn}>
-                            Explore our story
+                        <Link to={ctaHref} className={styles.btn}>
+                            {ctaLabel}
                         </Link>
                     </div>
                 </div>

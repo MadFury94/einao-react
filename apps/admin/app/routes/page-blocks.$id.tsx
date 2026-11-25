@@ -33,6 +33,9 @@ const BLOCK_TYPE_LABELS: Record<string, string> = {
   hero: 'Hero Section',
   page_hero: 'Page Hero',
   about: 'About Section',
+  journey: 'Our Journey',
+  mission: 'Mission Section',
+  explore: 'Explore Einao',
   statistics: 'Statistics',
   industries: 'Industries',
   services: 'Services',
@@ -387,6 +390,9 @@ Object.assign(BLOCK_FIELDS, {
     { key: 'title', label: 'Heading', type: 'text' },
     { key: 'body', label: 'Paragraphs', type: 'list', addLabel: 'Add paragraph', item: [{ key: 'text', label: 'Paragraph' }] },
     { key: 'ctaLabel', label: 'Button text', type: 'text' },
+    { key: 'ctaHref', label: 'Button URL', type: 'text', placeholder: '/about/' },
+    { key: 'image', label: 'Poster image', type: 'image' },
+    { key: 'video', label: 'Background video URL', type: 'text' },
   ],
   cta: [
     { key: 'title', label: 'Heading', type: 'text' },
@@ -402,6 +408,40 @@ Object.assign(BLOCK_FIELDS, {
     { key: 'title', label: 'Heading', type: 'text' },
     { key: 'body', label: 'Paragraphs', type: 'list', addLabel: 'Add paragraph', item: [{ key: 'text', label: 'Paragraph' }] },
     { key: 'items', label: 'Principles or steps', type: 'list', addLabel: 'Add item', item: [{ key: 'title', label: 'Title' }, { key: 'body', label: 'Description' }] },
+  ],
+  mission: [
+    { key: 'title', label: 'Heading', type: 'text' },
+    { key: 'body', label: 'Paragraphs', type: 'list', addLabel: 'Add paragraph', item: [{ key: 'text', label: 'Paragraph' }] },
+    { key: 'image', label: 'Image', type: 'image' },
+    { key: 'imageAlt', label: 'Image alt text', type: 'text' },
+  ],
+  explore: [
+    { key: 'title', label: 'Heading', type: 'text' },
+    {
+      key: 'items', label: 'Explore cards', type: 'list', addLabel: 'Add card',
+      item: [
+        { key: 'category', label: 'Category' },
+        { key: 'title', label: 'Description' },
+        { key: 'href', label: 'URL' },
+        { key: 'image', label: 'Image', type: 'image' },
+        { key: 'imageAlt', label: 'Image alt text' },
+      ],
+    },
+  ],
+  journey: [
+    { key: 'title', label: 'Heading', type: 'text' },
+    { key: 'body', label: 'Intro paragraphs', type: 'list', addLabel: 'Add paragraph', item: [{ key: 'text', label: 'Paragraph' }] },
+    {
+      key: 'items', label: 'Journey cards', type: 'list', addLabel: 'Add milestone',
+      item: [
+        { key: 'years', label: 'Years' },
+        { key: 'label', label: 'Card label' },
+        { key: 'title', label: 'Title' },
+        { key: 'body', label: 'Description' },
+        { key: 'image', label: 'Image', type: 'image' },
+      ],
+      help: 'Each row is one milestone card shown in the Our Journey section.',
+    },
   ],
   feature: [
     { key: 'title', label: 'Heading', type: 'text' },
@@ -606,28 +646,39 @@ function ListField({
                 <ChevronDown aria-hidden="true" className="size-4 transition-transform group-open:rotate-180" />
               </span>
             </summary>
-            <div className="border-t p-3">
-              <div className="grid gap-2 sm:grid-cols-[8rem_1fr]">
-                {field.item.map((col) => (
-                  <div
-                    key={col.key}
-                    className={`grid gap-1 ${col.type === 'image' ? 'sm:col-span-2' : ''}`}
-                  >
-                    <Label className="text-xs text-muted-foreground">{col.label}</Label>
-                    {col.type === 'image' ? (
-                      <ImageCell
-                        value={row[col.key] ?? ''}
-                        onChange={(url) => updateCell(index, col.key, url)}
-                      />
-                    ) : (
-                      <Input
-                        value={row[col.key] ?? ''}
-                        placeholder={col.placeholder}
-                        onChange={(e) => updateCell(index, col.key, e.target.value)}
-                      />
-                    )}
-                  </div>
-                ))}
+            <div className="border-t bg-muted/10 p-4 sm:p-5">
+              <div className="grid gap-4 sm:grid-cols-[10rem_1fr]">
+                {field.item.map((col) => {
+                  const longText = ['body', 'text', 'description', 'content', 'caption'].includes(col.key.toLowerCase())
+                  return (
+                    <div
+                      key={col.key}
+                      className={`grid gap-1.5 ${col.type === 'image' || longText ? 'sm:col-span-2' : ''}`}
+                    >
+                      <Label className="text-xs font-medium text-muted-foreground">{col.label}</Label>
+                      {col.type === 'image' ? (
+                        <ImageCell
+                          value={row[col.key] ?? ''}
+                          onChange={(url) => updateCell(index, col.key, url)}
+                        />
+                      ) : longText ? (
+                        <Textarea
+                          value={row[col.key] ?? ''}
+                          placeholder={col.placeholder}
+                          rows={6}
+                          className="min-h-36 resize-y leading-6"
+                          onChange={(e) => updateCell(index, col.key, e.target.value)}
+                        />
+                      ) : (
+                        <Input
+                          value={row[col.key] ?? ''}
+                          placeholder={col.placeholder}
+                          onChange={(e) => updateCell(index, col.key, e.target.value)}
+                        />
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </details>
@@ -746,7 +797,8 @@ function ConfigFields({
                 <Label htmlFor={field.key}>{field.label}</Label>
                 <Textarea
                   id={field.key}
-                  rows={4}
+                  rows={7}
+                  className="min-h-40 resize-y leading-6"
                   value={str(field.key)}
                   placeholder={field.placeholder}
                   onChange={(e) => set(field.key, e.target.value)}
