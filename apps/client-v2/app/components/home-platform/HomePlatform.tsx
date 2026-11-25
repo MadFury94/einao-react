@@ -27,7 +27,7 @@ const ART = [
                 <path d="M100 92 L90 92" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" strokeDasharray="3 2" />
             </svg>];
 export function HomePlatform({ collection }: { collection: Collection | null }) {
-    const cards = (collection?.entries ?? []).filter(item => item.link).map((item, index) => ({ ...item, eyebrow: item.label || 'Einao', href: item.link!.href, illustration: item.image ? <img className={styles.illustration} src={item.image} alt="" loading="lazy" /> : ART[index % ART.length] }));
+    const cards = (collection?.entries ?? []).filter(item => item.link).slice(0, 2).map((item, index) => ({ ...item, eyebrow: item.label || 'Einao', href: item.link!.href, illustration: item.image ? <img className={styles.illustration} src={item.image} alt="" loading="lazy" /> : ART[index % ART.length] }));
     return (
         <section className={styles.section} aria-labelledby="platform-heading">
             <div className={styles.inner}>
@@ -52,9 +52,9 @@ export function HomePlatform({ collection }: { collection: Collection | null }) 
                             {/* Content bottom */}
                             <div className={styles.cardContent}>
                                 <span className={styles.cardEyebrow}>{card.eyebrow}</span>
+                                {card.badge && <span className={styles.cardBadge}>{card.badge}</span>}
                                 <h3 className={styles.cardTitle}>{card.title}</h3>
                                 <div className={styles.cardBottom}>
-                                    <p className={styles.cardBody}>{card.body}</p>
                                     <span className={styles.arrow} aria-hidden="true">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M5 12h14M12 5l7 7-7 7" />
@@ -64,6 +64,14 @@ export function HomePlatform({ collection }: { collection: Collection | null }) 
                             </div>
                         </Link>
                     ))}
+                </div>
+                <div className={styles.actions}>
+                    <Link to="/solutions/" className={styles.allLink}>
+                        See all products
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </Link>
                 </div>
             </div>
         </section>

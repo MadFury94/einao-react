@@ -39,6 +39,32 @@
     gap: 20px;
 }
 
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.allLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.8rem 1.15rem;
+    border: 1px solid rgba(13, 34, 68, 0.3);
+    border-radius: 999px;
+    color: #0d2244;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background var(--duration) ease, color var(--duration) ease, border-color var(--duration) ease;
+}
+
+.allLink:hover {
+    background: #0d2244;
+    border-color: #0d2244;
+    color: #fff;
+}
+
 /* â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .card {
     position: relative;
@@ -89,6 +115,20 @@
     letter-spacing: 0.04em;
 }
 
+.cardBadge {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: var(--primary);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 .cardTitle {
     font-family: var(--font);
     font-size: clamp(1.4rem, 2.5vw, 2rem);
@@ -102,7 +142,7 @@
 .cardBottom {
     display: flex;
     align-items: flex-end;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1rem;
 }
 
