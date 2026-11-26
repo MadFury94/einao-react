@@ -1,6 +1,6 @@
 /* â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .section {
-    background: #0d2244;
+    background: #0f2d1a;
     padding-block: clamp(4rem, 8vw, 6rem);
 }
 
@@ -48,7 +48,7 @@
     overflow: hidden;
     text-decoration: none;
     aspect-ratio: 3 / 4;
-    background: #1a3a60;
+    background: #163d24;
 }
 
 .cardImage {

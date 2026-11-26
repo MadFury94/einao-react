@@ -269,11 +269,13 @@ function Dropdown({ label, href, items, open, onOpen, onClose }: {
                         </span>
                     </Link>
                 ))}
-                <div className={styles.dropdownFooter}>
-                    <Link to={href} className={styles.viewAll} onClick={onClose}>
-                        View all {label.toLowerCase()} <span aria-hidden="true">→</span>
-                    </Link>
-                </div>
+                {label !== "Company" && (
+                    <div className={styles.dropdownFooter}>
+                        <Link to={href} className={styles.viewAll} onClick={onClose}>
+                            View all {label.toLowerCase()} <span aria-hidden="true">→</span>
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

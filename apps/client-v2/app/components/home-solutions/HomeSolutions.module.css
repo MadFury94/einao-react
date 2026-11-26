@@ -95,7 +95,7 @@
 /* â”€â”€ Card title â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .cardTitle {
     font-family: var(--font);
-    font-size: 1.75rem;
+    font-size: 1.4rem;
     font-weight: 700;
     line-height: 1.2;
     color: var(--secondary);
@@ -177,7 +177,7 @@
     }
 
     .cardTitle {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .heading br {

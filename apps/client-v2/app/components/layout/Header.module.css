@@ -257,21 +257,33 @@
     display: inline-flex;
     align-items: center;
     padding: 9px 20px;
-    background: var(--primary);
-    color: var(--secondary);
+    background: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
     font-family: var(--font);
     font-size: clamp(0.875rem, 0.755435rem + 0.434783vw, 1rem);
     font-weight: 600;
     border-radius: 100px;
     text-decoration: none;
     white-space: nowrap;
-    transition: background var(--duration) ease, transform var(--duration) ease;
+    transition: background var(--duration) ease, border-color var(--duration) ease, color var(--duration) ease, transform var(--duration) ease;
     margin-left: 0.5rem;
 }
 
+.scrolled .cta {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--secondary);
+}
+
 .cta:is(:hover, :focus-visible) {
-    background: var(--primary-dark);
+    background: color-mix(in srgb, var(--white) 14%, transparent);
     transform: translateY(-1px);
+}
+
+.scrolled .cta:is(:hover, :focus-visible) {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
 }
 
 /* ── Mobile toggle ──────────────────────────────────────────── */

@@ -100,7 +100,7 @@
     max-width: 62rem;
     margin-top: 1.5rem;
     color: var(--white);
-    font-size: var(--heading-section);
+    font-size: clamp(0.9rem, 4.64vw, 2.8rem);
     letter-spacing: -.03em;
     line-height: 1.05
 }
