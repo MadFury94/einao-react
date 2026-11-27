@@ -1,3 +1,4 @@
+import { proxyApiResponse } from '../app/lib/proxy-response'
 import { apiConnection } from '../app/lib/api-connection'
 import { createRequestHandler } from 'react-router'
 import { configureApiForRequest } from '../app/lib/api'
@@ -31,10 +32,7 @@ export default {
         headers,
         body: request.method === 'GET' || request.method === 'HEAD' ? null : request.body,
       })
-      const responseHeaders = new Headers(response.headers)
-      const cookie = responseHeaders.get('Set-Cookie')
-      if (cookie) responseHeaders.set('Set-Cookie', cookie.replace(/;\s*Domain=[^;]+/i, ''))
-      return new Response(response.body, { status: response.status, headers: responseHeaders })
+      return proxyApiResponse(response, request)
     }
 
     // With `run_worker_first`, static files also reach this Worker. Serve them
