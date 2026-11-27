@@ -29,7 +29,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, useLocation, useMatch } from 'react-router'
-import { API_BASE_URL } from '../lib/api'
+import { toast } from 'sonner'
 
 type NavItem = { title: string; to: string; end?: boolean; icon?: LucideIcon }
 type NavGroup = {
@@ -216,12 +216,18 @@ export function AdminSidebar({
             <SidebarMenuButton
               tooltip="Log out"
               onClick={async () => {
-                const logoutUrl = `${API_BASE_URL}/api/v1/auth/logout`
-                await fetch(logoutUrl, {
-                  method: 'POST',
-                  credentials: 'include',
-                })
-                window.location.href = '/'
+                try {
+                  // Login sets a host-only cookie through the admin proxy.
+                  // Logout must use that same origin to clear it.
+                  const response = await fetch('/api/v1/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include',
+                  })
+                  if (!response.ok) throw new Error('Logout failed')
+                  window.location.href = '/'
+                } catch {
+                  toast.error('Unable to log out. Please try again.')
+                }
               }}
             >
               <LogOut className="size-4" />
