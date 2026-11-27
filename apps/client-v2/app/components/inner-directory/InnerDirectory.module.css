@@ -131,3 +131,8 @@
         transition: none
     }
 }
+/* Mobile inner-page heading size */
+
+@media (max-width: 600px) {
+    .title { font-size: 2.25rem; }
+}

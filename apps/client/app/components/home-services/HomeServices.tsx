@@ -99,7 +99,6 @@ function ServicesCarousel({ config }: { config: BlockConfig }) {
                                 <img className={styles.shape} src="/assets/images/home-services/service-shape.png" alt="" loading="lazy" />
                                 <span className={styles.number}>{String(i + 1).padStart(3, "0")}.</span>
                                 <h3><Link to={item.link?.href ?? "/capabilities/"}>{item.title}</Link></h3>
-                                <p>{item.body}</p>
                                 <div className={styles.footer}><ul>{(tags[i] ?? ["Plan", "Build", "Support"]).map(tag => <li key={tag}>{tag}</li>)}</ul><Link className={styles.arrow} to={item.link?.href ?? "/capabilities/"} aria-label={`Explore ${item.title}`}><ArrowIcon /></Link></div>
                             </article>
                         </div>;

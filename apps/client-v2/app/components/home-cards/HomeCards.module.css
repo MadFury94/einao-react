@@ -130,6 +130,7 @@
 }
 
 .cardTitle {
+    display: none;
     font-family: var(--font);
     font-size: 1.1rem;
     font-weight: 700;
@@ -206,4 +207,9 @@
     .cardArrow {
         transition: none;
     }
+}
+
+/* Keep every homepage section heading the same size on mobile. */
+@media (max-width: 600px) {
+    .heading { font-size: 1.75rem; }
 }

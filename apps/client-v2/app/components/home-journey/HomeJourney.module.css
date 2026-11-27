@@ -334,4 +334,10 @@
     }
 }
 /* Homepage section headings use one consistent size. */
-.heading { font-size: 31.5px; }
+.heading { font-size: 1.75rem; }
+
+
+/* Keep every homepage section heading the same size on mobile. */
+@media (max-width: 600px) {
+    .heading { font-size: 1.75rem; }
+}

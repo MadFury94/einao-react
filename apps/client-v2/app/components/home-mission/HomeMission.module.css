@@ -95,3 +95,9 @@
     white-space: nowrap; white-space: normal; }
 }
 
+
+
+/* Keep every homepage section heading the same size on mobile. */
+@media (max-width: 600px) {
+    .heading { font-size: 1.75rem; }
+}

@@ -159,6 +159,11 @@
     display: flex;
 }
 
+/* Capability cards show the label and heading without the long description. */
+.card > p {
+    display: none;
+}
+
 .card {
     position: relative;
     isolation: isolate;

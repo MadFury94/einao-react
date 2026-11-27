@@ -6566,6 +6566,11 @@ main:focus {
 	flex-direction: column;
 }
 
+/* Homepage capability cards show the capability heading only. */
+.home-capability-grid .index3-service-card > p {
+	display: none;
+}
+
 .home-capability-grid .index3-card-footer {
 	margin-top: auto;
 	padding-top: 24px;

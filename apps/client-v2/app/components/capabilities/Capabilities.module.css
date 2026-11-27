@@ -512,3 +512,8 @@
         animation: none
     }
 }
+/* Mobile inner-page heading size */
+
+@media (max-width: 600px) {
+    .hero h1 { font-size: 2.25rem; }
+}

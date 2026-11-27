@@ -12,3 +12,9 @@
 .secondary { border: 1px solid color-mix(in srgb, var(--white) 35%, transparent); color: var(--white); }
 .primary:hover, .secondary:hover, .primary:focus-visible, .secondary:focus-visible { transform: translateY(-2px); }
 .secondary:hover, .secondary:focus-visible { border-color: var(--primary); color: var(--primary); }
+
+
+/* Mobile inner-page heading size */
+@media (max-width: 600px) {
+    .panel h1 { font-size: 2.25rem; }
+}

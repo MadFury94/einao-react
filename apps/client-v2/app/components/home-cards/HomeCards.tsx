@@ -46,7 +46,7 @@ export function HomeCards({ collection }: { collection: Collection | null }) {
                             <div className={styles.cardOverlay} aria-hidden="true" />
                             <div className={styles.cardContent}>
                                 <span className={styles.cardCategory}>{card.category}</span>
-                                <p className={styles.cardTitle}>{card.title}</p>
+                                {/* <p className={styles.cardTitle}>{card.title}</p>3 */}
                                 <div className={styles.cardFooter}>
                                     <span className={styles.cardExplore}>Explore</span>
                                     <span className={styles.cardArrow} aria-hidden="true">
