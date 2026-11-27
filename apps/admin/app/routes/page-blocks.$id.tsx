@@ -15,7 +15,7 @@ import { Link, redirect, useFetcher } from 'react-router'
 import { toast } from 'sonner'
 import { FeaturedImageCard } from '../components/featured-image-card'
 import { MediaPicker } from '../components/media-picker'
-import { serverBaseUrl, serverFetch, serverHeaders } from '../lib/api'
+import { requestApiConnection } from '../lib/api-connection'
 import type { Route } from './+types/page-blocks.$id'
 
 type PageBlock = {
@@ -103,6 +103,7 @@ type FieldDef =
       type: 'list'
       item: ListColumn[]
       addLabel?: string
+      editableRows?: boolean
       help?: string
     }
 
@@ -432,7 +433,7 @@ Object.assign(BLOCK_FIELDS, {
     { key: 'title', label: 'Heading', type: 'text' },
     { key: 'body', label: 'Intro paragraphs', type: 'list', addLabel: 'Add paragraph', item: [{ key: 'text', label: 'Paragraph' }] },
     {
-      key: 'items', label: 'Journey cards', type: 'list', addLabel: 'Add milestone',
+      key: 'items', label: 'Journey cards', type: 'list', addLabel: 'Add milestone', editableRows: true,
       item: [
         { key: 'years', label: 'Years' },
         { key: 'label', label: 'Card label' },
@@ -440,7 +441,7 @@ Object.assign(BLOCK_FIELDS, {
         { key: 'body', label: 'Description' },
         { key: 'image', label: 'Image', type: 'image' },
       ],
-      help: 'Each row is one milestone card shown in the Our Journey section.',
+      help: 'Edit, add, or delete milestone cards here, then save changes. Deleting all cards leaves the list empty.',
     },
   ],
   feature: [
@@ -495,14 +496,18 @@ export function meta({ data }: Route.MetaArgs) {
   return [{ title: `${label}  -  Page Blocks` }]
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
+  const { baseUrl: serverBaseUrl, apiFetch: serverFetch, headers: serverHeaders } = requestApiConnection(context.cloudflare.env as unknown as Record<string, unknown>, request)
+
   const id = params.id
-  // No by-id admin endpoint yet, so scan the known pages for the block.
-  for (const slug of PAGES) {
-    const res = await serverFetch(`${serverBaseUrl}/api/v1/admin/page-blocks/${slug}`, {
+  const page = new URL(request.url).searchParams.get('page');
+  // A shortcut supplies its page; older links fall back to the known pages.
+  for (const slug of page ? [page] : PAGES) {
+    const res = await serverFetch(`${serverBaseUrl}/api/v1/admin/page-blocks/${encodeURIComponent(slug)}`, {
       headers: serverHeaders,
       credentials: 'include',
     })
+    if (res.status === 401 || res.status === 403) throw new Response('Authentication required', { status: res.status })
     if (!res.ok) continue
     const blocks: PageBlock[] = await res.json()
     const block = blocks.find((b) => String(b.id) === id)
@@ -514,7 +519,10 @@ export async function loader({ params }: Route.LoaderArgs) {
 export async function action({
   params,
   request,
+  context,
 }: Route.ActionArgs): Promise<Response | ActionResult> {
+  const { baseUrl: serverBaseUrl, apiFetch: serverFetch, headers: serverHeaders } = requestApiConnection(context.cloudflare.env as unknown as Record<string, unknown>, request)
+
   const id = params.id
   const form = await request.formData()
   const intent = String(form.get('intent') ?? '')
@@ -635,6 +643,7 @@ function ListField({
   return (
     <div className="grid gap-2">
       <Label>{field.label}</Label>
+      {field.editableRows && <Button type="button" variant="outline" className="w-fit" onClick={() => onChange([...rows, Object.fromEntries(field.item.map(column => [column.key, '']))])}><Plus className="size-4" />{field.addLabel || 'Add item'}</Button>}
       <div className="grid gap-3">
         {rows.map((row, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: rows are positional and reorderable
@@ -647,6 +656,7 @@ function ListField({
               </span>
             </summary>
             <div className="border-t bg-muted/10 p-4 sm:p-5">
+              {field.editableRows && <div className="mb-4 flex justify-end"><Button type="button" variant="outline" aria-label={'Delete milestone ' + (index + 1)} onClick={() => onChange(rows.filter((_, rowIndex) => rowIndex !== index))}><Trash2 className="size-4" />Delete milestone</Button></div>}
               <div className="grid gap-4 sm:grid-cols-[10rem_1fr]">
                 {field.item.map((col) => {
                   const longText = ['body', 'text', 'description', 'content', 'caption'].includes(col.key.toLowerCase())
@@ -712,7 +722,7 @@ function ConfigFields({
     for (const f of fields) {
       const val = values[f.key]
       if (f.type === 'list') {
-        if (Array.isArray(val) && val.length > 0) out[f.key] = f.item.length === 1 && f.item[0].key === 'text' ? val.map((row) => row.text ?? '') : val
+        if (Array.isArray(val) && (val.length > 0 || f.editableRows)) out[f.key] = f.item.length === 1 && f.item[0].key === 'text' ? val.map((row) => row.text ?? '') : val
         else delete out[f.key]
       } else if (f.key === 'ctaLabel') {
         if (val === '') delete out.cta

@@ -72,7 +72,7 @@ function getJourneyContent(home: { blocks?: Array<{ block_type: string; config: 
     return {
         title: typeof config.title === "string" && config.title.trim() ? config.title : "Two decades of growth & innovation.",
         subtitle: body || "From our first institutional portal in 2013 to building platforms that serve organisations across Nigeria.",
-        milestones: (configuredItems.length ? configuredItems : DEFAULT_MILESTONES) as JourneyItem[],
+        milestones: (Array.isArray(config.items) ? configuredItems : DEFAULT_MILESTONES) as JourneyItem[],
     };
 }
 

@@ -1,3 +1,4 @@
+import { SectionShortcut } from '../admin/SectionShortcut';
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router';
 import type { BlockConfig, Page, PageBlock } from '@einao/content';
 import { safeHref, type Collection, type CollectionKey } from '~/lib/catalog';
@@ -9,8 +10,13 @@ export const collectionLabels = { solutions: 'Solutions', capabilities: 'Capabil
 function Paragraphs({ body }: { body?: string[] }) { return <>{body?.filter(Boolean).map((text, i) => <p key={i}>{text}</p>)}</>; }
 function Buttons({ config }: { config: BlockConfig }) { return <div className={styles.actions}>{[config.cta, config.secondaryCta].map((link, i) => safeHref(link?.href) && <Link key={i} className={styles.link} to={link!.href}>{link!.label} →</Link>)}</div>; }
 function PageHero({ page, label }: { page: Page; label: string }) {
-  const hero = page.blocks.find(block => block.block_type === 'hero')?.config;
-  return <><ReferenceHero label={hero?.eyebrow || label} title={hero?.title || page.title} intro={hero?.body?.join('\n\n') ?? page.description} image={hero?.image || undefined} imageAlt={hero?.imageAlt} cta={safeHref(hero?.cta?.href) ? hero?.cta?.label : undefined} ctaHref={safeHref(hero?.cta?.href)} />
+  const heroBlock = page.blocks.find(block => block.block_type === 'hero');
+  const hero = heroBlock?.config;
+  const menu = page.slug.split('/')[0];
+  const hasMenu = ['capabilities', 'solutions', 'work'].includes(menu);
+  const isDetail = page.slug.includes('/');
+  const adminPath = hasMenu ? '/' + menu + (isDetail ? '?page=' + encodeURIComponent(page.slug) : '') : heroBlock ? '/page-blocks/' + heroBlock.id + '?page=' + encodeURIComponent(page.slug) : undefined;
+  return <><SectionShortcut name="Hero" hero path={adminPath} action={hasMenu ? isDetail ? 'Edit item page' : 'Manage items' : 'Section settings'}><ReferenceHero label={hero?.eyebrow || label} title={hero?.title || page.title} intro={hero?.body?.join('\n\n') ?? page.description} image={hero?.image || undefined} imageAlt={hero?.imageAlt} cta={safeHref(hero?.cta?.href) ? hero?.cta?.label : undefined} ctaHref={safeHref(hero?.cta?.href)} /></SectionShortcut>
     {hero?.secondaryCta && safeHref(hero.secondaryCta.href) && <div className={styles.container}><Link className={styles.link} to={hero.secondaryCta.href}>{hero.secondaryCta.label} →</Link></div>}
     {hero?.video && safeHref(hero.video) && <div className={styles.container}><video className={styles.media} src={hero.video} controls preload="metadata" poster={hero.image} /></div>}
   </>;
@@ -23,7 +29,7 @@ export function ContentSections({ blocks }: { blocks: PageBlock[] }) {
       <div className={config.image ? styles.feature : undefined}><div>{config.eyebrow && <span className={styles.eyebrow}>{config.eyebrow}</span>}{config.title && <h2>{config.title}</h2>}<Paragraphs body={config.body} /></div>{config.image && <img className={styles.media} src={config.image} alt={config.imageAlt || ''} loading="lazy" />}</div>
       {items.length > 0 && <div className={styles.grid}>{items.map((item, index) => <article className={styles.item} key={index}>
         {item.image && <img className={styles.media} src={item.image} alt="" loading="lazy" />}{item.label && <span className={styles.eyebrow}>{item.label}</span>}{item.badge && <span className={styles.badge}>{item.badge}</span>}
-        <h3>{item.title}</h3><Paragraphs body={item.body?.split(/\n\s*\n/)} />{safeHref(item.link?.href) && <Link className={styles.link} to={item.link!.href}>{item.link!.label || 'Read more'} →</Link>}
+        <h3>{item.title}</h3><div className={styles.itemBody}><Paragraphs body={item.body?.split(/\n\s*\n/)} /></div>{safeHref(item.link?.href) && <Link className={styles.link} to={item.link!.href}>{item.link!.label || 'Read more'} →</Link>}
       </article>)}</div>}
       <Buttons config={config} />
     </div></section>;

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
 import type { Page } from '@einao/content';
 import { collectionFromPage, publishedLink } from './catalog.ts';
-import { createCatalogApi } from './catalog.server.ts';
+import { checkAdminSession, createCatalogApi } from './catalog.server.ts';
 const originalFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = originalFetch; });
 const detail: Page = { slug: 'solutions/example', title: 'Admin title', description: 'Admin description', status: 'published', blocks: [] };
@@ -66,4 +66,44 @@ test('fresh requests see publication changes and draft responses cannot render',
   assert.equal((await api.getPage(detail.slug)).title, 'Admin title');
   status = 'draft';
   await assert.rejects(api.getPage(detail.slug), error => error instanceof Response && error.status === 404);
+});
+
+test('admin check skips anonymous requests and forwards only the session cookie', async () => {
+  const user = { id: 1, name: 'Admin', email: 'admin@example.com', role: 'admin' };
+  let calls = 0;
+  globalThis.fetch = async (input, init) => {
+    calls++;
+    assert.equal(String(input), 'http://localhost:8787/api/v1/admin/me');
+    assert.equal(new Headers(init?.headers).get('Cookie'), 'einao_session=valid');
+    assert.equal(init?.cache, 'no-store');
+    assert.equal(init?.redirect, 'manual');
+    return Response.json(user);
+  };
+  assert.equal(await checkAdminSession(new Request('http://localhost:5932'), {}), null);
+  assert.equal(calls, 0);
+  assert.deepEqual(await checkAdminSession(new Request('http://localhost:5932', { headers: { Cookie: 'other=private; einao_session=valid' } }), {}), user);
+  assert.equal(calls, 1);
+});
+
+test('admin check fails closed on invalid sessions, malformed responses and network failures', async () => {
+  const request = new Request('http://localhost:5932', { headers: { Cookie: 'einao_session=invalid' } });
+  for (const response of [new Response(null, { status: 302, headers: { Location: 'https://example.com/login' } }), new Response(null, { status: 401 }), new Response(null, { status: 500 }), Response.json({ id: 1 }), new Response('invalid json')]) {
+    globalThis.fetch = async () => response;
+    assert.equal(await checkAdminSession(request, {}), null);
+  }
+  globalThis.fetch = async () => { throw new Error('offline'); };
+  assert.equal(await checkAdminSession(request, {}), null);
+});
+
+test('admin check uses the production API binding', async () => {
+  let called = false;
+  const user = { id: 2, name: 'Editor', email: 'editor@example.com', role: 'editor' };
+  globalThis.fetch = async () => { throw new Error('must use binding'); };
+  const env = { CONTENT_API_URL: 'https://api.example/', CONTENT_API: { fetch: (async (input: RequestInfo | URL) => {
+    called = true;
+    assert.equal(String(input), 'https://api.example/api/v1/admin/me');
+    return Response.json(user);
+  }) as typeof fetch } };
+  assert.deepEqual(await checkAdminSession(new Request('https://www.example', { headers: { Cookie: 'einao_session=valid' } }), env), user);
+  assert.equal(called, true);
 });

@@ -1,3 +1,4 @@
+import { SectionShortcut } from '~/components/admin/SectionShortcut';
 import { useRouteLoaderData } from 'react-router';
 import type { loader as mainLoader } from '../layouts/main';
 import { blogConnection, getInsights, type Insight } from "~/lib/insights.server";
@@ -18,5 +19,6 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   catch { return { posts: [] as Insight[], unavailable: true }; }
 }
 export default function Home({ loaderData }: Route.ComponentProps){
-const { catalog } = useRouteLoaderData<typeof mainLoader>('layouts/main')!;
-return <><HomeHero/><HomeMission/><HomeCards collection={catalog.capabilities}/><HomeJourney/><HomeSolutions catalog={catalog}/><HomeStories collection={catalog.work}/><HomePlatform collection={catalog.solutions}/><HomeNews posts={loaderData.posts} unavailable={loaderData.unavailable}/></>;}
+const { catalog, home } = useRouteLoaderData<typeof mainLoader>('layouts/main')!;
+const journeyBlock = home.blocks.find(block => block.block_type === 'journey');
+return <><SectionShortcut name="Hero" path="/page-blocks?page=home" hero><HomeHero/></SectionShortcut><HomeMission/><SectionShortcut name="Capabilities" path="/capabilities" action="Manage items"><HomeCards collection={catalog.capabilities}/></SectionShortcut><SectionShortcut name="Our Journey" action="Manage cards" path={journeyBlock ? '/page-blocks/' + journeyBlock.id + '?page=home' : '/page-blocks?page=home'}><HomeJourney/></SectionShortcut><SectionShortcut name="Solutions" path="/solutions" action="Manage items"><HomeSolutions catalog={catalog}/></SectionShortcut><SectionShortcut name="Work" path="/work" action="Manage items"><HomeStories collection={catalog.work}/></SectionShortcut><SectionShortcut name="Platform" path="/solutions" action="Manage items"><HomePlatform collection={catalog.solutions}/></SectionShortcut><HomeNews posts={loaderData.posts} unavailable={loaderData.unavailable}/></>;}

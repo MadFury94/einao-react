@@ -18,7 +18,7 @@ import {
   Upload,
 } from 'lucide-react'
 import { useEffect, useMemo, useRef } from 'react'
-import { Form, Link, useFetcher } from 'react-router'
+import { Form, Link, redirect, useFetcher } from 'react-router'
 import { toast } from 'sonner'
 import { DataTable } from '../../components/data-table'
 import { PostStatusBadge } from '../../components/post-status-badge'
@@ -44,6 +44,10 @@ export function meta() {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url)
+  const sectionPage = url.searchParams.get('page');
+  if (sectionPage && ['home', 'about', 'capabilities', 'solutions', 'industries', 'work', 'insights', 'contact', 'privacy-notice', 'terms-of-use'].includes(sectionPage)) {
+    return redirect('/page-blocks?page=' + encodeURIComponent(sectionPage));
+  }
   const status = url.searchParams.get('status') || 'all'
   const post_type = url.searchParams.get('post_type') || 'all'
   const search = url.searchParams.get('search') || ''

@@ -11,3 +11,12 @@ export function apiConnection(env: Record<string, unknown>, request: Request, fa
 
 
 
+
+
+/** Keep credentials attached to this request, never in shared module state. */
+export function requestApiConnection(env: Record<string, unknown>, request: Request) {
+  const connection = apiConnection(env, request);
+  const cookie = request.headers.get('Cookie');
+  const headers: Record<string, string> = cookie ? { Cookie: cookie } : {};
+  return { ...connection, headers };
+}

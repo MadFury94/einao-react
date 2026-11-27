@@ -1,6 +1,32 @@
 import type { Page } from '@einao/content';
 import { collectionFromPage, publishedLink, type Catalog, type CollectionKey, type PageSummary } from './catalog.ts';
 type ApiEnv = { CONTENT_API_URL?: string; CONTENT_API?: { fetch: typeof fetch } };
+
+export type AdminUser = { id: number; name: string; email: string; role: string };
+
+export async function checkAdminSession(request: Request, env: ApiEnv): Promise<AdminUser | null> {
+  const cookie = request.headers.get('Cookie')?.split(';').map(value => value.trim()).find(value => value.startsWith('einao_session='));
+  if (!cookie || cookie === 'einao_session=') return null;
+  try {
+    const local = ['localhost', '127.0.0.1', '[::1]'].includes(new URL(request.url).hostname);
+    const base = local ? 'http://localhost:8787' : env.CONTENT_API_URL;
+    if (!base) return null;
+    const apiFetch = !local && env.CONTENT_API ? env.CONTENT_API.fetch.bind(env.CONTENT_API) : globalThis.fetch;
+    const response = await apiFetch(base.replace(/\/$/, '') + '/api/v1/admin/me', {
+      headers: { Accept: 'application/json', Cookie: cookie },
+      cache: 'no-store', redirect: 'manual', signal: AbortSignal.timeout(3000),
+    });
+    if (!response.ok) return null;
+    const user: unknown = await response.json();
+    if (!user || typeof user !== 'object') return null;
+    const candidate = user as Partial<AdminUser>;
+    if (typeof candidate.id !== 'number' || typeof candidate.name !== 'string' || typeof candidate.email !== 'string' || typeof candidate.role !== 'string') return null;
+    return { id: candidate.id, name: candidate.name, email: candidate.email, role: candidate.role };
+  } catch {
+    return null;
+  }
+}
+
 export function createCatalogApi(request: Request, env: ApiEnv) {
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(new URL(request.url).hostname);
   const base = local ? 'http://localhost:8787' : env.CONTENT_API_URL;
