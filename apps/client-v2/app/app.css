@@ -49,7 +49,7 @@
 	--section: clamp(5rem, 10vw, 9rem);
 
 	/* â”€â”€ Section heading â€” consistent size across all sections â”€â”€ */
-	--heading-section: clamp(1.125rem, 5.8vw, 3.5rem);
+	--heading-section: clamp(0.7875rem, 4.06vw, 2.45rem);
 
 	/* â”€â”€ Motion â”€â”€ */
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -90,15 +90,15 @@ h6 {
 }
 
 h1 {
-	font-size: clamp(2.2rem, 5vw, 4rem);
+	font-size: clamp(1.54rem, 3.5vw, 2.8rem);
 }
 
 h2 {
-	font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+	font-size: clamp(1.12rem, 2.45vw, 1.82rem);
 }
 
 h3 {
-	font-size: clamp(1.1rem, 2vw, 1.4rem);
+	font-size: clamp(0.77rem, 1.4vw, 0.98rem);
 }
 
 h4 {

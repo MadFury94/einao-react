@@ -2,7 +2,7 @@
 .contactSection { padding: clamp(5rem, 9vw, 9rem) 0; background: var(--surface); }
 .contactInner { width: 100%; max-width: var(--wide); margin-inline: auto; padding-inline: var(--gutter); display: grid; grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); gap: clamp(3rem, 8vw, 9rem); align-items: start; }
 .tag { display: inline-flex; width: fit-content; padding: .45rem .8rem; border-radius: .5rem; background: color-mix(in srgb, var(--primary) 18%, transparent); color: var(--primary-dark); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.details h2, .form h2, .next h2 { margin-top: 1.25rem; font-size: clamp(2rem, 3.8vw, 3.5rem); color: var(--secondary-mid); }
+.details h2, .form h2, .next h2 { margin-top: 1.25rem; font-size: clamp(1.4rem, 2.66vw, 2.45rem); color: var(--secondary-mid); }
 .details > p { max-width: 37rem; margin-top: 1.25rem; font-size: 1.1rem; }
 .detailList { display: grid; gap: 1.5rem; margin-top: 3rem; }
 .detailList > div { padding-top: 1rem; border-top: 1px solid var(--border); }
@@ -11,7 +11,7 @@
 .detailList p { margin: 0; }
 .form { display: grid; gap: 1rem; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 1.5rem; background: var(--white); box-shadow: 0 1rem 3rem color-mix(in srgb, var(--secondary) 8%, transparent); }
 .formHeader { margin-bottom: .75rem; }
-.form h2 { margin-bottom: .5rem; font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.form h2 { margin-bottom: .5rem; font-size: clamp(1.26rem, 2.1vw, 1.96rem); }
 .form label { display: grid; gap: .45rem; color: var(--secondary-mid); font-size: .85rem; font-weight: 600; }
 .form input, .form textarea { width: 100%; border: 1px solid var(--border); border-radius: .5rem; padding: .85rem 1rem; background: var(--paper); color: var(--secondary); font: inherit; resize: vertical; transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease); }
 .form input:focus, .form textarea:focus { border-color: var(--primary-dark); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }

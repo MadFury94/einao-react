@@ -30,7 +30,7 @@
 .heading, .subtitle { max-width: 53.3125rem; margin-inline: auto; }
 .heading {
     font-family: var(--font);
-    font-size: clamp(1.25rem, 7vw - 0.0625rem, 3rem);
+    font-size: clamp(0.875rem, 4.9vw - 0.04375rem, 2.1rem);
     font-weight: 600;
     line-height: 1.2;
     color: var(--white);

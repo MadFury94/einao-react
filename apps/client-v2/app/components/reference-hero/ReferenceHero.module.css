@@ -100,7 +100,7 @@
     max-width: 62rem;
     margin-top: 1.5rem;
     color: var(--white);
-    font-size: clamp(0.9rem, 4.64vw, 2.8rem);
+    font-size: clamp(0.63rem, 3.25vw, 1.96rem);
     letter-spacing: -.03em;
     line-height: 1.05
 }
@@ -109,7 +109,7 @@
     max-width: 48rem;
     margin-top: 1.75rem;
     color: color-mix(in srgb, var(--white) 78%, transparent);
-    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    font-size: 1rem;
     line-height: 1.6
 }
 

@@ -13,7 +13,7 @@
 
 .section h2 {
     margin: 0 0 24px;
-    font-size: clamp(28px, 3vw, 42px);
+    font-size: clamp(19.6px, 2.1vw, 29.4px);
     line-height: 1.15;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .item h3 {
-    font-size: 23px;
+    font-size: 16.1px;
     margin: 20px 0 12px;
 }
 

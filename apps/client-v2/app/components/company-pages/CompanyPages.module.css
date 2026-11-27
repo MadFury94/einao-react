@@ -48,7 +48,7 @@
 .cardsSection>div>h2,
 .insightsHeader h2 {
     margin-top: 1.25rem;
-    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    font-size: clamp(1.4rem, 3.15vw, 3.15rem);
     line-height: 1.06;
     letter-spacing: -.045em
 }
@@ -131,7 +131,7 @@
 .card h3,
 .insightCard h3 {
     margin-top: .7rem;
-    font-size: 1.5rem;
+    font-size: 1.05rem;
     line-height: 1.2
 }
 
@@ -269,7 +269,7 @@
     .feature h2,
     .cardsSection>div>h2,
     .insightsHeader h2 {
-        font-size: 2.3rem
+        font-size: 1.61rem
     }
 }
 
@@ -358,14 +358,14 @@
 
 .articleIntro {
     margin-top: 1rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1.65;
     color: var(--secondary-mid)
 }
 
 .article h2 {
     margin-top: 3rem;
-    font-size: clamp(1.6rem, 3vw, 2.5rem)
+    font-size: clamp(1.12rem, 2.1vw, 1.75rem)
 }
 
 .article h2+p {

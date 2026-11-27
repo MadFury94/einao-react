@@ -122,7 +122,7 @@
     max-width: 62rem;
     margin-top: 1.5rem;
     color: var(--white);
-    font-size: clamp(2.8rem, 7vw, 6.4rem);
+    font-size: clamp(1.96rem, 4.9vw, 4.48rem);
     letter-spacing: -.06em;
     line-height: .98
 }
@@ -131,7 +131,7 @@
     max-width: 48rem;
     margin-top: 1.75rem;
     color: color-mix(in srgb, var(--white) 78%, transparent);
-    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    font-size: 1rem;
     line-height: 1.6
 }
 
@@ -159,7 +159,7 @@
 
 .intro h2 {
     max-width: 50rem;
-    font-size: clamp(0.9rem, 4.64vw, 2.8rem)
+    font-size: clamp(0.63rem, 3.25vw, 1.96rem)
 }
 
 .intro p {
@@ -251,7 +251,7 @@
 }
 
 .card h3 {
-    font-size: clamp(1.1rem, 1.7vw, 1.5rem)
+    font-size: clamp(0.77rem, 1.19vw, 1.05rem)
 }
 
 .cardTitleLink {
@@ -309,7 +309,7 @@
 }
 
 .detailCard h3 {
-    font-size: 1.25rem
+    font-size: 0.875rem
 }
 
 .detailCard p {
@@ -332,7 +332,7 @@
 .step strong {
     display: block;
     color: var(--secondary);
-    font-size: 1.2rem
+    font-size: 1rem
 }
 
 .step p {
@@ -375,7 +375,7 @@
 }
 
 .faqTitle {
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem)
+    font-size: clamp(1.05rem, 2.45vw, 1.75rem)
 }
 
 .faqDescription {

@@ -20,7 +20,7 @@
 .heading {
     white-space: nowrap;
     font-family: var(--font);
-    font-size: clamp(1.5rem, 0.543478rem + 3.47826vw, 2.5rem);
+    font-size: clamp(1.05rem, 0.38rem + 2.43478vw, 1.75rem);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -88,7 +88,7 @@
 
 /* Homepage section headings use one consistent size. */
 .heading {
-    white-space: nowrap; font-size: 45px; }
+    white-space: nowrap; font-size: 31.5px; }
 
 @media (max-width: 700px) {
     .heading {

@@ -204,7 +204,7 @@
 }
 
 .cardYear {
-    font-size: min(3.375rem, 18cqw);
+    font-size: min(2.3625rem, 12.6cqw);
     font-weight: 900;
     line-height: 1.5;
     white-space: nowrap;
@@ -334,4 +334,4 @@
     }
 }
 /* Homepage section headings use one consistent size. */
-.heading { font-size: 45px; }
+.heading { font-size: 31.5px; }

@@ -36,7 +36,7 @@
 
 .heading {
     font-family: var(--font);
-    font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+    font-size: clamp(1.225rem, 1.96vw, 1.75rem);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
@@ -128,7 +128,7 @@
 
 .cardTitle {
     font-family: var(--font);
-    font-size: 1.25rem;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.4;
     min-height: 4.2em;
@@ -257,4 +257,4 @@
 }
 
 /* Homepage section headings use one consistent size. */
-.heading { font-size: 45px; }
+.heading { font-size: 31.5px; }

@@ -73,7 +73,7 @@
     max-width: 68rem;
     margin-top: 1.5rem;
     color: var(--white);
-    font-size: clamp(2.8rem, 7vw, 7rem);
+    font-size: clamp(1.96rem, 4.9vw, 4.9rem);
     line-height: .98;
     letter-spacing: -.06em
 }
@@ -82,7 +82,7 @@
     max-width: 38rem;
     margin-top: 1.5rem;
     color: color-mix(in srgb, var(--white) 80%, transparent);
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-size: 1rem;
     line-height: 1.6
 }
 
@@ -131,7 +131,7 @@
 
 .stats strong {
     color: var(--primary);
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(1.4rem, 2.8vw, 2.45rem);
     line-height: 1
 }
 
@@ -154,7 +154,7 @@
 .purpose h2 {
     max-width: 58rem;
     margin-top: 1.5rem;
-    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    font-size: clamp(1.75rem, 3.85vw, 3.85rem);
     line-height: 1.02;
     letter-spacing: -.055em
 }
@@ -189,7 +189,7 @@
 .values h2,
 .finalCta h2 {
     margin-top: 1.25rem;
-    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    font-size: clamp(1.4rem, 3.15vw, 3.15rem);
     line-height: 1.06;
     letter-spacing: -.045em
 }
@@ -261,7 +261,7 @@
 
 .valueGrid h3 {
     margin-top: 1rem;
-    font-size: 1.35rem
+    font-size: 0.945rem
 }
 
 .valueGrid p {
@@ -308,7 +308,7 @@
     }
 
     .hero h1 {
-        font-size: clamp(2.6rem, 12vw, 4.5rem)
+        font-size: clamp(1.82rem, 8.4vw, 3.15rem)
     }
 }
 

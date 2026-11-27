@@ -34,7 +34,7 @@
 .title {
     max-width: 47rem;
     margin-top: 1.5rem;
-    font-size: clamp(2.5rem, 7vw, 6.5rem);
+    font-size: clamp(1.75rem, 4.9vw, 4.55rem);
     letter-spacing: -.055em;
     line-height: .98
 }

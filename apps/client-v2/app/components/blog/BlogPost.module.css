@@ -50,7 +50,7 @@
 
 /* ── Title ───────────────────────────────────────────────────── */
 .title {
-    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-size: clamp(1.33rem, 2.8vw, 2.1rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.025em;
@@ -94,7 +94,7 @@
 
 /* ── Excerpt / standfirst ────────────────────────────────────── */
 .excerpt {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.65;
     color: var(--secondary-mid);
     margin: 0 0 2.5rem;
@@ -115,7 +115,7 @@
 }
 
 .body h2 {
-    font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+    font-size: clamp(0.98rem, 1.96vw, 1.33rem);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -125,7 +125,7 @@
 }
 
 .body h3 {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-size: clamp(0.77rem, 1.4vw, 0.98rem);
     font-weight: 700;
     margin-top: 2em;
     margin-bottom: 0.5em;
@@ -250,6 +250,6 @@
     }
 
     .title {
-        font-size: 1.75rem;
+        font-size: 1.225rem;
     }
 }
