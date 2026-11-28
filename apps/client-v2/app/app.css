@@ -200,7 +200,7 @@ svg {
 }
 
 :where(h1) {
-	font-size: 3.5rem !important;
+	font-size: 2.5rem !important;
 	line-height: 1.05;
 }
 
@@ -232,3 +232,4 @@ svg {
 	:where(h3) { font-size: 1.25rem !important; }
 	:where(h4) { font-size: 1.125rem !important; }
 }
+
